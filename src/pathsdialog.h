@@ -78,7 +78,6 @@ private:
     QPushButton *romButton;
     QPushButton *savesButton;
     QPushButton *sramButton;
-    //QSettings *settings;
 
 private slots:
     void browseCen64();

@@ -54,7 +54,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, this);
 
     aboutLayout->addWidget(icon, 0, 0, 4, 1);
-    aboutLayout->addWidget(new QLabel(tr("A basic frontend for CEN64 using QT."), this), 0, 1);
+    aboutLayout->addWidget(new QLabel(tr("A basic frontend for CEN64 using Qt."), this), 0, 1);
     aboutLayout->addWidget(license, 1, 1);
     aboutLayout->addWidget(new QLabel(tr("CEN64 Copyright (c) 2013, Tyler J. Stachecki"), this), 2, 1);
     aboutLayout->addWidget(cen64Link, 3, 1);

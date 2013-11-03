@@ -134,37 +134,49 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
 void PathsDialog::browseCen64()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    cen64Path->setText(path);
+    if (path != "") {
+        cen64Path->setText(path);
+    }
 }
 
 void PathsDialog::browseEEPROM()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    eepromPath->setText(path);
+    if (path != "") {
+        eepromPath->setText(path);
+    }
 }
 
 void PathsDialog::browsePIF()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    pifPath->setText(path);
+    if (path != "") {
+        pifPath->setText(path);
+    }
 }
 
 void PathsDialog::browseROM()
 {
     QString path = QFileDialog::getExistingDirectory(this);
-    romPath->setText(path);
+    if (path != "") {
+        romPath->setText(path);
+    }
 }
 
 void PathsDialog::browseSaves()
 {
     QString path = QFileDialog::getExistingDirectory(this);
-    savesPath->setText(path);
+    if (path != "") {
+        savesPath->setText(path);
+    }
 }
 
 void PathsDialog::browseSRAM()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    sramPath->setText(path);
+    if (path != "") {
+        sramPath->setText(path);
+    }
 }
 
 void PathsDialog::editSettings()

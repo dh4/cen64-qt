@@ -50,10 +50,19 @@ CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
     createMenu();
     createRomView();
 
+    statusBar = new QStatusBar;
+
     layout = new QVBoxLayout(widget);
     layout->setMenuBar(menuBar);
     layout->addWidget(romTree);
+    layout->addWidget(statusBar);
     layout->setMargin(0);
+
+    if (SETTINGS.value("statusbar", "") == "") {
+        statusBar->hide();
+    } else {
+        statusBarAction->setChecked(true);
+    }
 
     widget->setLayout(layout);
     widget->setMinimumSize(300, 200);
@@ -96,11 +105,9 @@ void CEN64Qt::addRoms()
 void CEN64Qt::checkStatus(int status)
 {
     if (status > 0) {
-        QString message = QString(cen64proc->readAllStandardOutput()); //CEN64 prints error message to stdout instead of stderr on Linux
-        if (message == "") {
-            message = "CEN64 quit unexpectedly. Check to make sure you are using a valid ROM.";
-        }
-        QMessageBox::warning(this, "Warning", message);
+        QMessageBox::warning(this, "Warning", "CEN64 quit unexpectedly. Check to make sure you are using a valid ROM.");
+    } else {
+        statusBar->showMessage("Emulation stopped", 3000);
     }
 }
 
@@ -128,6 +135,7 @@ void CEN64Qt::createMenu()
     fileMenu = new QMenu(tr("&File"), this);
     openAction = fileMenu->addAction(tr("&Open ROM..."));
     fileMenu->addSeparator();
+    convertAction = fileMenu->addAction(tr("&Convert V64..."));
     refreshAction = fileMenu->addAction(tr("&Refresh List"));
     fileMenu->addSeparator();
     quitAction = fileMenu->addAction(tr("&Quit"));
@@ -180,6 +188,13 @@ void CEN64Qt::createMenu()
     menuBar->addMenu(settingsMenu);
 
 
+    viewMenu = new QMenu(tr("&View"), this);
+    statusBarAction = viewMenu->addAction(tr("&Status Bar"));
+    statusBarAction->setCheckable(true);
+
+    menuBar->addMenu(viewMenu);
+
+
     helpMenu = new QMenu(tr("&Help"), this);
     aboutAction = helpMenu->addAction(tr("&About"));
     aboutAction->setIcon(QIcon::fromTheme("help-about"));
@@ -187,11 +202,13 @@ void CEN64Qt::createMenu()
 
 
     connect(openAction, SIGNAL(triggered()), this, SLOT(openRom()));
+    connect(convertAction, SIGNAL(triggered()), this, SLOT(openConverter()));
     connect(refreshAction, SIGNAL(triggered()), this, SLOT(addRoms()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(runEmulatorFromRomTree()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(openOptions()));
+    connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
     connect(inputGroup, SIGNAL(triggered(QAction*)), this, SLOT(updateInputSetting()));
 }
@@ -236,10 +253,73 @@ void CEN64Qt::enableButtons()
 }
 
 
+void CEN64Qt::runConverter(QString v64File, QString saveFile) {
+    QFile v64(v64File);
+    v64.open(QIODevice::ReadOnly);
+
+    QString v64Check(v64.read(4).toHex()), message;
+    if (v64Check != "37804012") {
+        if (v64Check == "80371240") {
+            message = "\"" + QFileInfo(v64).fileName() + "\" already in z64 format!";
+        } else {
+            message = "\"" + QFileInfo(v64).fileName() + "\" is not a valid .v64 file!";
+        }
+        QMessageBox::warning(this, tr("CEN64-Qt Converter"), message);
+    } else {
+        v64.seek(0);
+
+        QFile z64(saveFile);
+        z64.open(QIODevice::WriteOnly);
+
+        QByteArray data;
+        QByteArray flipped;
+
+        while (!v64.atEnd()) {
+
+            data = v64.read(1024);
+
+            for (int i = 0; i < data.size(); i+=2) {
+
+                //Check to see if only one byte remaining (though byte count should always be even)
+                if (i + 1 == data.size()) {
+                    flipped.append(data[i]);
+                } else {
+                    flipped.append(data[i + 1]);
+                    flipped.append(data[i]);
+                }
+            }
+
+            z64.write(flipped);
+
+            flipped.truncate(0);
+        }
+
+        z64.close();
+        QMessageBox::information(this, tr("CEN64-Qt Converter"), tr("Conversion complete!"));
+    }
+
+    v64.close();
+}
+
+
 void CEN64Qt::openAbout()
 {
     AboutDialog aboutDialog(this);
     aboutDialog.exec();
+}
+
+
+void CEN64Qt::openConverter() {
+    QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath, tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
+
+    if (v64File != "") {
+        QString defaultFile = romDir.absoluteFilePath(QString(QFileInfo(QFile(v64File)).baseName() + ".z64"));
+        QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile, tr("Z64 ROMs (*.z64);;All Files (*)"));
+
+        if (saveFile != "") {
+            runConverter(v64File, saveFile);
+        }
+    }
 }
 
 
@@ -260,6 +340,13 @@ void CEN64Qt::openRom()
     QString path = QFileDialog::getOpenFileName(this, tr("Open ROM File"), romPath, tr("N64 ROMs (*.z64 *.n64);;All Files (*)"));
     if (path != "")
         runEmulator(path);
+}
+
+
+void CEN64Qt::readCEN64Output() {
+    QString output = cen64proc->readAllStandardOutput();
+    QStringList outputList = output.split("\n");
+    statusBar->showMessage(outputList[0]);
 }
 
 
@@ -332,7 +419,10 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     cen64proc = new QProcess(this);
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(enableButtons()));
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(checkStatus(int)));
+    connect(cen64proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readCEN64Output()));
     cen64proc->start(cen64Path, args);
+
+    statusBar->showMessage("Emulation started", 3000);
 }
 
 
@@ -352,4 +442,15 @@ void CEN64Qt::stopEmulator()
 void CEN64Qt::updateInputSetting()
 {
     SETTINGS.setValue("input", inputGroup->checkedAction()->data().toString());
+}
+
+
+void CEN64Qt::updateStatusBarView() {
+    if(statusBarAction->isChecked()) {
+        SETTINGS.setValue("statusbar", true);
+        statusBar->show();
+    } else {
+        SETTINGS.setValue("statusbar", "");
+        statusBar->hide();
+    }
 }

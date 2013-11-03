@@ -42,6 +42,7 @@
 #include <QProcess>
 #include <QPushButton>
 #include <QSettings>
+#include <QStatusBar>
 #include <QTableWidgetItem>
 #include <QTreeWidget>
 #include <QVBoxLayout>
@@ -64,6 +65,7 @@ protected:
 private:
     void createMenu();
     void createRomView();
+    void runConverter(QString v64File, QString saveFile);
     void runEmulator(QString completeRomPath);
 
     QDir romDir;
@@ -71,11 +73,13 @@ private:
     QString romPath;
 
     QAction *aboutAction;
+    QAction *convertAction;
     QAction *openAction;
     QAction *optionsAction;
     QAction *quitAction;
     QAction *refreshAction;
     QAction *startAction;
+    QAction *statusBarAction;
     QAction *stopAction;
     QActionGroup *inputGroup;
     QByteArray *romData;
@@ -84,9 +88,10 @@ private:
     QMenu *helpMenu;
     QMenu *inputMenu;
     QMenu *settingsMenu;
+    QMenu *viewMenu;
     QMenuBar *menuBar;
     QProcess *cen64proc;
-    //QSettings *settings;
+    QStatusBar *statusBar;
     QTreeWidget *romTree;
     QTreeWidgetItem *headerItem;
     QTreeWidgetItem *fileItem;
@@ -98,11 +103,14 @@ private slots:
     void checkStatus(int status);
     void enableButtons();
     void openAbout();
+    void openConverter();
     void openOptions();
     void openRom();
+    void readCEN64Output();
     void runEmulatorFromRomTree();
     void stopEmulator();
     void updateInputSetting();
+    void updateStatusBarView();
 
 };
 
