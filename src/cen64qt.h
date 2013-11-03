@@ -76,6 +76,7 @@ private:
     QAction *convertAction;
     QAction *openAction;
     QAction *optionsAction;
+    QAction *outputAction;
     QAction *quitAction;
     QAction *refreshAction;
     QAction *startAction;
@@ -110,6 +111,7 @@ private slots:
     void runEmulatorFromRomTree();
     void stopEmulator();
     void updateInputSetting();
+    void updateOutputView();
     void updateStatusBarView();
 
 };

@@ -50,9 +50,9 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
     pifPath = new QLineEdit(SETTINGS.value("pifrom", "").toString(), this);
     romPath = new QLineEdit(SETTINGS.value("roms", "").toString(), this);
 
-    cen64Button = new QPushButton(tr("Browse"), this);
-    pifButton = new QPushButton(tr("Browse"), this);
-    romButton = new QPushButton(tr("Browse"), this);
+    cen64Button = new QPushButton(tr("Browse..."), this);
+    pifButton = new QPushButton(tr("Browse..."), this);
+    romButton = new QPushButton(tr("Browse..."), this);
 
     pathsLayout->addWidget(cen64PathLabel, 0, 0);
     pathsLayout->addWidget(pifPathLabel, 1, 0);
@@ -81,9 +81,9 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
     eepromPath = new QLineEdit(SETTINGS.value("eeprom", "").toString(), this);
     sramPath = new QLineEdit(SETTINGS.value("sram", "").toString(), this);
 
-    savesButton = new QPushButton(tr("Browse"), this);
-    eepromButton = new QPushButton(tr("Browse"), this);
-    sramButton = new QPushButton(tr("Browse"), this);
+    savesButton = new QPushButton(tr("Browse..."), this);
+    eepromButton = new QPushButton(tr("Browse..."), this);
+    sramButton = new QPushButton(tr("Browse..."), this);
 
     savesLayout->addWidget(savesPathLabel, 0, 0);
     savesLayout->addWidget(eepromPathLabel, 2, 0);

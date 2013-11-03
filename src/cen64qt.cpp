@@ -52,17 +52,15 @@ CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
 
     statusBar = new QStatusBar;
 
+    if (SETTINGS.value("statusbar", "") == "") {
+        statusBar->hide();
+    }
+
     layout = new QVBoxLayout(widget);
     layout->setMenuBar(menuBar);
     layout->addWidget(romTree);
     layout->addWidget(statusBar);
     layout->setMargin(0);
-
-    if (SETTINGS.value("statusbar", "") == "") {
-        statusBar->hide();
-    } else {
-        statusBarAction->setChecked(true);
-    }
 
     widget->setLayout(layout);
     widget->setMinimumSize(300, 200);
@@ -190,7 +188,18 @@ void CEN64Qt::createMenu()
 
     viewMenu = new QMenu(tr("&View"), this);
     statusBarAction = viewMenu->addAction(tr("&Status Bar"));
+    outputAction = viewMenu->addAction(tr("&Output to Console"));
+
     statusBarAction->setCheckable(true);
+    outputAction->setCheckable(true);
+
+    if (SETTINGS.value("statusbar", "") == "true") {
+        statusBarAction->setChecked(true);
+    }
+
+    if (SETTINGS.value("consoleoutput", "") == "true") {
+        outputAction->setChecked(true);
+    }
 
     menuBar->addMenu(viewMenu);
 
@@ -209,6 +218,7 @@ void CEN64Qt::createMenu()
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(openOptions()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
+    connect(outputAction, SIGNAL(triggered()), this, SLOT(updateOutputView()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
     connect(inputGroup, SIGNAL(triggered(QAction*)), this, SLOT(updateInputSetting()));
 }
@@ -250,6 +260,59 @@ void CEN64Qt::enableButtons()
     startAction->setEnabled(true);
     stopAction->setEnabled(false);
     romTree->setEnabled(true);
+}
+
+
+void CEN64Qt::openAbout()
+{
+    AboutDialog aboutDialog(this);
+    aboutDialog.exec();
+}
+
+
+void CEN64Qt::openConverter() {
+    QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath, tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
+
+    if (v64File != "") {
+        QString defaultFile = romDir.absoluteFilePath(QString(QFileInfo(QFile(v64File)).baseName() + ".z64"));
+        QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile, tr("Z64 ROMs (*.z64);;All Files (*)"));
+
+        if (saveFile != "") {
+            runConverter(v64File, saveFile);
+        }
+    }
+}
+
+
+void CEN64Qt::openOptions() {
+    PathsDialog pathsDialog(this);
+    pathsDialog.exec();
+
+    if (romPath != SETTINGS.value("roms","").toString()) {
+        romPath = SETTINGS.value("roms","").toString();
+        romDir = QDir(romPath);
+        addRoms();
+    }
+}
+
+
+void CEN64Qt::openRom()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Open ROM File"), romPath, tr("N64 ROMs (*.z64 *.n64);;All Files (*)"));
+    if (path != "")
+        runEmulator(path);
+}
+
+
+void CEN64Qt::readCEN64Output() {
+    QString output = cen64proc->readAllStandardOutput();
+    QStringList outputList = output.split("\n");
+
+    int lastIndex = outputList.lastIndexOf(QRegExp("^.*VI/s.*MHz$"));
+
+    if (lastIndex >= 0) {
+        statusBar->showMessage(outputList[lastIndex]);
+    }
 }
 
 
@@ -299,54 +362,6 @@ void CEN64Qt::runConverter(QString v64File, QString saveFile) {
     }
 
     v64.close();
-}
-
-
-void CEN64Qt::openAbout()
-{
-    AboutDialog aboutDialog(this);
-    aboutDialog.exec();
-}
-
-
-void CEN64Qt::openConverter() {
-    QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath, tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
-
-    if (v64File != "") {
-        QString defaultFile = romDir.absoluteFilePath(QString(QFileInfo(QFile(v64File)).baseName() + ".z64"));
-        QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile, tr("Z64 ROMs (*.z64);;All Files (*)"));
-
-        if (saveFile != "") {
-            runConverter(v64File, saveFile);
-        }
-    }
-}
-
-
-void CEN64Qt::openOptions() {
-    PathsDialog pathsDialog(this);
-    pathsDialog.exec();
-
-    if (romPath != SETTINGS.value("roms","").toString()) {
-        romPath = SETTINGS.value("roms","").toString();
-        romDir = QDir(romPath);
-        addRoms();
-    }
-}
-
-
-void CEN64Qt::openRom()
-{
-    QString path = QFileDialog::getOpenFileName(this, tr("Open ROM File"), romPath, tr("N64 ROMs (*.z64 *.n64);;All Files (*)"));
-    if (path != "")
-        runEmulator(path);
-}
-
-
-void CEN64Qt::readCEN64Output() {
-    QString output = cen64proc->readAllStandardOutput();
-    QStringList outputList = output.split("\n");
-    statusBar->showMessage(outputList[0]);
 }
 
 
@@ -419,7 +434,13 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     cen64proc = new QProcess(this);
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(enableButtons()));
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(checkStatus(int)));
-    connect(cen64proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readCEN64Output()));
+
+    if (outputAction->isChecked()) {
+        cen64proc->setProcessChannelMode(QProcess::ForwardedChannels);
+    } else {
+        connect(cen64proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readCEN64Output()));
+    }
+
     cen64proc->start(cen64Path, args);
 
     statusBar->showMessage("Emulation started", 3000);
@@ -442,6 +463,15 @@ void CEN64Qt::stopEmulator()
 void CEN64Qt::updateInputSetting()
 {
     SETTINGS.setValue("input", inputGroup->checkedAction()->data().toString());
+}
+
+
+void CEN64Qt::updateOutputView() {
+    if(outputAction->isChecked()) {
+        SETTINGS.setValue("consoleoutput", true);
+    } else {
+        SETTINGS.setValue("consoleoutput", "");
+    }
 }
 
 
