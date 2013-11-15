@@ -164,7 +164,7 @@ void CEN64Qt::createMenu()
     inputGroup = new QActionGroup(this);
 
     QStringList inputs;
-    inputs << "keyboard" << "mayflash64" << "retrolink" << "x360";
+    inputs << "keyboard" << "mayflash64" << "retrolink" << "wiiu" << "x360";
 
     QString inputValue = SETTINGS.value("input","keyboard").toString();
 
