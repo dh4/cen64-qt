@@ -274,7 +274,7 @@ void CEN64Qt::openConverter() {
     QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath, tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
 
     if (v64File != "") {
-        QString defaultFile = romDir.absoluteFilePath(QString(QFileInfo(QFile(v64File)).baseName() + ".z64"));
+        QString defaultFile = romDir.absoluteFilePath(QString(QFileInfo(QFile(v64File)).completeBaseName() + ".z64"));
         QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile, tr("Z64 ROMs (*.z64);;All Files (*)"));
 
         if (saveFile != "") {
@@ -415,8 +415,8 @@ void CEN64Qt::runEmulator(QString completeRomPath)
                 romFile.close();
 
                 QString romMD5 = QString(QCryptographicHash::hash(*romData, QCryptographicHash::Md5).toHex());
-                QString eepromPath = savesDir.absoluteFilePath(QString(QFileInfo(romFile).baseName() + "." + romMD5 + ".eeprom"));
-                QString sramPath = savesDir.absoluteFilePath(QString(QFileInfo(romFile).baseName() + "." + romMD5 + ".sram"));
+                QString eepromPath = savesDir.absoluteFilePath(QString(QFileInfo(romFile).completeBaseName() + "." + romMD5 + ".eeprom"));
+                QString sramPath = savesDir.absoluteFilePath(QString(QFileInfo(romFile).completeBaseName() + "." + romMD5 + ".sram"));
 
                 args << "-eeprom" << eepromPath << "-sram" << sramPath;
 
