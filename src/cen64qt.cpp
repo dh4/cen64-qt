@@ -75,7 +75,8 @@ void CEN64Qt::addRoms()
 
     if (romPath != "") {
         if (romDir.exists()) {
-            QStringList files = romDir.entryList(QStringList() << "*.z64" << "*.n64", QDir::Files | QDir::NoSymLinks);
+            QStringList files = romDir.entryList(QStringList() << "*.z64" << "*.n64",
+                                                 QDir::Files | QDir::NoSymLinks);
 
             if (files.size() > 0) {
                 for(QStringList::Iterator it = files.begin(); it != files.end(); ++it)
@@ -103,7 +104,8 @@ void CEN64Qt::addRoms()
 void CEN64Qt::checkStatus(int status)
 {
     if (status > 0) {
-        QMessageBox::warning(this, "Warning", "CEN64 quit unexpectedly. Check to make sure you are using a valid ROM.");
+        QMessageBox::warning(this, "Warning",
+            "CEN64 quit unexpectedly. Check to make sure you are using a valid ROM.");
     } else {
         statusBar->showMessage("Emulation stopped", 3000);
     }
@@ -271,11 +273,14 @@ void CEN64Qt::openAbout()
 
 
 void CEN64Qt::openConverter() {
-    QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath, tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
+    QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath,
+                                                   tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
 
     if (v64File != "") {
-        QString defaultFile = romDir.absoluteFilePath(QString(QFileInfo(QFile(v64File)).completeBaseName() + ".z64"));
-        QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile, tr("Z64 ROMs (*.z64);;All Files (*)"));
+        QString defaultFileName = QFileInfo(QFile(v64File)).completeBaseName() + ".z64";
+        QString defaultFile = romDir.absoluteFilePath(defaultFileName);
+        QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile,
+                                                        tr("Z64 ROMs (*.z64);;All Files (*)"));
 
         if (saveFile != "") {
             runConverter(v64File, saveFile);
@@ -298,7 +303,8 @@ void CEN64Qt::openOptions() {
 
 void CEN64Qt::openRom()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Open ROM File"), romPath, tr("N64 ROMs (*.z64 *.n64);;All Files (*)"));
+    QString path = QFileDialog::getOpenFileName(this, tr("Open ROM File"), romPath,
+                                                tr("N64 ROMs (*.z64 *.n64);;All Files (*)"));
     if (path != "")
         runEmulator(path);
 }
@@ -414,9 +420,14 @@ void CEN64Qt::runEmulator(QString completeRomPath)
                 romData = new QByteArray(romFile.readAll());
                 romFile.close();
 
-                QString romMD5 = QString(QCryptographicHash::hash(*romData, QCryptographicHash::Md5).toHex());
-                QString eepromPath = savesDir.absoluteFilePath(QString(QFileInfo(romFile).completeBaseName() + "." + romMD5 + ".eeprom"));
-                QString sramPath = savesDir.absoluteFilePath(QString(QFileInfo(romFile).completeBaseName() + "." + romMD5 + ".sram"));
+                QString romMD5 = QString(QCryptographicHash::hash(*romData,
+                                                                  QCryptographicHash::Md5).toHex());
+
+                QString romBaseName = QFileInfo(romFile).completeBaseName();
+                QString eepromPathName = romBaseName + "." + romMD5 + ".eeprom";
+                QString sramPathName = romBaseName + "." + romMD5 + ".sram";
+                QString eepromPath = savesDir.absoluteFilePath(eepromPathName);
+                QString sramPath = savesDir.absoluteFilePath(sramPathName);
 
                 args << "-eeprom" << eepromPath << "-sram" << sramPath;
 
@@ -449,7 +460,8 @@ void CEN64Qt::runEmulator(QString completeRomPath)
 
 void CEN64Qt::runEmulatorFromRomTree()
 {
-    QString completeRomPath = romDir.absoluteFilePath(QVariant(romTree->currentItem()->data(0, 0)).toString());
+    QString completeRomPathName = QVariant(romTree->currentItem()->data(0, 0)).toString();
+    QString completeRomPath = romDir.absoluteFilePath(completeRomPathName);
     runEmulator(completeRomPath);
 }
 

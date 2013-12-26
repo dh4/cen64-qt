@@ -111,7 +111,8 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
     saves->setLayout(savesLayout);
 
 
-    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                                     Qt::Horizontal, this);
 
     layout->addWidget(paths, 0, 0, 1, 2);
     layout->addWidget(saves, 1, 0, 1, 2);

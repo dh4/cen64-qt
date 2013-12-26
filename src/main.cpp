@@ -45,13 +45,18 @@ int main(int argc, char *argv[])
 
     CEN64Qt window;
 
-    if (SETTINGS.value("Geometry/maximized", "").toString() == "true") {
+
+    QString maximized = SETTINGS.value("Geometry/maximized", "").toString();
+    QString windowx = SETTINGS.value("Geometry/windowx", "").toString();
+    QString windowy = SETTINGS.value("Geometry/windowy", "").toString();
+
+    if (maximized == "true") {
         window.showMaximized();
     } else {
         window.show();
     }
 
-    if (SETTINGS.value("Geometry/windowx", "").toString() == "" && SETTINGS.value("Geometry/windowy", "").toString() == "") {
+    if (windowx == "" && windowy == "") {
         window.move(QApplication::desktop()->screen()->rect().center() - window.rect().center());
     }
 
