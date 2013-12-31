@@ -67,6 +67,7 @@ private:
     void createRomView();
     void runConverter(QString v64File, QString saveFile);
     void runEmulator(QString completeRomPath);
+    void toggleMenus(bool active);
 
     QDir romDir;
     QDir savesDir;
@@ -84,6 +85,8 @@ private:
     QAction *stopAction;
     QActionGroup *inputGroup;
     QByteArray *romData;
+    QList<QAction*> menuEnable;
+    QList<QAction*> menuDisable;
     QMenu *emulationMenu;
     QMenu *fileMenu;
     QMenu *helpMenu;

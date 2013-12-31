@@ -72,6 +72,8 @@ private:
     QLineEdit *romPath;
     QLineEdit *savesPath;
     QLineEdit *sramPath;
+    QList<QWidget*> saveEnable;
+    QList<QWidget*> saveDisable;
     QPushButton *cen64Button;
     QPushButton *eepromButton;
     QPushButton *pifButton;

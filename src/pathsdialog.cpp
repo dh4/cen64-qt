@@ -201,25 +201,14 @@ void PathsDialog::editSettings()
 
 void PathsDialog::toggleSaves(bool active)
 {
-    if (active) {
-        savesPathLabel->setEnabled(false);
-        eepromPathLabel->setEnabled(true);
-        sramPathLabel->setEnabled(true);
-        savesPath->setEnabled(false);
-        eepromPath->setEnabled(true);
-        sramPath->setEnabled(true);
-        savesButton->setEnabled(false);
-        eepromButton->setEnabled(true);
-        sramButton->setEnabled(true);
-    } else {
-        savesPathLabel->setEnabled(true);
-        eepromPathLabel->setEnabled(false);
-        sramPathLabel->setEnabled(false);
-        savesPath->setEnabled(true);
-        eepromPath->setEnabled(false);
-        sramPath->setEnabled(false);
-        savesButton->setEnabled(true);
-        eepromButton->setEnabled(false);
-        sramButton->setEnabled(false);
-    }
+    saveEnable << eepromPathLabel << eepromPath << eepromButton
+               << sramPathLabel << sramPath << sramButton;
+    QListIterator<QWidget*> enableIter(saveEnable);
+    while(enableIter.hasNext())
+        enableIter.next()->setEnabled(active);
+
+    saveDisable << savesPathLabel << savesPath << savesButton;
+    QListIterator<QWidget*> disableIter(saveDisable);
+    while(disableIter.hasNext())
+        disableIter.next()->setEnabled(!active);
 }

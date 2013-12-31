@@ -259,9 +259,7 @@ void CEN64Qt::createRomView()
 
 void CEN64Qt::enableButtons()
 {
-    startAction->setEnabled(true);
-    stopAction->setEnabled(false);
-    romTree->setEnabled(true);
+    toggleMenus(true);
 }
 
 
@@ -438,9 +436,7 @@ void CEN64Qt::runEmulator(QString completeRomPath)
 
     args << pifPath << completeRomPath;
 
-    startAction->setEnabled(false);
-    stopAction->setEnabled(true);
-    romTree->setEnabled(false);
+    toggleMenus(false);
 
     cen64proc = new QProcess(this);
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(enableButtons()));
@@ -469,6 +465,24 @@ void CEN64Qt::runEmulatorFromRomTree()
 void CEN64Qt::stopEmulator()
 {
     cen64proc->terminate();
+}
+
+
+void CEN64Qt::toggleMenus(bool active)
+{
+    menuEnable << startAction << openAction << convertAction << refreshAction << optionsAction
+               << outputAction;
+    QListIterator<QAction*> enableIter(menuEnable);
+    while(enableIter.hasNext())
+        enableIter.next()->setEnabled(active);
+
+    menuDisable << stopAction;
+    QListIterator<QAction*> disableIter(menuDisable);
+    while(disableIter.hasNext())
+        disableIter.next()->setEnabled(!active);
+
+    inputGroup->setEnabled(active);
+    romTree->setEnabled(active);
 }
 
 
