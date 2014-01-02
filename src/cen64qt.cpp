@@ -177,6 +177,9 @@ void CEN64Qt::createMenu()
         input->setCheckable(true);
         inputGroup->addAction(input);
 
+        //Only enable input actions when CEN64 is not running
+        menuEnable << input;
+
         if(inputValue == *it) {
             input->setChecked(true);
         }
@@ -211,6 +214,16 @@ void CEN64Qt::createMenu()
     aboutAction->setIcon(QIcon::fromTheme("help-about"));
     menuBar->addMenu(helpMenu);
 
+    //Create list of actions that are enabled only when CEN64 is not running
+    menuEnable << startAction
+               << openAction
+               << convertAction
+               << refreshAction
+               << optionsAction
+               << outputAction;
+
+    //Create list of actions that are disabled when CEN64 is not running
+    menuDisable << stopAction;
 
     connect(openAction, SIGNAL(triggered()), this, SLOT(openRom()));
     connect(convertAction, SIGNAL(triggered()), this, SLOT(openConverter()));
@@ -422,10 +435,10 @@ void CEN64Qt::runEmulator(QString completeRomPath)
                                                                   QCryptographicHash::Md5).toHex());
 
                 QString romBaseName = QFileInfo(romFile).completeBaseName();
-                QString eepromPathName = romBaseName + "." + romMD5 + ".eeprom";
-                QString sramPathName = romBaseName + "." + romMD5 + ".sram";
-                QString eepromPath = savesDir.absoluteFilePath(eepromPathName);
-                QString sramPath = savesDir.absoluteFilePath(sramPathName);
+                QString eepromFileName = romBaseName + "." + romMD5 + ".eeprom";
+                QString sramFileName = romBaseName + "." + romMD5 + ".sram";
+                QString eepromPath = savesDir.absoluteFilePath(eepromFileName);
+                QString sramPath = savesDir.absoluteFilePath(sramFileName);
 
                 args << "-eeprom" << eepromPath << "-sram" << sramPath;
 
@@ -456,8 +469,8 @@ void CEN64Qt::runEmulator(QString completeRomPath)
 
 void CEN64Qt::runEmulatorFromRomTree()
 {
-    QString completeRomPathName = QVariant(romTree->currentItem()->data(0, 0)).toString();
-    QString completeRomPath = romDir.absoluteFilePath(completeRomPathName);
+    QString completeRomFileName = QVariant(romTree->currentItem()->data(0, 0)).toString();
+    QString completeRomPath = romDir.absoluteFilePath(completeRomFileName);
     runEmulator(completeRomPath);
 }
 
@@ -470,18 +483,14 @@ void CEN64Qt::stopEmulator()
 
 void CEN64Qt::toggleMenus(bool active)
 {
-    menuEnable << startAction << openAction << convertAction << refreshAction << optionsAction
-               << outputAction;
     QListIterator<QAction*> enableIter(menuEnable);
     while(enableIter.hasNext())
         enableIter.next()->setEnabled(active);
 
-    menuDisable << stopAction;
     QListIterator<QAction*> disableIter(menuDisable);
     while(disableIter.hasNext())
         disableIter.next()->setEnabled(!active);
 
-    inputGroup->setEnabled(active);
     romTree->setEnabled(active);
 }
 

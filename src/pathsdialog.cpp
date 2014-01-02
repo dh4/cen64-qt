@@ -100,6 +100,19 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
     saveOption = new QCheckBox(tr("Specify &individual files for saves"), this);
     savesLayout->addWidget(saveOption, 1, 1);
 
+    //Widgets enabled when checkbox is active
+    saveEnable << eepromPathLabel
+               << eepromPath
+               << eepromButton
+               << sramPathLabel
+               << sramPath
+               << sramButton;
+
+    //Widgets disabled when checkbox is active
+    saveDisable << savesPathLabel
+                << savesPath
+                << savesButton;
+
     if (SETTINGS.value("individualsave", "").toString() == "true") {
         toggleSaves(true);
         saveOption->setChecked(true);
@@ -201,13 +214,10 @@ void PathsDialog::editSettings()
 
 void PathsDialog::toggleSaves(bool active)
 {
-    saveEnable << eepromPathLabel << eepromPath << eepromButton
-               << sramPathLabel << sramPath << sramButton;
     QListIterator<QWidget*> enableIter(saveEnable);
     while(enableIter.hasNext())
         enableIter.next()->setEnabled(active);
 
-    saveDisable << savesPathLabel << savesPath << savesButton;
     QListIterator<QWidget*> disableIter(saveDisable);
     while(disableIter.hasNext())
         disableIter.next()->setEnabled(!active);
