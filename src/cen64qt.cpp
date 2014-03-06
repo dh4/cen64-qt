@@ -483,6 +483,9 @@ void CEN64Qt::toggleMenus(bool active)
         disableIter.next()->setEnabled(!active);
 
     romTree->setEnabled(active);
+
+    if (romTree->currentItem() == NULL)
+        startAction->setEnabled(false);
 }
 
 
