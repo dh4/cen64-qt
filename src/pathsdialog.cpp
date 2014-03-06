@@ -46,9 +46,9 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
     pifPathLabel = new QLabel(tr("Path to pifrom/pifdata file:"), this);
     romPathLabel = new QLabel(tr("Path to ROM directory:"), this);
 
-    cen64Path = new QLineEdit(SETTINGS.value("cen64", "").toString(), this);
-    pifPath = new QLineEdit(SETTINGS.value("pifrom", "").toString(), this);
-    romPath = new QLineEdit(SETTINGS.value("roms", "").toString(), this);
+    cen64Path = new QLineEdit(SETTINGS.value("Paths/cen64", "").toString(), this);
+    pifPath = new QLineEdit(SETTINGS.value("Paths/pifrom", "").toString(), this);
+    romPath = new QLineEdit(SETTINGS.value("Paths/roms", "").toString(), this);
 
     cen64Button = new QPushButton(tr("Browse..."), this);
     pifButton = new QPushButton(tr("Browse..."), this);
@@ -77,9 +77,9 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
     eepromPathLabel = new QLabel(tr("Path to EEPROM:"), this);
     sramPathLabel = new QLabel(tr("Path to SRAM:"), this);
 
-    savesPath = new QLineEdit(SETTINGS.value("saves", "").toString(), this);
-    eepromPath = new QLineEdit(SETTINGS.value("eeprom", "").toString(), this);
-    sramPath = new QLineEdit(SETTINGS.value("sram", "").toString(), this);
+    savesPath = new QLineEdit(SETTINGS.value("Paths/saves", "").toString(), this);
+    eepromPath = new QLineEdit(SETTINGS.value("Paths/eeprom", "").toString(), this);
+    sramPath = new QLineEdit(SETTINGS.value("Paths/sram", "").toString(), this);
 
     savesButton = new QPushButton(tr("Browse..."), this);
     eepromButton = new QPushButton(tr("Browse..."), this);
@@ -113,12 +113,11 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
                 << savesPath
                 << savesButton;
 
-    if (SETTINGS.value("individualsave", "").toString() == "true") {
+    if (SETTINGS.value("Paths/individualsave", "").toString() == "true") {
         toggleSaves(true);
         saveOption->setChecked(true);
-    } else {
+    } else
         toggleSaves(false);
-    }
 
     saves->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     saves->setLayout(savesLayout);
@@ -148,66 +147,59 @@ PathsDialog::PathsDialog(QWidget *parent) : QDialog(parent)
 void PathsDialog::browseCen64()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    if (path != "") {
+    if (path != "")
         cen64Path->setText(path);
-    }
 }
 
 void PathsDialog::browseEEPROM()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    if (path != "") {
+    if (path != "")
         eepromPath->setText(path);
-    }
 }
 
 void PathsDialog::browsePIF()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    if (path != "") {
+    if (path != "")
         pifPath->setText(path);
-    }
 }
 
 void PathsDialog::browseROM()
 {
     QString path = QFileDialog::getExistingDirectory(this);
-    if (path != "") {
+    if (path != "")
         romPath->setText(path);
-    }
 }
 
 void PathsDialog::browseSaves()
 {
     QString path = QFileDialog::getExistingDirectory(this);
-    if (path != "") {
+    if (path != "")
         savesPath->setText(path);
-    }
 }
 
 void PathsDialog::browseSRAM()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    if (path != "") {
+    if (path != "")
         sramPath->setText(path);
-    }
 }
 
 void PathsDialog::editSettings()
 {
-    SETTINGS.setValue("cen64", cen64Path->text());
-    SETTINGS.setValue("pifrom", pifPath->text());
-    SETTINGS.setValue("roms", romPath->text());
+    SETTINGS.setValue("Paths/cen64", cen64Path->text());
+    SETTINGS.setValue("Paths/pifrom", pifPath->text());
+    SETTINGS.setValue("Paths/roms", romPath->text());
 
-    SETTINGS.setValue("saves", savesPath->text());
-    SETTINGS.setValue("eeprom", eepromPath->text());
-    SETTINGS.setValue("sram", sramPath->text());
+    SETTINGS.setValue("Paths/saves", savesPath->text());
+    SETTINGS.setValue("Paths/eeprom", eepromPath->text());
+    SETTINGS.setValue("Paths/sram", sramPath->text());
 
-    if (saveOption->isChecked()) {
-        SETTINGS.setValue("individualsave", true);
-    } else {
-        SETTINGS.setValue("individualsave", "");
-    }
+    if (saveOption->isChecked())
+        SETTINGS.setValue("Paths/individualsave", true);
+    else
+        SETTINGS.setValue("Paths/individualsave", "");
 
     close();
 }

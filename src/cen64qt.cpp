@@ -37,7 +37,7 @@ CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
     setWindowTitle(tr("CEN64-Qt"));
     setWindowIcon(QIcon(":/images/cen64.png"));
 
-    romPath = SETTINGS.value("roms","").toString();
+    romPath = SETTINGS.value("Paths/roms","").toString();
     romDir = QDir(romPath);
 
     widget = new QWidget(this);
@@ -52,9 +52,8 @@ CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
 
     statusBar = new QStatusBar;
 
-    if (SETTINGS.value("statusbar", "") == "") {
+    if (SETTINGS.value("statusbar", "") == "")
         statusBar->hide();
-    }
 
     layout = new QVBoxLayout(widget);
     layout->setMenuBar(menuBar);
@@ -103,12 +102,11 @@ void CEN64Qt::addRoms()
 
 void CEN64Qt::checkStatus(int status)
 {
-    if (status > 0) {
+    if (status > 0)
         QMessageBox::warning(this, "Warning",
             "CEN64 quit unexpectedly. Check to make sure you are using a valid ROM.");
-    } else {
+    else
         statusBar->showMessage("Emulation stopped", 3000);
-    }
 }
 
 
@@ -118,11 +116,11 @@ void CEN64Qt::closeEvent(QCloseEvent *event)
     SETTINGS.setValue("Geometry/windowy", y());
     SETTINGS.setValue("Geometry/width", width());
     SETTINGS.setValue("Geometry/height", height());
-    if (isMaximized()) {
+    if (isMaximized())
         SETTINGS.setValue("Geometry/maximized", true);
-    } else {
+    else
         SETTINGS.setValue("Geometry/maximized", "");
-    }
+
     event->accept();
 }
 
@@ -180,9 +178,8 @@ void CEN64Qt::createMenu()
         //Only enable input actions when CEN64 is not running
         menuEnable << input;
 
-        if(inputValue == *it) {
+        if(inputValue == *it)
             input->setChecked(true);
-        }
     }
 
     settingsMenu->addSeparator();
@@ -198,13 +195,11 @@ void CEN64Qt::createMenu()
     statusBarAction->setCheckable(true);
     outputAction->setCheckable(true);
 
-    if (SETTINGS.value("statusbar", "") == "true") {
+    if (SETTINGS.value("statusbar", "") == "true")
         statusBarAction->setChecked(true);
-    }
 
-    if (SETTINGS.value("consoleoutput", "") == "true") {
+    if (SETTINGS.value("consoleoutput", "") == "true")
         outputAction->setChecked(true);
-    }
 
     menuBar->addMenu(viewMenu);
 
@@ -293,9 +288,8 @@ void CEN64Qt::openConverter() {
         QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile,
                                                         tr("Z64 ROMs (*.z64);;All Files (*)"));
 
-        if (saveFile != "") {
+        if (saveFile != "")
             runConverter(v64File, saveFile);
-        }
     }
 }
 
@@ -304,8 +298,9 @@ void CEN64Qt::openOptions() {
     PathsDialog pathsDialog(this);
     pathsDialog.exec();
 
-    if (romPath != SETTINGS.value("roms","").toString()) {
-        romPath = SETTINGS.value("roms","").toString();
+    QString romSave = SETTINGS.value("Paths/roms","").toString();
+    if (romPath != romSave) {
+        romPath = romSave;
         romDir = QDir(romPath);
         addRoms();
     }
@@ -327,9 +322,8 @@ void CEN64Qt::readCEN64Output() {
 
     int lastIndex = outputList.lastIndexOf(QRegExp("^.*VI/s.*MHz$"));
 
-    if (lastIndex >= 0) {
+    if (lastIndex >= 0)
         statusBar->showMessage(outputList[lastIndex]);
-    }
 }
 
 
@@ -339,11 +333,11 @@ void CEN64Qt::runConverter(QString v64File, QString saveFile) {
 
     QString v64Check(v64.read(4).toHex()), message;
     if (v64Check != "37804012") {
-        if (v64Check == "80371240") {
+        if (v64Check == "80371240")
             message = "\"" + QFileInfo(v64).fileName() + "\" already in z64 format!";
-        } else {
+        else
             message = "\"" + QFileInfo(v64).fileName() + "\" is not a valid .v64 file!";
-        }
+
         QMessageBox::warning(this, tr("CEN64-Qt Converter"), message);
     } else {
         v64.seek(0);
@@ -354,16 +348,16 @@ void CEN64Qt::runConverter(QString v64File, QString saveFile) {
         QByteArray data;
         QByteArray flipped;
 
-        while (!v64.atEnd()) {
-
+        while (!v64.atEnd())
+        {
             data = v64.read(1024);
 
-            for (int i = 0; i < data.size(); i+=2) {
-
+            for (int i = 0; i < data.size(); i+=2)
+            {
                 //Check to see if only one byte remaining (though byte count should always be even)
-                if (i + 1 == data.size()) {
+                if (i + 1 == data.size())
                     flipped.append(data[i]);
-                } else {
+                else {
                     flipped.append(data[i + 1]);
                     flipped.append(data[i]);
                 }
@@ -384,8 +378,8 @@ void CEN64Qt::runConverter(QString v64File, QString saveFile) {
 
 void CEN64Qt::runEmulator(QString completeRomPath)
 {
-    QString cen64Path = SETTINGS.value("cen64", "").toString();
-    QString pifPath = SETTINGS.value("pifrom", "").toString();
+    QString cen64Path = SETTINGS.value("Paths/cen64", "").toString();
+    QString pifPath = SETTINGS.value("Paths/pifrom", "").toString();
     QString input = inputGroup->checkedAction()->data().toString();
 
     QFile cen64File(cen64Path);
@@ -410,19 +404,17 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     QStringList args;
     args << "-controller" << input;
 
-    if (SETTINGS.value("individualsave", "").toString() == "true") {
-        QString eepromPath = SETTINGS.value("eeprom", "").toString();
-        QString sramPath = SETTINGS.value("sram", "").toString();
+    if (SETTINGS.value("Paths/individualsave", "").toString() == "true") {
+        QString eepromPath = SETTINGS.value("Paths/eeprom", "").toString();
+        QString sramPath = SETTINGS.value("Paths/sram", "").toString();
 
-        if (eepromPath != "") {
+        if (eepromPath != "")
             args << "-eeprom" << eepromPath;
-        }
 
-        if (sramPath != "") {
+        if (sramPath != "")
             args << "-sram" << sramPath;
-        }
     } else {
-        QString savesPath = SETTINGS.value("saves", "").toString();
+        QString savesPath = SETTINGS.value("Paths/saves", "").toString();
         if (savesPath != "") {
             savesDir = QDir(savesPath);
 
@@ -455,11 +447,10 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(enableButtons()));
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(checkStatus(int)));
 
-    if (outputAction->isChecked()) {
+    if (outputAction->isChecked())
         cen64proc->setProcessChannelMode(QProcess::ForwardedChannels);
-    } else {
+    else
         connect(cen64proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readCEN64Output()));
-    }
 
     cen64proc->start(cen64Path, args);
 
@@ -502,11 +493,10 @@ void CEN64Qt::updateInputSetting()
 
 
 void CEN64Qt::updateOutputView() {
-    if(outputAction->isChecked()) {
+    if(outputAction->isChecked())
         SETTINGS.setValue("consoleoutput", true);
-    } else {
+    else
         SETTINGS.setValue("consoleoutput", "");
-    }
 }
 
 
