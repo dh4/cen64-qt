@@ -29,8 +29,8 @@
  *
  ***/
 
-#ifndef PATHSDIALOG_H
-#define PATHSDIALOG_H
+#ifndef SETTINGSDIALOG_H
+#define SETTINGSDIALOG_H
 
 #include <QCheckBox>
 #include <QDialog>
@@ -40,48 +40,76 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QPushButton>
 #include <QSettings>
+#include <QTabWidget>
+#include <QToolButton>
+#include <QVBoxLayout>
 
-#include "global.h"
 
-class PathsDialog : public QDialog
+class SettingsDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit PathsDialog(QWidget *parent = 0);
+    explicit SettingsDialog(QWidget *parent = 0, int activeTab = 0);
 
 private:
+    QStringList available;
+    QStringList current;
+
     QCheckBox *saveOption;
     QDialogButtonBox *buttonBox;
     QGridLayout *layout;
+    QGridLayout *columnsLayout;
     QGridLayout *pathsLayout;
     QGridLayout *savesLayout;
     QGroupBox *paths;
     QGroupBox *saves;
+    QLabel *availableLabel;
+    QLabel *catalogPathLabel;
     QLabel *cen64PathLabel;
+    QLabel *currentLabel;
     QLabel *eepromPathLabel;
     QLabel *pifPathLabel;
     QLabel *romPathLabel;
     QLabel *savesPathLabel;
     QLabel *sramPathLabel;
+    QLineEdit *catalogPath;
     QLineEdit *cen64Path;
     QLineEdit *eepromPath;
     QLineEdit *pifPath;
     QLineEdit *romPath;
     QLineEdit *savesPath;
     QLineEdit *sramPath;
+    QListWidget *availableList;
+    QListWidget *currentList;
     QList<QWidget*> saveEnable;
     QList<QWidget*> saveDisable;
+    QPushButton *catalogButton;
     QPushButton *cen64Button;
     QPushButton *eepromButton;
     QPushButton *pifButton;
     QPushButton *romButton;
     QPushButton *savesButton;
     QPushButton *sramButton;
+    QTabWidget *tabWidget;
+    QToolButton *addButton;
+    QToolButton *removeButton;
+    QToolButton *sortDownButton;
+    QToolButton *sortUpButton;
+    QVBoxLayout *pathsMainLayout;
+    QVBoxLayout *sortLayout;
+    QVBoxLayout *toggleLayout;
+    QWidget *columnsWidget;
+    QWidget *pathsWidget;
+    QWidget *sortWidget;
+    QWidget *toggleWidget;
 
 private slots:
+    void addColumn();
+    void browseCatalog();
     void browseCen64();
     void browseEEPROM();
     void browsePIF();
@@ -89,7 +117,10 @@ private slots:
     void browseSaves();
     void browseSRAM();
     void editSettings();
+    void removeColumn();
+    void sortDown();
+    void sortUp();
     void toggleSaves(bool active);
 };
 
-#endif // PATHSDIALOG_H
+#endif // SETTINGSDIALOG_H

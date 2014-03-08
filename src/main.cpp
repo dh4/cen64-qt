@@ -29,10 +29,12 @@
  *
  ***/
 
-#include "cen64qt.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QSettings>
+
+#include "global.h"
+#include "cen64qt.h"
 
 
 int main(int argc, char *argv[])

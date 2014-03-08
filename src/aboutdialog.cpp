@@ -30,6 +30,7 @@
  ***/
 
 #include "aboutdialog.h"
+#include "global.h"
 
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
@@ -48,17 +49,28 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     license->setReadOnly(true);
     licenseFile.close();
 
-    cen64Link = new QLabel("<a href=\"http://www.cen64.com/\">CEN64 Website</a>", this);
+    QString description = tr("A basic frontend for CEN64 using Qt.");
+    QString copyright = "CEN64 Copyright (c) 2013, Tyler J. Stachecki";
+    QString cen64 = "<a href=\"http://www.cen64.com/\">CEN64 website</a>";
+    QString github = "<a href=\"https://github.com/dh4/cen64-qt\">Github repository</a>";
+
+    descriptionLabel = new QLabel(description, this);
+    copyrightLabel = new QLabel(copyright, this);
+    cen64Link = new QLabel(cen64, this);
+    githubLink = new QLabel(github, this);
+
     cen64Link->setOpenExternalLinks(true);
+    githubLink->setOpenExternalLinks(true);
 
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, this);
 
     aboutLayout->addWidget(icon, 0, 0, 4, 1);
-    aboutLayout->addWidget(new QLabel(tr("A basic frontend for CEN64 using Qt."), this), 0, 1);
+    aboutLayout->addWidget(descriptionLabel, 0, 1);
     aboutLayout->addWidget(license, 1, 1);
-    aboutLayout->addWidget(new QLabel(tr("CEN64 Copyright (c) 2013, Tyler J. Stachecki"), this), 2, 1);
+    aboutLayout->addWidget(copyrightLabel, 2, 1);
     aboutLayout->addWidget(cen64Link, 3, 1);
-    aboutLayout->addWidget(buttonBox, 4, 1);
+    aboutLayout->addWidget(githubLink, 4, 1);
+    aboutLayout->addWidget(buttonBox, 5, 1);
     aboutLayout->setColumnStretch(1, 1);
     aboutLayout->setRowStretch(1, 1);
     aboutLayout->setColumnMinimumWidth(0, 150);

@@ -30,6 +30,9 @@
  ***/
 
 #include "cen64qt.h"
+#include "aboutdialog.h"
+#include "global.h"
+#include "settingsdialog.h"
 
 
 CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
@@ -52,7 +55,7 @@ CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
 
     statusBar = new QStatusBar;
 
-    if (SETTINGS.value("statusbar", "") == "")
+    if (SETTINGS.value("View/statusbar", "") == "")
         statusBar->hide();
 
     layout = new QVBoxLayout(widget);
@@ -68,6 +71,11 @@ CEN64Qt::CEN64Qt(QWidget *parent) : QMainWindow(parent)
 
 void CEN64Qt::addRoms()
 {
+    SETTINGS.setValue("ROMs/cache", "");
+    QStringList visible = SETTINGS.value("ROMs/columns", "Filename|Size").toString().split("|");
+    resetRomTreeLayout(visible);
+
+    romTree->setEnabled(false);
     romTree->clear();
     startAction->setEnabled(false);
     stopAction->setEnabled(false);
@@ -78,17 +86,48 @@ void CEN64Qt::addRoms()
                                                  QDir::Files | QDir::NoSymLinks);
 
             if (files.size() > 0) {
-                for(QStringList::Iterator it = files.begin(); it != files.end(); ++it)
+                QProgressDialog progress("Loading ROMs...", "Cancel", 0, files.size(), this);
+#if QT_VERSION >= 0x050000
+                progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowCloseButtonHint);
+                progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowMinimizeButtonHint);
+                progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowContextHelpButtonHint);
+#else
+                progress.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+#endif
+                progress.setCancelButton(0);
+                progress.show();
+                progress.setWindowModality(Qt::WindowModal);
+
+                int count = 0;
+                foreach (QString fileName, files)
                 {
-                    QFile file(romDir.absoluteFilePath(*it));
-                    qint64 size = QFileInfo(file).size();
+                    QFile file(romDir.absoluteFilePath(fileName));
 
-                    fileItem = new QTreeWidgetItem;
-                    fileItem->setText(0, QFileInfo(file).fileName());
-                    fileItem->setText(1, tr("%1 MB").arg(int((size + 1023) / 1024 / 1024)));
-                    fileItem->setTextAlignment(1, Qt::AlignRight | Qt::AlignVCenter);
+                    file.open(QIODevice::ReadOnly);
+                    romData = new QByteArray(file.readAll());
+                    file.close();
 
-                    romTree->addTopLevelItem(fileItem);
+                    *romData = byteswap(*romData);
+
+                    QString internalName = QString(romData->mid(32, 20)).trimmed();
+
+                    QString romMD5 = QString(QCryptographicHash::hash(*romData,
+                                             QCryptographicHash::Md5).toHex());
+
+                    delete romData;
+
+                    addToRomTree(fileName, romMD5, internalName, visible);
+
+                    QString currentSetting = SETTINGS.value("ROMs/cache", "").toString();
+                    QString newSetting = currentSetting
+                                         + fileName + "|"
+                                         + internalName + "|"
+                                         + romMD5 + "||";
+
+                    SETTINGS.setValue("ROMs/cache", newSetting);
+
+                    count++;
+                    progress.setValue(count);
                 }
             } else {
             QMessageBox::warning(this, "Warning", "No ROMs found.");
@@ -97,6 +136,151 @@ void CEN64Qt::addRoms()
             QMessageBox::warning(this, "Warning", "Failed to open ROM directory.");
         }
     }
+
+    romTree->setEnabled(true);
+}
+
+
+void CEN64Qt::addToRomTree(QString fileName, QString romMD5, QString internalName, QStringList visible)
+{
+    QFile file(romDir.absoluteFilePath(fileName));
+    qint64 size = QFileInfo(file).size();
+
+    QString catalogFile = SETTINGS.value("Paths/catalog", "").toString();
+
+    bool getGoodName = false;
+    if (QFileInfo(catalogFile).exists()) {
+        romCatalog = new QSettings(catalogFile, QSettings::IniFormat);
+        getGoodName = true;
+    }
+
+    QString goodName = "Requires catalog file";
+    QString CRC1 = "";
+    QString CRC2 = "";
+    QString players = "";
+    QString saveType = "";
+    QString rumble = "";
+
+    if (getGoodName) {
+        //Join GoodName on ", ", otherwise entries with a comma won't show
+        QVariant goodNameVariant = romCatalog->value(romMD5+"/GoodName","Unknown ROM");
+        goodName = goodNameVariant.toStringList().join(", ");
+
+        QStringList CRC = romCatalog->value(romMD5+"/CRC","").toString().split(" ");
+
+        if (CRC.size() == 2) {
+            CRC1 = CRC[0];
+            CRC2 = CRC[1];
+        }
+
+        QString newMD5 = romCatalog->value(romMD5+"/RefMD5","").toString();
+        if (newMD5 == "")
+            newMD5 = romMD5;
+
+        players = romCatalog->value(newMD5+"/Players","").toString();
+        saveType = romCatalog->value(newMD5+"/SaveType","").toString();
+        rumble = romCatalog->value(newMD5+"/Rumble","").toString();
+    }
+
+    fileItem = new TreeWidgetItem(romTree);
+    fileItem->setText(0, fileName);
+
+    int i = 1;
+    foreach (QString current, visible)
+    {
+        if (current == "GoodName") {
+            fileItem->setText(i, goodName);
+            if (goodName == "Unknown ROM" || goodName == "Requires catalog file")
+                fileItem->setForeground(i, QBrush(Qt::gray));
+        }
+        else if (current == "Filename") {
+            fileItem->setText(i, QFileInfo(file).completeBaseName());
+        }
+        else if (current == "Filename (extension)") {
+            fileItem->setText(i, fileName);
+        }
+        else if (current == "Internal Name") {
+            fileItem->setText(i, internalName);
+        }
+        else if (current == "Size") {
+            fileItem->setText(i, tr("%1 MB").arg(int((size + 1023) / 1024 / 1024)));
+            fileItem->setData(i, Qt::UserRole, (int)size);
+            fileItem->setTextAlignment(i, Qt::AlignRight | Qt::AlignVCenter);
+        }
+        else if (current == "MD5") {
+            fileItem->setText(i, romMD5);
+            fileItem->setTextAlignment(i, Qt::AlignHCenter | Qt::AlignVCenter);
+        }
+        else if (current == "CRC1") {
+            fileItem->setText(i, CRC1.toLower());
+            fileItem->setTextAlignment(i, Qt::AlignHCenter | Qt::AlignVCenter);
+        }
+        else if (current == "CRC2") {
+            fileItem->setText(i, CRC2.toLower());
+            fileItem->setTextAlignment(i, Qt::AlignHCenter | Qt::AlignVCenter);
+        }
+        else if (current == "Players") {
+            fileItem->setText(i, players);
+            fileItem->setTextAlignment(i, Qt::AlignRight | Qt::AlignVCenter);
+        }
+        else if (current == "Rumble") {
+            fileItem->setText(i, rumble);
+            fileItem->setTextAlignment(i, Qt::AlignRight | Qt::AlignVCenter);
+        }
+        else if (current == "Save Type") {
+            fileItem->setText(i, saveType);
+            fileItem->setTextAlignment(i, Qt::AlignRight | Qt::AlignVCenter);
+        }
+        else //Invalid column name in config file
+            fileItem->setText(i, "");
+
+        i++;
+    }
+
+    romTree->addTopLevelItem(fileItem);
+}
+
+
+QByteArray CEN64Qt::byteswap(QByteArray romData)
+{
+        QByteArray flipped;
+
+        if (romData.left(4).toHex() == "37804012") {
+            for (int i = 0; i < romData.length(); i += 2)
+            {
+                flipped.append(romData[i + 1]);
+                flipped.append(romData[i]);
+            }
+            return flipped;
+        } else {
+            return romData;
+        }
+}
+
+
+void CEN64Qt::cachedRoms()
+{
+    romTree->setEnabled(false);
+    romTree->clear();
+    startAction->setEnabled(false);
+    stopAction->setEnabled(false);
+
+    QStringList visible = SETTINGS.value("ROMs/columns", "Filename|Size").toString().split("|");
+    resetRomTreeLayout(visible);
+
+    QString cache = SETTINGS.value("ROMs/cache", "").toString();
+    QStringList cachedRoms = cache.split("||");
+
+    foreach (QString current, cachedRoms)
+    {
+        QStringList romInfo = current.split("|");
+
+        if (romInfo.size() == 3) {
+            addToRomTree(romInfo[0], romInfo[2], romInfo[1], visible);
+        }
+    }
+
+    romTree->setEnabled(true);
 }
 
 
@@ -120,6 +304,8 @@ void CEN64Qt::closeEvent(QCloseEvent *event)
         SETTINGS.setValue("Geometry/maximized", true);
     else
         SETTINGS.setValue("Geometry/maximized", "");
+
+    saveColumnWidths();
 
     event->accept();
 }
@@ -168,22 +354,26 @@ void CEN64Qt::createMenu()
 
     QString inputValue = SETTINGS.value("input","keyboard").toString();
 
-    for(QStringList::Iterator it = inputs.begin(); it != inputs.end(); ++it)
+    foreach (QString inputName, inputs)
     {
-        QAction *input = inputMenu->addAction(*it);
-        input->setData(QVariant(*it));
+        QAction *input = inputMenu->addAction(inputName);
+        input->setData(inputName);
         input->setCheckable(true);
         inputGroup->addAction(input);
 
         //Only enable input actions when CEN64 is not running
         menuEnable << input;
 
-        if(inputValue == *it)
+        if(inputValue == inputName)
             input->setChecked(true);
     }
 
     settingsMenu->addSeparator();
-    optionsAction = settingsMenu->addAction(tr("&Paths"));
+    pathsAction = settingsMenu->addAction(tr("&Paths"));
+    columnsAction = settingsMenu->addAction(tr("&Columns"));
+
+    pathsAction->setIcon(QIcon::fromTheme("preferences-other"));
+    columnsAction->setIcon(QIcon::fromTheme("tab-new"));
 
     menuBar->addMenu(settingsMenu);
 
@@ -195,10 +385,10 @@ void CEN64Qt::createMenu()
     statusBarAction->setCheckable(true);
     outputAction->setCheckable(true);
 
-    if (SETTINGS.value("statusbar", "") == "true")
+    if (SETTINGS.value("View/statusbar", "") == "true")
         statusBarAction->setChecked(true);
 
-    if (SETTINGS.value("consoleoutput", "") == "true")
+    if (SETTINGS.value("View/consoleoutput", "") == "true")
         outputAction->setChecked(true);
 
     menuBar->addMenu(viewMenu);
@@ -214,8 +404,10 @@ void CEN64Qt::createMenu()
                << openAction
                << convertAction
                << refreshAction
-               << optionsAction
-               << outputAction;
+               << pathsAction
+               << columnsAction
+               << outputAction
+               << quitAction;
 
     //Create list of actions that are disabled when CEN64 is not running
     menuDisable << stopAction;
@@ -226,7 +418,8 @@ void CEN64Qt::createMenu()
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(runEmulatorFromRomTree()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
-    connect(optionsAction, SIGNAL(triggered()), this, SLOT(openOptions()));
+    connect(pathsAction, SIGNAL(triggered()), this, SLOT(openPaths()));
+    connect(columnsAction, SIGNAL(triggered()), this, SLOT(openColumns()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
     connect(outputAction, SIGNAL(triggered()), this, SLOT(updateOutputView()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
@@ -237,31 +430,21 @@ void CEN64Qt::createMenu()
 void CEN64Qt::createRomView()
 {
     romTree = new QTreeWidget(this);
-    romTree->setColumnCount(2);
     romTree->setWordWrap(false);
     romTree->setAllColumnsShowFocus(true);
     romTree->setRootIsDecorated(false);
+    romTree->setSortingEnabled(true);
     romTree->setStyleSheet("QTreeView { border: none; } QTreeView::item { height: 25px; }");
 
-    headerItem = new QTreeWidgetItem;
-    headerItem->setText(0, tr("ROM"));
-    headerItem->setText(1, tr("Size"));
-    headerItem->setTextAlignment(0, Qt::AlignCenter | Qt::AlignVCenter);
-    headerItem->setTextAlignment(1, Qt::AlignCenter | Qt::AlignVCenter);
-    romTree->setHeaderItem(headerItem);
+    headerView = new QHeaderView(Qt::Horizontal, this);
+    headerView->setMinimumSectionSize(75);
+    romTree->setHeader(headerView);
 
-    romTree->header()->setStretchLastSection(false);
-#if QT_VERSION >= 0x050000
-    romTree->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-#else
-    romTree->header()->setResizeMode(0, QHeaderView::Stretch);
-#endif
-    romTree->setColumnWidth(1, 100);
-
-    addRoms();
+    cachedRoms();
 
     connect(romTree, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons()));
     connect(romTree, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(runEmulatorFromRomTree()));
+    connect(headerView, SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)), this, SLOT(saveSortOrder(int,Qt::SortOrder)));
 }
 
 
@@ -275,6 +458,12 @@ void CEN64Qt::openAbout()
 {
     AboutDialog aboutDialog(this);
     aboutDialog.exec();
+}
+
+
+void CEN64Qt::openColumns()
+{
+    openOptions(1);
 }
 
 
@@ -294,16 +483,24 @@ void CEN64Qt::openConverter() {
 }
 
 
-void CEN64Qt::openOptions() {
-    PathsDialog pathsDialog(this);
-    pathsDialog.exec();
+void CEN64Qt::openOptions(int activeTab) {
+    SettingsDialog settingsDialog(this, activeTab);
+    settingsDialog.exec();
 
     QString romSave = SETTINGS.value("Paths/roms","").toString();
     if (romPath != romSave) {
         romPath = romSave;
         romDir = QDir(romPath);
         addRoms();
+    } else {
+        cachedRoms();
     }
+}
+
+
+void CEN64Qt::openPaths()
+{
+    openOptions(0);
 }
 
 
@@ -324,6 +521,61 @@ void CEN64Qt::readCEN64Output() {
 
     if (lastIndex >= 0)
         statusBar->showMessage(outputList[lastIndex]);
+}
+
+
+void CEN64Qt::resetRomTreeLayout(QStringList visible)
+{
+    saveColumnWidths();
+    QStringList widths = SETTINGS.value("ROMs/width", "").toString().split("|");
+
+    headerLabels.clear();
+    headerLabels << "" << visible;
+    romTree->setColumnCount(headerLabels.size());
+    romTree->setHeaderLabels(headerLabels);
+    headerView->setSortIndicatorShown(false);
+
+    QStringList sort = SETTINGS.value("ROMs/sort", "").toString().split("|");
+    if (sort.size() == 2) {
+        if (sort[1] == "descending")
+            headerView->setSortIndicator(visible.indexOf(sort[0]) + 1, Qt::DescendingOrder);
+        else
+            headerView->setSortIndicator(visible.indexOf(sort[0]) + 1, Qt::AscendingOrder);
+    }
+
+    romTree->setColumnHidden(0, true); //Hidden filename for launching emulator
+
+
+    int i = 1;
+    foreach (QString current, visible)
+    {
+        if (i == 1) {
+#if QT_VERSION >= 0x050000
+            romTree->header()->setSectionResizeMode(i, QHeaderView::Stretch);
+#else
+            romTree->header()->setResizeMode(i, QHeaderView::Stretch);
+#endif
+        }
+
+        if (widths.size() == visible.size()) {
+            romTree->setColumnWidth(i, widths[i - 1].toInt());
+        } else {
+            if (current == "GoodName" || current.left(8) == "Filename")
+                romTree->setColumnWidth(i, 300);
+            else if (current == "MD5")
+                romTree->setColumnWidth(i, 250);
+            else if (current == "Internal Name")
+                romTree->setColumnWidth(i, 200);
+            else if (current == "Save Type")
+                romTree->setColumnWidth(i, 100);
+            else if (current == "CRC1" || current == "CRC2")
+                romTree->setColumnWidth(i, 90);
+            else if (current == "Size" || current == "Rumble" || current == "Players")
+                romTree->setColumnWidth(i, 75);
+        }
+
+        i++;
+    }
 }
 
 
@@ -404,9 +656,9 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     QStringList args;
     args << "-controller" << input;
 
-    if (SETTINGS.value("Paths/individualsave", "").toString() == "true") {
-        QString eepromPath = SETTINGS.value("Paths/eeprom", "").toString();
-        QString sramPath = SETTINGS.value("Paths/sram", "").toString();
+    if (SETTINGS.value("Saves/individualsave", "").toString() == "true") {
+        QString eepromPath = SETTINGS.value("Saves/eeprom", "").toString();
+        QString sramPath = SETTINGS.value("Saves/sram", "").toString();
 
         if (eepromPath != "")
             args << "-eeprom" << eepromPath;
@@ -414,7 +666,7 @@ void CEN64Qt::runEmulator(QString completeRomPath)
         if (sramPath != "")
             args << "-sram" << sramPath;
     } else {
-        QString savesPath = SETTINGS.value("Paths/saves", "").toString();
+        QString savesPath = SETTINGS.value("Saves/directory", "").toString();
         if (savesPath != "") {
             savesDir = QDir(savesPath);
 
@@ -466,6 +718,31 @@ void CEN64Qt::runEmulatorFromRomTree()
 }
 
 
+void CEN64Qt::saveColumnWidths()
+{
+    QStringList widths;
+
+    for (int i = 1; i < romTree->columnCount(); i++)
+    {
+        widths << QString::number(romTree->columnWidth(i));
+    }
+
+    if (widths.size() > 0)
+        SETTINGS.setValue("ROMs/width", widths.join("|"));
+}
+
+
+void CEN64Qt::saveSortOrder(int column, Qt::SortOrder order)
+{
+    QString columnName = headerLabels.value(column);
+
+    if (order == Qt::DescendingOrder)
+        SETTINGS.setValue("ROMs/sort", columnName + "|descending");
+    else
+        SETTINGS.setValue("ROMs/sort", columnName + "|ascending");
+}
+
+
 void CEN64Qt::stopEmulator()
 {
     cen64proc->terminate();
@@ -474,13 +751,11 @@ void CEN64Qt::stopEmulator()
 
 void CEN64Qt::toggleMenus(bool active)
 {
-    QListIterator<QAction*> enableIter(menuEnable);
-    while(enableIter.hasNext())
-        enableIter.next()->setEnabled(active);
+    foreach (QAction *next, menuEnable)
+        next->setEnabled(active);
 
-    QListIterator<QAction*> disableIter(menuDisable);
-    while(disableIter.hasNext())
-        disableIter.next()->setEnabled(!active);
+    foreach (QAction *next, menuDisable)
+        next->setEnabled(!active);
 
     romTree->setEnabled(active);
 
@@ -497,18 +772,18 @@ void CEN64Qt::updateInputSetting()
 
 void CEN64Qt::updateOutputView() {
     if(outputAction->isChecked())
-        SETTINGS.setValue("consoleoutput", true);
+        SETTINGS.setValue("View/consoleoutput", true);
     else
-        SETTINGS.setValue("consoleoutput", "");
+        SETTINGS.setValue("View/consoleoutput", "");
 }
 
 
 void CEN64Qt::updateStatusBarView() {
     if(statusBarAction->isChecked()) {
-        SETTINGS.setValue("statusbar", true);
+        SETTINGS.setValue("View/statusbar", true);
         statusBar->show();
     } else {
-        SETTINGS.setValue("statusbar", "");
+        SETTINGS.setValue("View/statusbar", "");
         statusBar->hide();
     }
 }

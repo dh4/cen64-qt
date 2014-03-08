@@ -40,6 +40,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QProcess>
+#include <QProgressDialog>
 #include <QPushButton>
 #include <QSettings>
 #include <QStatusBar>
@@ -47,9 +48,7 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
-#include "aboutdialog.h"
-#include "global.h"
-#include "pathsdialog.h"
+#include "treewidgetitem.h"
 
 
 class CEN64Qt : public QMainWindow
@@ -63,21 +62,30 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
+    void addToRomTree(QString fileName, QString romMD5, QString internalName, QStringList visible);
+    void cachedRoms();
     void createMenu();
     void createRomView();
+    void openOptions(int activeTab);
+    void resetRomTreeLayout(QStringList visible);
     void runConverter(QString v64File, QString saveFile);
     void runEmulator(QString completeRomPath);
+    void saveColumnWidths();
     void toggleMenus(bool active);
+
+    QByteArray byteswap(QByteArray romData);
 
     QDir romDir;
     QDir savesDir;
     QString romPath;
+    QStringList headerLabels;
 
     QAction *aboutAction;
+    QAction *columnsAction;
     QAction *convertAction;
     QAction *openAction;
-    QAction *optionsAction;
     QAction *outputAction;
+    QAction *pathsAction;
     QAction *quitAction;
     QAction *refreshAction;
     QAction *startAction;
@@ -85,6 +93,7 @@ private:
     QAction *stopAction;
     QActionGroup *inputGroup;
     QByteArray *romData;
+    QHeaderView *headerView;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
     QMenu *emulationMenu;
@@ -95,10 +104,10 @@ private:
     QMenu *viewMenu;
     QMenuBar *menuBar;
     QProcess *cen64proc;
+    QSettings *romCatalog;
     QStatusBar *statusBar;
     QTreeWidget *romTree;
-    QTreeWidgetItem *headerItem;
-    QTreeWidgetItem *fileItem;
+    TreeWidgetItem *fileItem;
     QVBoxLayout *layout;
     QWidget *widget;
 
@@ -107,11 +116,13 @@ private slots:
     void checkStatus(int status);
     void enableButtons();
     void openAbout();
+    void openColumns();
     void openConverter();
-    void openOptions();
+    void openPaths();
     void openRom();
     void readCEN64Output();
     void runEmulatorFromRomTree();
+    void saveSortOrder(int column, Qt::SortOrder order);
     void stopEmulator();
     void updateInputSetting();
     void updateOutputView();
