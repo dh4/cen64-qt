@@ -60,6 +60,7 @@ private:
     QStringList current;
 
     QCheckBox *saveOption;
+    QCheckBox *stretchOption;
     QDialogButtonBox *buttonBox;
     QGridLayout *layout;
     QGridLayout *columnsLayout;
