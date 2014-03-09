@@ -481,7 +481,7 @@ void CEN64Qt::openConverter() {
                                                    tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
 
     if (v64File != "") {
-        QString defaultFileName = QFileInfo(QFile(v64File)).completeBaseName() + ".z64";
+        QString defaultFileName = QFileInfo(v64File).completeBaseName() + ".z64";
         QString defaultFile = romDir.absoluteFilePath(defaultFileName);
         QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile,
                                                         tr("Z64 ROMs (*.z64);;All Files (*)"));
