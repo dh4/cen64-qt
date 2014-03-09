@@ -252,7 +252,9 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
     tabWidget->addTab(pathsWidget, "Paths");
     tabWidget->addTab(columnsWidget, "Columns");
+#ifndef Q_OS_WIN //Remove when Other tab has options on Windows
     tabWidget->addTab(otherWidget, "Other");
+#endif
 
     tabWidget->setCurrentIndex(activeTab);
 
