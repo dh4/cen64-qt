@@ -489,8 +489,20 @@ void CEN64Qt::openConverter() {
 
 
 void CEN64Qt::openOptions(int activeTab) {
+
+    QString columnsBefore = SETTINGS.value("ROMs/columns", "Filename|Size").toString();
+
     SettingsDialog settingsDialog(this, activeTab);
     settingsDialog.exec();
+
+    QString columnsAfter = SETTINGS.value("ROMs/columns", "Filename|Size").toString();
+
+    //Reset columns widths if user has selected different columns to display
+    if (columnsBefore != columnsAfter) {
+        SETTINGS.setValue("ROMs/width", "");
+        romTree->setColumnCount(1);
+        romTree->setHeaderLabels(QStringList(""));
+    }
 
     QString romSave = SETTINGS.value("Paths/roms","").toString();
     if (romPath != romSave) {
