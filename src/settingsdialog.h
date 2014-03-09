@@ -59,11 +59,13 @@ private:
     QStringList available;
     QStringList current;
 
+    QCheckBox *outputOption;
     QCheckBox *saveOption;
     QCheckBox *stretchOption;
     QDialogButtonBox *buttonBox;
-    QGridLayout *layout;
     QGridLayout *columnsLayout;
+    QGridLayout *layout;
+    QGridLayout *otherLayout;
     QGridLayout *pathsLayout;
     QGridLayout *savesLayout;
     QGroupBox *paths;
@@ -73,6 +75,8 @@ private:
     QLabel *cen64PathLabel;
     QLabel *currentLabel;
     QLabel *eepromPathLabel;
+    QLabel *consoleOutput;
+    QLabel *outputLabel;
     QLabel *pifPathLabel;
     QLabel *romPathLabel;
     QLabel *savesPathLabel;
@@ -104,6 +108,7 @@ private:
     QVBoxLayout *sortLayout;
     QVBoxLayout *toggleLayout;
     QWidget *columnsWidget;
+    QWidget *otherWidget;
     QWidget *pathsWidget;
     QWidget *sortWidget;
     QWidget *toggleWidget;

@@ -390,16 +390,11 @@ void CEN64Qt::createMenu()
 
     viewMenu = new QMenu(tr("&View"), this);
     statusBarAction = viewMenu->addAction(tr("&Status Bar"));
-    outputAction = viewMenu->addAction(tr("&Output to Console"));
 
     statusBarAction->setCheckable(true);
-    outputAction->setCheckable(true);
 
     if (SETTINGS.value("View/statusbar", "") == "true")
         statusBarAction->setChecked(true);
-
-    if (SETTINGS.value("View/consoleoutput", "") == "true")
-        outputAction->setChecked(true);
 
     menuBar->addMenu(viewMenu);
 
@@ -416,7 +411,6 @@ void CEN64Qt::createMenu()
                << refreshAction
                << pathsAction
                << columnsAction
-               << outputAction
                << quitAction;
 
     //Create list of actions that are disabled when CEN64 is not running
@@ -431,7 +425,6 @@ void CEN64Qt::createMenu()
     connect(pathsAction, SIGNAL(triggered()), this, SLOT(openPaths()));
     connect(columnsAction, SIGNAL(triggered()), this, SLOT(openColumns()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
-    connect(outputAction, SIGNAL(triggered()), this, SLOT(updateOutputView()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
     connect(inputGroup, SIGNAL(triggered(QAction*)), this, SLOT(updateInputSetting()));
 }
@@ -728,7 +721,7 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(enableButtons()));
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(checkStatus(int)));
 
-    if (outputAction->isChecked())
+    if (SETTINGS.value("Other/consoleoutput", "").toString() == "true")
         cen64proc->setProcessChannelMode(QProcess::ForwardedChannels);
     else
         connect(cen64proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readCEN64Output()));
@@ -796,14 +789,6 @@ void CEN64Qt::toggleMenus(bool active)
 void CEN64Qt::updateInputSetting()
 {
     SETTINGS.setValue("input", inputGroup->checkedAction()->data().toString());
-}
-
-
-void CEN64Qt::updateOutputView() {
-    if(outputAction->isChecked())
-        SETTINGS.setValue("View/consoleoutput", true);
-    else
-        SETTINGS.setValue("View/consoleoutput", "");
 }
 
 

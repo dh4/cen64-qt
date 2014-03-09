@@ -84,7 +84,6 @@ private:
     QAction *columnsAction;
     QAction *convertAction;
     QAction *openAction;
-    QAction *outputAction;
     QAction *pathsAction;
     QAction *quitAction;
     QAction *refreshAction;
@@ -125,7 +124,6 @@ private slots:
     void saveSortOrder(int column, Qt::SortOrder order);
     void stopEmulator();
     void updateInputSetting();
-    void updateOutputView();
     void updateStatusBarView();
 
 };

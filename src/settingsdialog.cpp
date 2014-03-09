@@ -223,8 +223,36 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     columnsWidget->setLayout(columnsLayout);
 
 
+    //Other tab
+#ifndef Q_OS_WIN
+    otherWidget = new QWidget(this);
+    otherLayout = new QGridLayout(otherWidget);
+
+    outputLabel = new QLabel(tr("Output to Console:"), this);
+    outputOption = new QCheckBox(this);
+
+    QString outputToolTip = "If checked, CEN64's output will be redirected to CEN64-Qt ";
+    outputToolTip        += "so you can view the VI/s or debug information.";
+    outputOption->setToolTip(outputToolTip);
+
+    if (SETTINGS.value("Other/consoleoutput", "").toString() == "true")
+        outputOption->setChecked(true);
+
+    otherLayout->addWidget(outputLabel, 1, 1);
+    otherLayout->addWidget(outputOption, 1, 2);
+
+    otherLayout->setColumnMinimumWidth(1, 120);
+    otherLayout->setColumnMinimumWidth(0, 10);
+    otherLayout->setRowMinimumHeight(0, 10);
+    otherLayout->setColumnStretch(2, 1);
+    otherLayout->setRowStretch(2, 1);
+    otherWidget->setLayout(otherLayout);
+#endif
+
+
     tabWidget->addTab(pathsWidget, "Paths");
     tabWidget->addTab(columnsWidget, "Columns");
+    tabWidget->addTab(otherWidget, "Other");
 
     tabWidget->setCurrentIndex(activeTab);
 
@@ -345,6 +373,11 @@ void SettingsDialog::editSettings()
         SETTINGS.setValue("ROMs/stretchfirstcolumn", true);
     else
         SETTINGS.setValue("ROMs/stretchfirstcolumn", "");
+
+    if (outputOption->isChecked())
+        SETTINGS.setValue("Other/consoleoutput", true);
+    else
+        SETTINGS.setValue("Other/consoleoutput", "");
 
     close();
 }
