@@ -41,9 +41,9 @@ int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
 
-    QCoreApplication::setOrganizationName("cen64");
-    QCoreApplication::setOrganizationDomain("cen64.com");
-    QCoreApplication::setApplicationName("cen64-qt");
+    QCoreApplication::setOrganizationName("CEN64");
+    QCoreApplication::setOrganizationDomain("http://cen64.com/");
+    QCoreApplication::setApplicationName("CEN64-Qt");
 
     CEN64Qt window;
 

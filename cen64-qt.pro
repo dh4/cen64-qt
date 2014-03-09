@@ -6,7 +6,11 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QT   += widgets
 }
 
-TARGET = cen64-qt
+macx {
+    TARGET = CEN64-Qt
+} else {
+    TARGET = cen64-qt
+}
 TEMPLATE = app
 
 

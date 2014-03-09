@@ -163,6 +163,8 @@ void CEN64Qt::addToRomTree(QString fileName, QString romMD5, QString internalNam
     QString saveType = "";
     QString rumble = "";
 
+    romMD5 = romMD5.toUpper();
+
     if (getGoodName) {
         //Join GoodName on ", ", otherwise entries with a comma won't show
         QVariant goodNameVariant = romCatalog->value(romMD5+"/GoodName","Unknown ROM");
@@ -210,7 +212,7 @@ void CEN64Qt::addToRomTree(QString fileName, QString romMD5, QString internalNam
             fileItem->setTextAlignment(i, Qt::AlignRight | Qt::AlignVCenter);
         }
         else if (current == "MD5") {
-            fileItem->setText(i, romMD5);
+            fileItem->setText(i, romMD5.toLower());
             fileItem->setTextAlignment(i, Qt::AlignHCenter | Qt::AlignVCenter);
         }
         else if (current == "CRC1") {
@@ -327,7 +329,9 @@ void CEN64Qt::createMenu()
     fileMenu->addSeparator();
     convertAction = fileMenu->addAction(tr("&Convert V64..."));
     refreshAction = fileMenu->addAction(tr("&Refresh List"));
+#ifndef Q_OS_OSX //OSX does not show the quit action so the separator is unneeded
     fileMenu->addSeparator();
+#endif
     quitAction = fileMenu->addAction(tr("&Quit"));
 
     openAction->setIcon(QIcon::fromTheme("document-open"));

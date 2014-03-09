@@ -183,12 +183,12 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     }
 
     availableList->setMaximumHeight(250);
-    availableList->setMaximumWidth(150);
+    availableList->setMaximumWidth(160);
     availableList->addItems(available);
     availableList->sortItems();
 
     currentList->setMaximumHeight(250);
-    currentList->setMaximumWidth(150);
+    currentList->setMaximumWidth(160);
     currentList->addItems(current);
 
     toggleWidget = new QWidget(this);
