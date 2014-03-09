@@ -11,7 +11,9 @@ macx {
 } else {
     TARGET = cen64-qt
 }
+
 TEMPLATE = app
+ICON = macosx/cen64.icns
 
 
 SOURCES += src/main.cpp \
