@@ -376,10 +376,12 @@ void SettingsDialog::editSettings()
     else
         SETTINGS.setValue("ROMs/stretchfirstcolumn", "");
 
+#ifndef Q_OS_WIN
     if (outputOption->isChecked())
         SETTINGS.setValue("Other/consoleoutput", true);
     else
         SETTINGS.setValue("Other/consoleoutput", "");
+#endif
 
     close();
 }
