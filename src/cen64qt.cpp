@@ -270,6 +270,7 @@ void CEN64Qt::cachedRoms()
     QStringList visible = SETTINGS.value("ROMs/columns", "Filename|Size").toString().split("|");
     resetRomTreeLayout(visible);
 
+
     if (visible.join("") != "") { //Otherwise no columns, so don't bother populating
 
         QString cache = SETTINGS.value("ROMs/cache", "").toString();
@@ -442,7 +443,6 @@ void CEN64Qt::createRomView()
     romTree->setStyleSheet("QTreeView { border: none; } QTreeView::item { height: 25px; }");
 
     headerView = new QHeaderView(Qt::Horizontal, this);
-    headerView->setMinimumSectionSize(75);
     romTree->setHeader(headerView);
 
     cachedRoms();
