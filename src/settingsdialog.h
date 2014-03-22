@@ -32,21 +32,13 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include <QCheckBox>
-#include <QDialog>
-#include <QDialogButtonBox>
 #include <QFileDialog>
-#include <QGridLayout>
-#include <QGroupBox>
-#include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QPushButton>
 #include <QSettings>
-#include <QTabWidget>
-#include <QToolButton>
-#include <QVBoxLayout>
 
+
+namespace Ui {
+    class SettingsDialog;
+}
 
 class SettingsDialog : public QDialog
 {
@@ -54,64 +46,13 @@ class SettingsDialog : public QDialog
 
 public:
     explicit SettingsDialog(QWidget *parent = 0, int activeTab = 0);
+    ~SettingsDialog();
 
 private:
-    QStringList available;
-    QStringList current;
+    Ui::SettingsDialog *ui;
 
-    QCheckBox *outputOption;
-    QCheckBox *saveOption;
-    QCheckBox *stretchOption;
-    QDialogButtonBox *buttonBox;
-    QGridLayout *columnsLayout;
-    QGridLayout *layout;
-    QGridLayout *otherLayout;
-    QGridLayout *pathsLayout;
-    QGridLayout *savesLayout;
-    QGroupBox *paths;
-    QGroupBox *saves;
-    QLabel *availableLabel;
-    QLabel *catalogPathLabel;
-    QLabel *cen64PathLabel;
-    QLabel *currentLabel;
-    QLabel *eepromPathLabel;
-    QLabel *consoleOutput;
-    QLabel *outputLabel;
-    QLabel *pifPathLabel;
-    QLabel *romPathLabel;
-    QLabel *savesPathLabel;
-    QLabel *sramPathLabel;
-    QLineEdit *catalogPath;
-    QLineEdit *cen64Path;
-    QLineEdit *eepromPath;
-    QLineEdit *pifPath;
-    QLineEdit *romPath;
-    QLineEdit *savesPath;
-    QLineEdit *sramPath;
-    QListWidget *availableList;
-    QListWidget *currentList;
     QList<QWidget*> saveEnable;
     QList<QWidget*> saveDisable;
-    QPushButton *catalogButton;
-    QPushButton *cen64Button;
-    QPushButton *eepromButton;
-    QPushButton *pifButton;
-    QPushButton *romButton;
-    QPushButton *savesButton;
-    QPushButton *sramButton;
-    QTabWidget *tabWidget;
-    QToolButton *addButton;
-    QToolButton *removeButton;
-    QToolButton *sortDownButton;
-    QToolButton *sortUpButton;
-    QVBoxLayout *pathsMainLayout;
-    QVBoxLayout *sortLayout;
-    QVBoxLayout *toggleLayout;
-    QWidget *columnsWidget;
-    QWidget *otherWidget;
-    QWidget *pathsWidget;
-    QWidget *sortWidget;
-    QWidget *toggleWidget;
 
 private slots:
     void addColumn();

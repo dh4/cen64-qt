@@ -152,7 +152,7 @@ void CEN64Qt::addToRomTree(QString fileName, QString romMD5, QString internalNam
 
     bool getGoodName = false;
     if (QFileInfo(catalogFile).exists()) {
-        romCatalog = new QSettings(catalogFile, QSettings::IniFormat);
+        romCatalog = new QSettings(catalogFile, QSettings::IniFormat, this);
         getGoodName = true;
     }
 

@@ -22,12 +22,12 @@ SOURCES += src/main.cpp \
     src/settingsdialog.cpp \
     src/treewidgetitem.cpp
 
-HEADERS  += \
+HEADERS += src/global.h \
     src/aboutdialog.h \
     src/cen64qt.h \
-    src/global.h \
     src/settingsdialog.h \
     src/treewidgetitem.h
 
-RESOURCES += \
-    resources/cen64qt.qrc
+RESOURCES += resources/cen64qt.qrc
+
+FORMS += src/settingsdialog.ui
