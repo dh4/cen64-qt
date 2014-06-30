@@ -304,10 +304,10 @@ void CEN64Qt::checkStatus(int status)
 
 void CEN64Qt::closeEvent(QCloseEvent *event)
 {
-    SETTINGS.setValue("Geometry/windowx", x());
-    SETTINGS.setValue("Geometry/windowy", y());
-    SETTINGS.setValue("Geometry/width", width());
-    SETTINGS.setValue("Geometry/height", height());
+    SETTINGS.setValue("Geometry/windowx", geometry().x());
+    SETTINGS.setValue("Geometry/windowy", geometry().y());
+    SETTINGS.setValue("Geometry/width", geometry().width());
+    SETTINGS.setValue("Geometry/height", geometry().height());
     if (isMaximized())
         SETTINGS.setValue("Geometry/maximized", true);
     else
