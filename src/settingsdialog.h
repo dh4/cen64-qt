@@ -49,10 +49,13 @@ public:
     ~SettingsDialog();
 
 private:
+    void populateAvailable();
+
     Ui::SettingsDialog *ui;
 
     QList<QWidget*> saveEnable;
     QList<QWidget*> saveDisable;
+    QStringList available;
 
 private slots:
     void addColumn();

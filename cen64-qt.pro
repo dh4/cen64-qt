@@ -1,4 +1,4 @@
-QT       += core
+QT       += core network xml
 
 lessThan(QT_MAJOR_VERSION, 5) {
     QT   += gui

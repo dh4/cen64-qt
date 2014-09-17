@@ -34,7 +34,11 @@
 
 #include <QCloseEvent>
 #include <QCryptographicHash>
+#include <QDesktopServices>
 #include <QDir>
+#include <QDialogButtonBox>
+#include <QEventLoop>
+#include <QLineEdit>
 #include <QHeaderView>
 #include <QMainWindow>
 #include <QMenuBar>
@@ -46,9 +50,17 @@
 #include <QStatusBar>
 #include <QTableWidgetItem>
 #include <QTreeWidget>
+#include <QUrl>
 #include <QVBoxLayout>
 
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QtXml/QDomDocument>
+
 #include "treewidgetitem.h"
+
+#include <QDebug>
 
 
 class CEN64Qt : public QMainWindow
@@ -62,7 +74,8 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
-    void addToRomTree(QString fileName, QString romMD5, QString internalName, QStringList visible);
+    void addToRomTree(QString fileName, QString romMD5, QString internalName, QStringList visible, bool cached);
+    void cacheGameInfo(QString goodName, QString searchName = "", QString gameID = "", bool force = false);
     void cachedRoms();
     void createMenu();
     void createRomView();
@@ -74,6 +87,8 @@ private:
     void toggleMenus(bool active);
 
     QByteArray byteswap(QByteArray romData);
+    QByteArray getUrlContents(QUrl url);
+    QString getCacheLocation();
 
     QDir romDir;
     QDir savesDir;
@@ -83,6 +98,7 @@ private:
     QAction *aboutAction;
     QAction *columnsAction;
     QAction *convertAction;
+    QAction *downloadAction;
     QAction *openAction;
     QAction *pathsAction;
     QAction *quitAction;
@@ -92,7 +108,15 @@ private:
     QAction *stopAction;
     QActionGroup *inputGroup;
     QByteArray *romData;
+    QDialog *downloadDialog;
+    QDialogButtonBox *downloadButtonBox;
+    QGridLayout *downloadLayout;
     QHeaderView *headerView;
+    QLabel *searchLabel;
+    QLabel *gameNameLabel;
+    QLabel *gameIDLabel;
+    QLineEdit *gameNameField;
+    QLineEdit *gameIDField;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
     QMenu *emulationMenu;
@@ -117,9 +141,11 @@ private slots:
     void openAbout();
     void openColumns();
     void openConverter();
+    void openDownloader();
     void openPaths();
     void openRom();
     void readCEN64Output();
+    void runDownloader();
     void runEmulatorFromRomTree();
     void saveSortOrder(int column, Qt::SortOrder order);
     void stopEmulator();

@@ -80,21 +80,9 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
 
     //Populate Columns tab
-    QStringList available, current;
-
-    available << "Filename"
-              << "Filename (extension)"
-              << "GoodName"
-              << "Internal Name"
-              << "Size"
-              << "MD5"
-              << "CRC1"
-              << "CRC2"
-              << "Players"
-              << "Rumble"
-              << "Save Type";
-
+    QStringList current;
     current = SETTINGS.value("ROMs/columns", "Filename|Size").toString().split("|");
+    populateAvailable();
 
     foreach (QString cur, current)
     {
@@ -119,11 +107,22 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
 
     //Populate Other tab
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true")
+        ui->downloadOption->setChecked(true);
+
+    //Disable download option if no catalog file set
+    if (SETTINGS.value("Paths/catalog", "").toString() == "") {
+        ui->downloadOption->setChecked(false);
+        ui->downloadOption->setEnabled(false);
+        ui->downloadLabel->setEnabled(false);
+    }
+
     if (SETTINGS.value("Other/consoleoutput", "").toString() == "true")
         ui->outputOption->setChecked(true);
 
 #ifdef Q_OS_WIN //Remove when Other tab has options on Windows
-    ui->otherWidget->setVisible(false);
+    ui->outputLabel->setVisible(false);
+    ui->outputOption->setVisible(false);
 #endif
 
 
@@ -153,8 +152,12 @@ void SettingsDialog::addColumn()
 void SettingsDialog::browseCatalog()
 {
     QString path = QFileDialog::getOpenFileName(this);
-    if (path != "")
+    if (path != "") {
         ui->catalogPath->setText(path);
+
+        ui->downloadOption->setEnabled(true);
+        ui->downloadLabel->setEnabled(true);
+    }
 }
 
 
@@ -223,9 +226,17 @@ void SettingsDialog::editSettings()
     else
         SETTINGS.setValue("Saves/individualsave", "");
 
+    if (ui->downloadOption->isChecked() && ui->catalogPath->text() != "")
+        SETTINGS.setValue("Other/downloadinfo", true);
+    else
+        SETTINGS.setValue("Other/downloadinfo", "");
+
+    populateAvailable(); //This removes thegamesdb.net options if user unselects downloadOption
+
     QStringList visibleItems;
     foreach (QListWidgetItem *item, ui->currentList->findItems("*", Qt::MatchWildcard))
-        visibleItems << item->text();
+        if (available.contains(item->text()))
+            visibleItems << item->text();
 
     SETTINGS.setValue("ROMs/columns", visibleItems.join("|"));
 
@@ -242,6 +253,31 @@ void SettingsDialog::editSettings()
 #endif
 
     close();
+}
+
+
+void SettingsDialog::populateAvailable() {
+    available << "Filename"
+              << "Filename (extension)"
+              << "GoodName"
+              << "Internal Name"
+              << "Size"
+              << "MD5"
+              << "CRC1"
+              << "CRC2"
+              << "Players"
+              << "Rumble"
+              << "Save Type";
+
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true")
+        available << "Game Title"
+                  << "Release Date"
+                  << "Overview"
+                  << "ESRB"
+                  << "Genre"
+                  << "Publisher"
+                  << "Developer"
+                  << "Rating";
 }
 
 
