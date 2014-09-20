@@ -33,6 +33,7 @@
 #define SETTINGSDIALOG_H
 
 #include <QFileDialog>
+#include <QListWidget>
 #include <QSettings>
 
 
@@ -49,16 +50,22 @@ public:
     ~SettingsDialog();
 
 private:
-    void populateAvailable();
+    void populateAvailable(bool downloadItems);
 
     Ui::SettingsDialog *ui;
 
+    QList<QWidget*> downloadEnable;
+    QList<QWidget*> labelEnable;
+    QList<QWidget*> listCoverEnable;
     QList<QWidget*> saveEnable;
     QList<QWidget*> saveDisable;
     QStringList available;
+    QStringList labelOptions;
+    QStringList sortOptions;
 
 private slots:
-    void addColumn();
+    void addColumn(QListWidget *currentList, QListWidget *availableList);
+    void browseBackground();
     void browseCatalog();
     void browseCen64();
     void browseEEPROM();
@@ -67,9 +74,21 @@ private slots:
     void browseSaves();
     void browseSRAM();
     void editSettings();
-    void removeColumn();
-    void sortDown();
-    void sortUp();
+    void listAddColumn();
+    void listRemoveColumn();
+    void listSortDown();
+    void listSortUp();
+    void removeColumn(QListWidget *currentList, QListWidget *availableList);
+    void populateTableAndListTab(bool downloadItems);
+    void sortDown(QListWidget *currentList);
+    void sortUp(QListWidget *currentList);
+    void tableAddColumn();
+    void tableRemoveColumn();
+    void tableSortDown();
+    void tableSortUp();
+    void toggleDownload(bool active);
+    void toggleLabel(bool active);
+    void toggleListCover(bool active);
     void toggleSaves(bool active);
 };
 

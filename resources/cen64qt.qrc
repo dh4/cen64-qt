@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>images/cen64.png</file>
         <file>other/LICENSE</file>
+        <file>images/not-found.png</file>
     </qresource>
 </RCC>

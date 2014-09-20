@@ -79,43 +79,128 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     connect(ui->saveOption, SIGNAL(toggled(bool)), this, SLOT(toggleSaves(bool)));
 
 
-    //Populate Columns tab
-    QStringList current;
-    current = SETTINGS.value("ROMs/columns", "Filename|Size").toString().split("|");
-    populateAvailable();
+    //Populate Table tab
+    QStringList sizes;
+    sizes << "Extra Small"
+          << "Small"
+          << "Medium"
+          << "Large"
+          << "Extra Large";
 
-    foreach (QString cur, current)
-    {
-        if (available.contains(cur))
-            available.removeOne(cur);
-        else //Someone added an invalid item
-            current.removeOne(cur);
-    }
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true")
+        populateTableAndListTab(true);
+    else
+        populateTableAndListTab(false);
 
-    ui->availableList->addItems(available);
-    ui->availableList->sortItems();
+    if (SETTINGS.value("Table/stretchfirstcolumn", "true").toString() == "true")
+        ui->tableStretchOption->setChecked(true);
 
-    ui->currentList->addItems(current);
+    ui->tableSizeBox->insertItems(0, sizes);
+    int tableSizeIndex = sizes.indexOf(SETTINGS.value("Table/imagesize","Medium").toString());
+    if (tableSizeIndex >= 0) ui->tableSizeBox->setCurrentIndex(tableSizeIndex);
 
-    if (SETTINGS.value("ROMs/stretchfirstcolumn", "true").toString() == "true")
-        ui->stretchOption->setChecked(true);
+    connect(ui->tableAddButton, SIGNAL(clicked()), this, SLOT(tableAddColumn()));
+    connect(ui->tableRemoveButton, SIGNAL(clicked()), this, SLOT(tableRemoveColumn()));
+    connect(ui->tableSortUpButton, SIGNAL(clicked()), this, SLOT(tableSortUp()));
+    connect(ui->tableSortDownButton, SIGNAL(clicked()), this, SLOT(tableSortDown()));
 
-    connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addColumn()));
-    connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeColumn()));
-    connect(ui->sortUpButton, SIGNAL(clicked()), this, SLOT(sortUp()));
-    connect(ui->sortDownButton, SIGNAL(clicked()), this, SLOT(sortDown()));
+
+    //Populate Grid tab
+    QStringList colors;
+    colors << "Black"
+           << "White"
+           << "Light Gray"
+           << "Dark Gray"
+           << "Green"
+           << "Cyan"
+           << "Blue"
+           << "Purple"
+           << "Red"
+           << "Pink"
+           << "Orange"
+           << "Yellow"
+           << "Brown";
+
+    ui->gridSizeBox->insertItems(0, sizes);
+    int gridSizeIndex = sizes.indexOf(SETTINGS.value("Grid/imagesize","Medium").toString());
+    if (gridSizeIndex >= 0) ui->gridSizeBox->setCurrentIndex(gridSizeIndex);
+
+    int gridColumnCount = SETTINGS.value("Grid/columncount","4").toInt();
+    ui->columnCountBox->setValue(gridColumnCount);
+
+    ui->shadowActiveBox->insertItems(0, colors);
+    int activeIndex = colors.indexOf(SETTINGS.value("Grid/activecolor","Cyan").toString());
+    if (activeIndex >= 0) ui->shadowActiveBox->setCurrentIndex(activeIndex);
+
+    ui->shadowInactiveBox->insertItems(0, colors);
+    int inactiveIndex = colors.indexOf(SETTINGS.value("Grid/inactivecolor","Black").toString());
+    if (inactiveIndex >= 0) ui->shadowInactiveBox->setCurrentIndex(inactiveIndex);
+
+    //Widgets to enable when label active
+    labelEnable << ui->labelTextLabel
+                << ui->labelTextBox
+                << ui->labelColorLabel
+                << ui->labelColorBox;
+
+    if (SETTINGS.value("Grid/label", "true").toString() == "true") {
+        toggleLabel(true);
+        ui->labelOption->setChecked(true);
+    } else
+        toggleLabel(false);
+
+    ui->labelColorBox->insertItems(0, colors);
+    int labelColorIndex = colors.indexOf(SETTINGS.value("Grid/labelcolor","White").toString());
+    if (labelColorIndex >= 0) ui->labelColorBox->setCurrentIndex(labelColorIndex);
+
+    ui->backgroundPath->setText(SETTINGS.value("Grid/background", "").toString());
+
+    if (SETTINGS.value("Grid/sortdirection", "ascending").toString() == "descending")
+        ui->gridDescendingOption->setChecked(true);
+
+    connect(ui->backgroundButton, SIGNAL(clicked()), this, SLOT(browseBackground()));
+    connect(ui->labelOption, SIGNAL(toggled(bool)), this, SLOT(toggleLabel(bool)));
+
+
+    //Populate List tab
+    listCoverEnable << ui->listSizeLabel
+                    << ui->listSizeBox;
+
+    if (SETTINGS.value("List/displaycover", "").toString() == "true") {
+        toggleListCover(true);
+        ui->listCoverOption->setChecked(true);
+    } else
+        toggleListCover(false);
+
+    if (SETTINGS.value("List/firstitemheader", "true").toString() == "true")
+        ui->listHeaderOption->setChecked(true);
+
+    ui->listSizeBox->insertItems(0, sizes);
+    int listSizeIndex = sizes.indexOf(SETTINGS.value("List/imagesize","Medium").toString());
+    if (listSizeIndex >= 0) ui->listSizeBox->setCurrentIndex(listSizeIndex);
+
+    if (SETTINGS.value("List/sortdirection", "ascending").toString() == "descending")
+        ui->listDescendingOption->setChecked(true);
+
+
+    connect(ui->listCoverOption, SIGNAL(toggled(bool)), this, SLOT(toggleListCover(bool)));
+    connect(ui->listAddButton, SIGNAL(clicked()), this, SLOT(listAddColumn()));
+    connect(ui->listRemoveButton, SIGNAL(clicked()), this, SLOT(listRemoveColumn()));
+    connect(ui->listSortUpButton, SIGNAL(clicked()), this, SLOT(listSortUp()));
+    connect(ui->listSortDownButton, SIGNAL(clicked()), this, SLOT(listSortDown()));
 
 
     //Populate Other tab
-    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true")
-        ui->downloadOption->setChecked(true);
+    downloadEnable << ui->tableSizeLabel
+                   << ui->tableSizeBox
+                   << ui->listCoverOption
+                   << ui->listSizeLabel
+                   << ui->listSizeBox;
 
-    //Disable download option if no catalog file set
-    if (SETTINGS.value("Paths/catalog", "").toString() == "") {
-        ui->downloadOption->setChecked(false);
-        ui->downloadOption->setEnabled(false);
-        ui->downloadLabel->setEnabled(false);
-    }
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true") {
+        toggleDownload(true);
+        ui->downloadOption->setChecked(true);
+    } else
+        toggleDownload(false);
 
     if (SETTINGS.value("Other/consoleoutput", "").toString() == "true")
         ui->outputOption->setChecked(true);
@@ -124,6 +209,9 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     ui->outputLabel->setVisible(false);
     ui->outputOption->setVisible(false);
 #endif
+
+    connect(ui->downloadOption, SIGNAL(toggled(bool)), this, SLOT(toggleDownload(bool)));
+    connect(ui->downloadOption, SIGNAL(toggled(bool)), this, SLOT(populateTableAndListTab(bool)));
 
 
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(editSettings()));
@@ -138,33 +226,37 @@ SettingsDialog::~SettingsDialog()
 
 
 
-void SettingsDialog::addColumn()
+void SettingsDialog::addColumn(QListWidget *currentList, QListWidget *availableList)
 {
-    int row = ui->availableList->currentRow();
+    int row = availableList->currentRow();
 
     if (row >= 0) {
-        ui->currentList->addItem(ui->availableList->currentItem()->text());
-        delete ui->availableList->takeItem(row);
+        currentList->addItem(availableList->currentItem()->text());
+        delete availableList->takeItem(row);
     }
+}
+
+
+void SettingsDialog::browseBackground()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Background Image"));
+    if (path != "")
+        ui->backgroundPath->setText(path);
 }
 
 
 void SettingsDialog::browseCatalog()
 {
-    QString path = QFileDialog::getOpenFileName(this);
-    if (path != "") {
+    QString path = QFileDialog::getOpenFileName(this, tr("Catalog File"));
+    if (path != "")
         ui->catalogPath->setText(path);
-
-        ui->downloadOption->setEnabled(true);
-        ui->downloadLabel->setEnabled(true);
-    }
 }
 
 
 
 void SettingsDialog::browseCen64()
 {
-    QString path = QFileDialog::getOpenFileName(this);
+    QString path = QFileDialog::getOpenFileName(this, tr("CEN64 Executable"));
     if (path != "")
         ui->cen64Path->setText(path);
 }
@@ -172,7 +264,7 @@ void SettingsDialog::browseCen64()
 
 void SettingsDialog::browseEEPROM()
 {
-    QString path = QFileDialog::getOpenFileName(this);
+    QString path = QFileDialog::getOpenFileName(this, tr("EEPROM File"));
     if (path != "")
         ui->eepromPath->setText(path);
 }
@@ -180,7 +272,7 @@ void SettingsDialog::browseEEPROM()
 
 void SettingsDialog::browsePIF()
 {
-    QString path = QFileDialog::getOpenFileName(this);
+    QString path = QFileDialog::getOpenFileName(this, tr("PIF Data File"));
     if (path != "")
         ui->pifPath->setText(path);
 }
@@ -188,7 +280,7 @@ void SettingsDialog::browsePIF()
 
 void SettingsDialog::browseROM()
 {
-    QString path = QFileDialog::getExistingDirectory(this);
+    QString path = QFileDialog::getExistingDirectory(this, tr("ROM Directory"));
     if (path != "")
         ui->romPath->setText(path);
 }
@@ -196,7 +288,7 @@ void SettingsDialog::browseROM()
 
 void SettingsDialog::browseSaves()
 {
-    QString path = QFileDialog::getExistingDirectory(this);
+    QString path = QFileDialog::getExistingDirectory(this, tr("Save Directory"));
     if (path != "")
         ui->savesPath->setText(path);
 }
@@ -204,7 +296,7 @@ void SettingsDialog::browseSaves()
 
 void SettingsDialog::browseSRAM()
 {
-    QString path = QFileDialog::getOpenFileName(this);
+    QString path = QFileDialog::getOpenFileName(this, tr("SRAM File"));
     if (path != "")
         ui->sramPath->setText(path);
 }
@@ -212,6 +304,17 @@ void SettingsDialog::browseSRAM()
 
 void SettingsDialog::editSettings()
 {
+    //Set download option first
+    if (ui->downloadOption->isChecked()) {
+        SETTINGS.setValue("Other/downloadinfo", true);
+        populateAvailable(true); //This removes thegamesdb.net options if user unselects download
+    } else {
+        SETTINGS.setValue("Other/downloadinfo", "");
+        populateAvailable(false);
+    }
+
+
+    //Paths tab
     SETTINGS.setValue("Paths/cen64", ui->cen64Path->text());
     SETTINGS.setValue("Paths/pifrom", ui->pifPath->text());
     SETTINGS.setValue("Paths/roms", ui->romPath->text());
@@ -226,25 +329,73 @@ void SettingsDialog::editSettings()
     else
         SETTINGS.setValue("Saves/individualsave", "");
 
-    if (ui->downloadOption->isChecked() && ui->catalogPath->text() != "")
-        SETTINGS.setValue("Other/downloadinfo", true);
-    else
-        SETTINGS.setValue("Other/downloadinfo", "");
 
-    populateAvailable(); //This removes thegamesdb.net options if user unselects downloadOption
-
-    QStringList visibleItems;
-    foreach (QListWidgetItem *item, ui->currentList->findItems("*", Qt::MatchWildcard))
+    //Table tab
+    QStringList tableVisibleItems;
+    foreach (QListWidgetItem *item, ui->tableCurrentList->findItems("*", Qt::MatchWildcard))
         if (available.contains(item->text()))
-            visibleItems << item->text();
+            tableVisibleItems << item->text();
 
-    SETTINGS.setValue("ROMs/columns", visibleItems.join("|"));
+    SETTINGS.setValue("Table/columns", tableVisibleItems.join("|"));
 
-    if (ui->stretchOption->isChecked())
-        SETTINGS.setValue("ROMs/stretchfirstcolumn", true);
+    if (ui->tableStretchOption->isChecked())
+        SETTINGS.setValue("Table/stretchfirstcolumn", true);
     else
-        SETTINGS.setValue("ROMs/stretchfirstcolumn", "");
+        SETTINGS.setValue("Table/stretchfirstcolumn", "");
 
+    SETTINGS.setValue("Table/imagesize", ui->tableSizeBox->currentText());
+
+
+    //Grid tab
+    SETTINGS.setValue("Grid/imagesize", ui->gridSizeBox->currentText());
+    SETTINGS.setValue("Grid/columncount", ui->columnCountBox->value());
+    SETTINGS.setValue("Grid/inactivecolor", ui->shadowInactiveBox->currentText());
+    SETTINGS.setValue("Grid/activecolor", ui->shadowActiveBox->currentText());
+    SETTINGS.setValue("Grid/background", ui->backgroundPath->text());
+
+    if (ui->labelOption->isChecked())
+        SETTINGS.setValue("Grid/label", true);
+    else
+        SETTINGS.setValue("Grid/label", "");
+
+    SETTINGS.setValue("Grid/labeltext", ui->labelTextBox->currentText());
+    SETTINGS.setValue("Grid/labelcolor", ui->labelColorBox->currentText());
+    SETTINGS.setValue("Grid/sort", ui->gridSortBox->currentText());
+
+    if (ui->gridDescendingOption->isChecked())
+        SETTINGS.setValue("Grid/sortdirection", "descending");
+    else
+        SETTINGS.setValue("Grid/sortdirection", "ascending");
+
+
+    //List tab
+    QStringList listVisibleItems;
+    foreach (QListWidgetItem *item, ui->listCurrentList->findItems("*", Qt::MatchWildcard))
+        if (available.contains(item->text()))
+            listVisibleItems << item->text();
+
+    SETTINGS.setValue("List/columns", listVisibleItems.join("|"));
+
+    if (ui->listHeaderOption->isChecked())
+        SETTINGS.setValue("List/firstitemheader", true);
+    else
+        SETTINGS.setValue("List/firstitemheader", "");
+
+    if (ui->listCoverOption->isChecked() && ui->downloadOption->isChecked())
+        SETTINGS.setValue("List/displaycover", true);
+    else
+        SETTINGS.setValue("List/displaycover", "");
+
+    SETTINGS.setValue("List/imagesize", ui->listSizeBox->currentText());
+    SETTINGS.setValue("List/sort", ui->listSortBox->currentText());
+
+    if (ui->listDescendingOption->isChecked())
+        SETTINGS.setValue("List/sortdirection", "descending");
+    else
+        SETTINGS.setValue("List/sortdirection", "ascending");
+
+
+    //Other tab
 #ifndef Q_OS_WIN
     if (ui->outputOption->isChecked())
         SETTINGS.setValue("Other/consoleoutput", true);
@@ -256,7 +407,35 @@ void SettingsDialog::editSettings()
 }
 
 
-void SettingsDialog::populateAvailable() {
+void SettingsDialog::listAddColumn()
+{
+    addColumn(ui->listCurrentList, ui->listAvailableList);
+}
+
+
+void SettingsDialog::listRemoveColumn()
+{
+    removeColumn(ui->listCurrentList, ui->listAvailableList);
+}
+
+
+void SettingsDialog::listSortDown()
+{
+    sortDown(ui->listCurrentList);
+}
+
+
+void SettingsDialog::listSortUp()
+{
+    sortUp(ui->listCurrentList);
+}
+
+
+void SettingsDialog::populateAvailable(bool downloadItems) {
+    available.clear();
+    labelOptions.clear();
+    sortOptions.clear();
+
     available << "Filename"
               << "Filename (extension)"
               << "GoodName"
@@ -269,7 +448,17 @@ void SettingsDialog::populateAvailable() {
               << "Rumble"
               << "Save Type";
 
-    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true")
+    labelOptions << "Filename"
+                 << "Filename (extension)"
+                 << "GoodName"
+                 << "Internal Name";
+
+    sortOptions << "Filename"
+                << "GoodName"
+                << "Internal Name"
+                << "Size";
+
+    if (downloadItems) {
         available << "Game Title"
                   << "Release Date"
                   << "Overview"
@@ -277,45 +466,177 @@ void SettingsDialog::populateAvailable() {
                   << "Genre"
                   << "Publisher"
                   << "Developer"
-                  << "Rating";
+                  << "Rating"
+                  << "Game Cover";
+
+        labelOptions << "Game Title"
+                     << "Release Date"
+                     << "Genre";
+
+        sortOptions << "Game Title"
+                    << "Release Date"
+                    << "ESRB"
+                    << "Genre"
+                    << "Publisher"
+                    << "Developer"
+                    << "Rating";
+    }
+
+    available.sort();
+    labelOptions.sort();
+    sortOptions.sort();
 }
 
 
-void SettingsDialog::removeColumn()
+void SettingsDialog::populateTableAndListTab(bool downloadItems)
 {
-    int row = ui->currentList->currentRow();
+    populateAvailable(downloadItems);
+
+    //Table columns and sort fields
+    QStringList tableCurrent, tableAvailable;
+    tableCurrent = SETTINGS.value("Table/columns", "Filename|Size").toString().split("|");
+    tableAvailable = available;
+
+    foreach (QString cur, tableCurrent)
+    {
+        if (tableAvailable.contains(cur))
+            tableAvailable.removeOne(cur);
+        else //Someone added an invalid item
+            tableCurrent.removeOne(cur);
+    }
+
+    ui->tableAvailableList->clear();
+    ui->tableAvailableList->addItems(tableAvailable);
+    ui->tableAvailableList->sortItems();
+
+    ui->tableCurrentList->clear();
+    ui->tableCurrentList->addItems(tableCurrent);
+
+
+    //Grid sort field and label text
+    ui->labelTextBox->clear();
+    ui->labelTextBox->insertItems(0, labelOptions);
+    int labelTextIndex = labelOptions.indexOf(SETTINGS.value("Grid/labeltext","Filename").toString());
+    if (labelTextIndex >= 0) ui->labelTextBox->setCurrentIndex(labelTextIndex);
+
+    ui->gridSortBox->clear();
+    ui->gridSortBox->insertItems(0, sortOptions);
+    int gridSortIndex = sortOptions.indexOf(SETTINGS.value("Grid/sort","Filename").toString());
+    if (gridSortIndex >= 0) ui->gridSortBox->setCurrentIndex(gridSortIndex);
+
+
+    //List items and sort field
+    QStringList listCurrent, listAvailable;
+    listCurrent = SETTINGS.value("List/columns", "Filename|Internal Name|Size").toString().split("|");
+    listAvailable = available;
+    listAvailable.removeOne("Game Cover"); //Game Cover handled separately
+
+    foreach (QString cur, listCurrent)
+    {
+        if (listAvailable.contains(cur))
+            listAvailable.removeOne(cur);
+        else //Someone added an invalid item
+            listCurrent.removeOne(cur);
+    }
+
+    ui->listAvailableList->clear();
+    ui->listAvailableList->addItems(listAvailable);
+    ui->listAvailableList->sortItems();
+
+    ui->listCurrentList->clear();
+    ui->listCurrentList->addItems(listCurrent);
+
+    ui->listSortBox->clear();
+    ui->listSortBox->insertItems(0, sortOptions);
+    int listSortIndex = sortOptions.indexOf(SETTINGS.value("List/sort","Filename").toString());
+    if (listSortIndex >= 0) ui->listSortBox->setCurrentIndex(listSortIndex);
+}
+
+
+void SettingsDialog::removeColumn(QListWidget *currentList, QListWidget *availableList)
+{
+    int row = currentList->currentRow();
 
     if (row >= 0) {
-        ui->availableList->addItem(ui->currentList->currentItem()->text());
-        delete ui->currentList->takeItem(row);
+        availableList->addItem(currentList->currentItem()->text());
+        delete currentList->takeItem(row);
 
-        ui->availableList->sortItems();
+        availableList->sortItems();
     }
 }
 
 
-void SettingsDialog::sortDown()
+void SettingsDialog::sortDown(QListWidget *currentList)
 {
-    int row = ui->currentList->currentRow();
+    int row = currentList->currentRow();
 
     if (row > 0) {
-        QListWidgetItem *item = ui->currentList->takeItem(row);
-        ui->currentList->insertItem(row - 1, item);
-        ui->currentList->setCurrentRow(row - 1);
+        QListWidgetItem *item = currentList->takeItem(row);
+        currentList->insertItem(row - 1, item);
+        currentList->setCurrentRow(row - 1);
     }
 }
 
 
-void SettingsDialog::sortUp()
+void SettingsDialog::sortUp(QListWidget *currentList)
 {
-    int row = ui->currentList->currentRow();
+    int row = currentList->currentRow();
 
-    if (row >= 0 && row < ui->currentList->count() - 1) {
-        QListWidgetItem *item = ui->currentList->takeItem(row);
-        ui->currentList->insertItem(row + 1, item);
-        ui->currentList->setCurrentRow(row + 1);
+    if (row >= 0 && row < currentList->count() - 1) {
+        QListWidgetItem *item = currentList->takeItem(row);
+        currentList->insertItem(row + 1, item);
+        currentList->setCurrentRow(row + 1);
     }
 }
+
+
+void SettingsDialog::tableAddColumn()
+{
+    addColumn(ui->tableCurrentList, ui->tableAvailableList);
+}
+
+
+void SettingsDialog::tableRemoveColumn()
+{
+    removeColumn(ui->tableCurrentList, ui->tableAvailableList);
+}
+
+
+void SettingsDialog::tableSortDown()
+{
+    sortDown(ui->tableCurrentList);
+}
+
+
+void SettingsDialog::tableSortUp()
+{
+    sortUp(ui->tableCurrentList);
+}
+
+
+void SettingsDialog::toggleDownload(bool active)
+{
+    foreach (QWidget *next, downloadEnable)
+        next->setEnabled(active);
+
+    if (active)
+        toggleListCover(ui->listCoverOption->isChecked());
+}
+
+
+void SettingsDialog::toggleLabel(bool active)
+{
+    foreach (QWidget *next, labelEnable)
+        next->setEnabled(active);
+}
+
+
+void SettingsDialog::toggleListCover(bool active)
+{
+    foreach (QWidget *next, listCoverEnable)
+        next->setEnabled(active);
+}
+
 
 void SettingsDialog::toggleSaves(bool active)
 {
