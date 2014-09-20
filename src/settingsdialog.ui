@@ -238,9 +238,15 @@
          </property>
          <item row="1" column="0">
           <widget class="QListWidget" name="availableList">
-           <property name="maximumSize">
+           <property name="minimumSize">
             <size>
              <width>160</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>170</width>
              <height>250</height>
             </size>
            </property>
@@ -284,9 +290,15 @@
          </item>
          <item row="1" column="2">
           <widget class="QListWidget" name="currentList">
-           <property name="maximumSize">
+           <property name="minimumSize">
             <size>
              <width>160</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>170</width>
              <height>250</height>
             </size>
            </property>
