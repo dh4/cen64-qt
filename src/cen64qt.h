@@ -52,6 +52,7 @@
 #include <QSettings>
 #include <QStatusBar>
 #include <QTableWidgetItem>
+#include <QTextEdit>
 #include <QTextStream>
 #include <QTime>
 #include <QTreeWidget>
@@ -126,6 +127,7 @@ private:
     void runEmulator(QString completeRomPath);
     void saveColumnWidths();
     void setGridBackground();
+    void setupProgressDialog(QStringList item);
     void toggleMenus(bool active);
 
     QByteArray byteswap(QByteArray romData);
@@ -151,6 +153,7 @@ private:
     QAction *configureAction;
     QAction *convertAction;
     QAction *downloadAction;
+    QAction *logAction;
     QAction *openAction;
     QAction *quitAction;
     QAction *refreshAction;
@@ -161,10 +164,13 @@ private:
     QActionGroup *layoutGroup;
     QByteArray *romData;
     QDialog *downloadDialog;
+    QDialog *logDialog;
     QDialogButtonBox *downloadButtonBox;
+    QDialogButtonBox *logButtonBox;
     QGridLayout *downloadLayout;
     QGridLayout *emptyLayout;
     QGridLayout *gridLayout;
+    QGridLayout *logLayout;
     QHeaderView *headerView;
     QLabel *fileLabel;
     QLabel *gameNameLabel;
@@ -183,11 +189,14 @@ private:
     QMenu *viewMenu;
     QMenuBar *menuBar;
     QProcess *cen64proc;
+    QProgressDialog *progress;
     QScrollArea *emptyView;
     QScrollArea *listView;
     QScrollArea *gridView;
     QSettings *romCatalog;
     QStatusBar *statusBar;
+    QString lastOutput;
+    QTextEdit *logArea;
     QTreeWidget *romTree;
     TreeWidgetItem *fileItem;
     QVBoxLayout *layout;
@@ -206,6 +215,7 @@ private slots:
     void openAbout();
     void openConverter();
     void openDownloader();
+    void openLog();
     void openOptions();
     void openRom();
     void readCEN64Output();

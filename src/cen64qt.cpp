@@ -96,17 +96,7 @@ void CEN64Qt::addRoms()
                                                  QDir::Files | QDir::NoSymLinks);
 
             if (files.size() > 0) {
-                QProgressDialog progress("Loading ROMs...", "Cancel", 0, files.size(), this);
-#if QT_VERSION >= 0x050000
-                progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowCloseButtonHint);
-                progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowMinimizeButtonHint);
-                progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowContextHelpButtonHint);
-#else
-                progress.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
-#endif
-                progress.setCancelButton(0);
-                progress.show();
-                progress.setWindowModality(Qt::WindowModal);
+                setupProgressDialog(files);
 
                 int count = 0;
                 foreach (QString fileName, files)
@@ -140,8 +130,10 @@ void CEN64Qt::addRoms()
                     SETTINGS.setValue("ROMs/cache", newSetting);
 
                     count++;
-                    progress.setValue(count);
+                    progress->setValue(count);
                 }
+
+                progress->close();
             } else {
             QMessageBox::warning(this, "Warning", "No ROMs found.");
             }
@@ -726,19 +718,6 @@ void CEN64Qt::cachedRoms(bool imageUpdated)
     QString cache = SETTINGS.value("ROMs/cache", "").toString();
     QStringList cachedRoms = cache.split("||");
 
-
-    QProgressDialog progress("Loading ROMs...", "Cancel", 0, cachedRoms.size(), this);
-#if QT_VERSION >= 0x050000
-    progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowCloseButtonHint);
-    progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowMinimizeButtonHint);
-    progress.setWindowFlags(progress.windowFlags() & ~Qt::WindowContextHelpButtonHint);
-#else
-    progress.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
-#endif
-    progress.setCancelButton(0);
-    progress.setWindowModality(Qt::WindowModal);
-
-
     int count = 0;
     bool showProgress = false;
     QTime checkPerformance;
@@ -765,7 +744,7 @@ void CEN64Qt::cachedRoms(bool imageUpdated)
 
                 //check if operation expected to take longer than two seconds
                 if (runtime * cachedRoms.size() > 2000) {
-                    progress.show();
+                    setupProgressDialog(cachedRoms);
                     showProgress = true;
                 }
             }
@@ -773,9 +752,12 @@ void CEN64Qt::cachedRoms(bool imageUpdated)
             count++;
 
             if (showProgress)
-                progress.setValue(count);
+                progress->setValue(count);
         }
     }
+
+    if (showProgress)
+        progress->close();
 
     qSort(roms.begin(), roms.end(), romSorter);
 
@@ -857,6 +839,8 @@ void CEN64Qt::createMenu()
     emulationMenu = new QMenu(tr("&Emulation"), this);
     startAction = emulationMenu->addAction(tr("&Start"));
     stopAction = emulationMenu->addAction(tr("St&op"));
+    emulationMenu->addSeparator();
+    logAction = emulationMenu->addAction(tr("View Log..."));
 
     startAction->setIcon(QIcon::fromTheme("media-playback-start"));
     stopAction->setIcon(QIcon::fromTheme("media-playback-stop"));
@@ -892,7 +876,7 @@ void CEN64Qt::createMenu()
     }
 
     settingsMenu->addSeparator();
-    configureAction = settingsMenu->addAction(tr("&Configure"));
+    configureAction = settingsMenu->addAction(tr("&Configure..."));
     configureAction->setIcon(QIcon::fromTheme("preferences-other"));
 
     menuBar->addMenu(settingsMenu);
@@ -939,6 +923,7 @@ void CEN64Qt::createMenu()
 
     //Create list of actions that are enabled only when CEN64 is not running
     menuEnable << startAction
+               << logAction
                << openAction
                << convertAction
                << downloadAction
@@ -956,6 +941,7 @@ void CEN64Qt::createMenu()
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(runEmulatorFromMenu()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
+    connect(logAction, SIGNAL(triggered()), this, SLOT(openLog()));
     connect(configureAction, SIGNAL(triggered()), this, SLOT(openOptions()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
@@ -1450,7 +1436,46 @@ void CEN64Qt::openDownloader()
 
     downloadDialog->setLayout(downloadLayout);
 
-    downloadDialog->show();
+    downloadDialog->exec();
+}
+
+
+void CEN64Qt::openLog()
+{
+    if (lastOutput == "") {
+        QMessageBox::information(this, "No Output", QString("There is no log. Either CEN64 has not ")
+                                 + "yet\nrun or there was no output from the last run.");
+    } else {
+        logDialog = new QDialog(this);
+        logDialog->setWindowTitle(tr("CEN64 Log"));
+        logDialog->setMinimumSize(600, 400);
+
+        logLayout = new QGridLayout(logDialog);
+        logLayout->setContentsMargins(5, 10, 5, 10);
+
+        logArea = new QTextEdit(logDialog);
+        logArea->setWordWrapMode(QTextOption::NoWrap);
+
+        QFont font;
+        font.setFamily("Monospace");
+        font.setFixedPitch(true);
+        font.setPointSize(9);
+        logArea->setFont(font);
+
+        logArea->setPlainText(lastOutput);
+
+        logButtonBox = new QDialogButtonBox(Qt::Horizontal, logDialog);
+        logButtonBox->addButton(tr("Close"), QDialogButtonBox::AcceptRole);
+
+        logLayout->addWidget(logArea, 0, 0);
+        logLayout->addWidget(logButtonBox, 1, 0);
+
+        connect(logButtonBox, SIGNAL(accepted()), logDialog, SLOT(close()));
+
+        logDialog->setLayout(logLayout);
+
+        logDialog->exec();
+    }
 }
 
 
@@ -1507,6 +1532,8 @@ void CEN64Qt::readCEN64Output()
 
     if (lastIndex >= 0)
         statusBar->showMessage(outputList[lastIndex]);
+
+    lastOutput.append(output);
 }
 
 
@@ -1700,17 +1727,17 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     QFile pifFile(pifPath);
     QFile romFile(completeRomPath);
 
-    if(QFileInfo(cen64File).exists() == false) {
+    if (!cen64File.exists() || QFileInfo(cen64File).isDir() || !QFileInfo(cen64File).isExecutable()) {
         QMessageBox::warning(this, "Warning", "CEN64 executable not found.");
         return;
     }
 
-    if(QFileInfo(pifFile).exists() == false) {
+    if (!pifFile.exists() || QFileInfo(pifFile).isDir()) {
         QMessageBox::warning(this, "Warning", "PIFdata file not found.");
         return;
     }
 
-    if(QFileInfo(romFile).exists() == false) {
+    if (!romFile.exists() || QFileInfo(romFile).isDir()) {
         QMessageBox::warning(this, "Warning", "ROM file not found.");
         return;
     }
@@ -1761,10 +1788,16 @@ void CEN64Qt::runEmulator(QString completeRomPath)
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(enableButtons()));
     connect(cen64proc, SIGNAL(finished(int)), this, SLOT(checkStatus(int)));
 
+
     if (SETTINGS.value("Other/consoleoutput", "").toString() == "true")
         cen64proc->setProcessChannelMode(QProcess::ForwardedChannels);
-    else
+    else {
         connect(cen64proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readCEN64Output()));
+        cen64proc->setProcessChannelMode(QProcess::MergedChannels);
+    }
+
+    //clear log
+    lastOutput = "";
 
     cen64proc->start(cen64Path, args);
 
@@ -1849,6 +1882,21 @@ void CEN64Qt::setGridBackground()
 }
 
 
+void CEN64Qt::setupProgressDialog(QStringList item)
+{
+    progress = new QProgressDialog("Loading ROMs...", "Cancel", 0, item.size(), this);
+#if QT_VERSION >= 0x050000
+    progress->setWindowFlags(progress.windowFlags() & ~Qt::WindowCloseButtonHint);
+    progress->setWindowFlags(progress.windowFlags() & ~Qt::WindowMinimizeButtonHint);
+    progress->setWindowFlags(progress.windowFlags() & ~Qt::WindowContextHelpButtonHint);
+#else
+    progress->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+#endif
+    progress->setCancelButton(0);
+    progress->setWindowModality(Qt::WindowModal);
+}
+
+
 void CEN64Qt::stopEmulator()
 {
     cen64proc->terminate();
@@ -1867,7 +1915,7 @@ void CEN64Qt::toggleMenus(bool active)
     gridView->setEnabled(active);
     listView->setEnabled(active);
 
-    if (romTree->currentItem() == NULL && gridCurrent == false && listCurrent == false) {
+    if (romTree->currentItem() == NULL && !gridCurrent && !listCurrent) {
         downloadAction->setEnabled(false);
         startAction->setEnabled(false);
     }
