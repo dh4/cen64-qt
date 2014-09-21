@@ -147,12 +147,12 @@ void CEN64Qt::addRoms()
     int i = 0;
     foreach (Rom currentRom, roms)
     {
-        if (SETTINGS.value("view/layout","Table View") == "Table View")
+        if (SETTINGS.value("View/layout","Table View") == "Table View")
             addToTableView(&currentRom);
-        else if (SETTINGS.value("view/layout","Table View") == "Grid View")
+        else if (SETTINGS.value("View/layout","Table View") == "Grid View")
             addToGridView(&currentRom, i);
-        else if (SETTINGS.value("view/layout","Table View") == "List View")
-            addToListView(&currentRom);
+        else if (SETTINGS.value("View/layout","Table View") == "List View")
+            addToListView(&currentRom, i);
 
         i++;
     }
@@ -187,8 +187,11 @@ void CEN64Qt::addToGridView(Rom *currentRom, int count)
     QGridLayout *gameGridLayout = new QGridLayout(gameGridItem);
     gameGridLayout->setColumnStretch(0, 1);
     gameGridLayout->setColumnStretch(3, 1);
+    gameGridLayout->setRowMinimumHeight(1, getImageSize("Grid").height());
 
     QLabel *gridImageLabel = new QLabel(gameGridItem);
+    gridImageLabel->setMinimumHeight(getImageSize("Grid").height());
+    gridImageLabel->setMinimumWidth(getImageSize("Grid").width());
     QPixmap image;
 
     if (currentRom->imageExists)
@@ -228,8 +231,15 @@ void CEN64Qt::addToGridView(Rom *currentRom, int count)
         gridTextLabel->setText(text);
 
         QString textHex = getColor(SETTINGS.value("Grid/labelcolor","White").toString()).name();
+        int fontSize = getGridSize("font");
+
+#ifdef Q_OS_OSX //OSX is funky with the label text
+        if (text.length() > 30)
+            fontSize -= 2;
+#endif
+
         gridTextLabel->setStyleSheet("QLabel { font-weight: bold; color: " + textHex + "; font-size: "
-                                     + QString::number(getGridSize("font")) + "px; }");
+                                     + QString::number(fontSize) + "px; }");
         gridTextLabel->setWordWrap(true);
         gridTextLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
@@ -247,7 +257,7 @@ void CEN64Qt::addToGridView(Rom *currentRom, int count)
 }
 
 
-void CEN64Qt::addToListView(Rom *currentRom)
+void CEN64Qt::addToListView(Rom *currentRom, int count)
 {
     QStringList visible = SETTINGS.value("List/columns", "Filename|Internal Name|Size").toString().split("|");
 
@@ -385,12 +395,14 @@ void CEN64Qt::addToListView(Rom *currentRom)
     gameListLayout->setColumnMinimumWidth(2, 10);
     gameListItem->setLayout(gameListLayout);
 
-    listLayout->addWidget(gameListItem);
+    if (count != 0) {
+        QFrame *separator = new QFrame();
+        separator->setFrameShape(QFrame::HLine);
+        separator->setStyleSheet("margin:0;padding:0;");
+        listLayout->addWidget(separator);
+    }
 
-    QFrame *separator = new QFrame();
-    separator->setFrameShape(QFrame::HLine);
-    separator->setStyleSheet("margin:0;padding:0;");
-    listLayout->addWidget(separator);
+    listLayout->addWidget(gameListItem);
 
     connect(gameListItem, SIGNAL(singleClicked(QWidget*)), this, SLOT(highlightListWidget(QWidget*)));
     connect(gameListItem, SIGNAL(doubleClicked(QWidget*)), this, SLOT(runEmulatorFromWidget(QWidget*)));
@@ -614,7 +626,9 @@ void CEN64Qt::cacheGameInfo(QString identifier, QString searchName, QString game
                 if (force) { //from user dialog
                     QDomElement date = node.firstChildElement("ReleaseDate").toElement();
 
-                    QString check = "Game: " + element.text().remove(QRegExp("[^\u0000-\u007F]*"));
+                    QString check = "Game: " + element.text();
+                    check.remove(QRegExp(QString("[^A-Za-z 0-9 \\.,\\?'""!@#\\$%\\^&\\*\\")
+                                         + "(\\)-_=\\+;:<>\\/\\\\|\\}\\{\\[\\]`~]*"));
                     if (date.text() != "") check += "\nReleased on: " + date.text();
                     check += "\n\nDoes this look correct?";
 
@@ -764,12 +778,12 @@ void CEN64Qt::cachedRoms(bool imageUpdated)
     int i = 0;
     foreach (Rom currentRom, roms)
     {
-        if (SETTINGS.value("view/layout","Table View") == "Table View")
+        if (SETTINGS.value("View/layout","Table View") == "Table View")
             addToTableView(&currentRom);
-        else if (SETTINGS.value("view/layout","Table View") == "Grid View")
+        else if (SETTINGS.value("View/layout","Table View") == "Grid View")
             addToGridView(&currentRom, i);
-        else if (SETTINGS.value("view/layout","Table View") == "List View")
-            addToListView(&currentRom);
+        else if (SETTINGS.value("View/layout","Table View") == "List View")
+            addToListView(&currentRom, i);
 
         i++;
     }
@@ -875,7 +889,9 @@ void CEN64Qt::createMenu()
             input->setChecked(true);
     }
 
+#ifndef Q_OS_OSX //OSX does not show the configure action so the separator is unneeded
     settingsMenu->addSeparator();
+#endif
     configureAction = settingsMenu->addAction(tr("&Configure..."));
     configureAction->setIcon(QIcon::fromTheme("preferences-other"));
 
@@ -889,7 +905,7 @@ void CEN64Qt::createMenu()
     QStringList layouts;
     layouts << "None" << "Table View" << "Grid View" << "List View";
 
-    QString layoutValue = SETTINGS.value("view/layout","Table View").toString();
+    QString layoutValue = SETTINGS.value("View/layout","Table View").toString();
 
     foreach (QString layoutName, layouts)
     {
@@ -1032,7 +1048,7 @@ void CEN64Qt::createRomView()
     currentListRom = 0;
 
 
-    QString visibleLayout = SETTINGS.value("view/layout", "Table View").toString();
+    QString visibleLayout = SETTINGS.value("View/layout", "Table View").toString();
 
     if (visibleLayout == "None")
         emptyView->setHidden(false);
@@ -1063,8 +1079,15 @@ QString CEN64Qt::getCacheLocation()
 #ifdef Q_OS_WIN
     return QDir::currentPath() + "/cache";
 #else
+
+#if QT_VERSION >= 0x050000
+    return QStandardPaths::writableLocation(QStandardPaths::DataLocation)
+                    .replace("CEN64/CEN64-Qt","cen64-qt/cache");
+#else
     return QDesktopServices::storageLocation(QDesktopServices::DataLocation)
                     .replace("CEN64/CEN64-Qt","cen64-qt/cache");
+#endif
+
 #endif
 }
 
@@ -1323,7 +1346,7 @@ void CEN64Qt::initializeRom(Rom *currentRom, bool cached)
         QDomNode game = xml.elementsByTagName("Game").at(0);
 
         //Remove any non-standard characters
-        QString regex = "[^\u0000-\u007F]*";
+        QString regex = "[^A-Za-z 0-9 \\.,\\?'""!@#\\$%\\^&\\*\\(\\)-_=\\+;:<>\\/\\\\|\\}\\{\\[\\]`~]*";
 
         currentRom->gameTitle = game.firstChildElement("GameTitle").text().remove(QRegExp(regex));
         if (currentRom->gameTitle == "") currentRom->gameTitle = "Not found";
@@ -1457,9 +1480,14 @@ void CEN64Qt::openLog()
         logArea->setWordWrapMode(QTextOption::NoWrap);
 
         QFont font;
-        font.setFamily("Monospace");
+#ifdef Q_OS_LINUX
+         font.setFamily("Monospace");
+         font.setPointSize(9);
+#else
+        font.setFamily("Courier");
+        font.setPointSize(10);
+#endif
         font.setFixedPitch(true);
-        font.setPointSize(9);
         logArea->setFont(font);
 
         logArea->setPlainText(lastOutput);
@@ -1886,9 +1914,9 @@ void CEN64Qt::setupProgressDialog(QStringList item)
 {
     progress = new QProgressDialog("Loading ROMs...", "Cancel", 0, item.size(), this);
 #if QT_VERSION >= 0x050000
-    progress->setWindowFlags(progress.windowFlags() & ~Qt::WindowCloseButtonHint);
-    progress->setWindowFlags(progress.windowFlags() & ~Qt::WindowMinimizeButtonHint);
-    progress->setWindowFlags(progress.windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowCloseButtonHint);
+    progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowMinimizeButtonHint);
+    progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowContextHelpButtonHint);
 #else
     progress->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
 #endif
@@ -1935,7 +1963,7 @@ void CEN64Qt::updateInputSetting()
 void CEN64Qt::updateLayoutSetting()
 {
     QString visibleLayout = layoutGroup->checkedAction()->data().toString();
-    SETTINGS.setValue("view/layout", visibleLayout);
+    SETTINGS.setValue("View/layout", visibleLayout);
 
     emptyView->setHidden(true);
     romTree->setHidden(true);
