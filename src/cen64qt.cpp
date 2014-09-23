@@ -145,7 +145,7 @@ void CEN64Qt::addRoms()
                         {
                             QString ext = zippedFile.right(4).toLower();
 
-                            //check for zip files
+                            //check for ROM files
                             if (ext == ".z64" || ext == ".n64") {
                                 QuaZipFile zippedRomFile(completeFileName, zippedFile);
 
@@ -348,13 +348,13 @@ void CEN64Qt::addToListView(Rom *currentRom, int count)
 
     //Create text label
     QLabel *listTextLabel = new QLabel("", gameListItem);
-    QString listText = "";
+    QString listText = "<style>h2 { margin: 0; }</style>";
 
     int i = 0;
 
     foreach (QString current, visible)
     {
-        QString addition = "<style>h2 { margin: 0; }</style>";
+        QString addition = "";
 
         if (i == 0 && SETTINGS.value("List/firstitemheader","true") == "true")
             addition += "<h2>";
@@ -363,65 +363,48 @@ void CEN64Qt::addToListView(Rom *currentRom, int count)
 
         if (current == "GoodName") {
             if (currentRom->goodName != "Unknown ROM" && currentRom->goodName != "Requires catalog file")
-                addition += currentRom->goodName + "<br />";
-        }
-        else if (current == "Filename") {
-            addition += currentRom->baseName + "<br />";
-        }
-        else if (current == "Filename (extension)") {
-            addition += currentRom->fileName + "<br />";
-        }
-        else if (current == "Internal Name") {
-            addition += currentRom->internalName + "<br />";
-        }
-        else if (current == "Size") {
-            addition += currentRom->size + "<br />";
-        }
-        else if (current == "MD5") {
-            addition += currentRom->romMD5.toLower() + "<br />";
-        }
-        else if (current == "CRC1") {
-            addition += currentRom->CRC1.toLower() + "<br />";
-        }
-        else if (current == "CRC2") {
-            addition += currentRom->CRC2.toLower() + "<br />";
-        }
-        else if (current == "Players") {
-            addition += currentRom->players + "<br />";
-        }
-        else if (current == "Rumble") {
-            addition += currentRom->rumble + "<br />";
-        }
-        else if (current == "Save Type") {
-            addition += currentRom->saveType + "<br />";
-        }
+                addition += currentRom->goodName;
+        } else if (current == "Filename")
+            addition += currentRom->baseName;
+        else if (current == "Filename (extension)")
+            addition += currentRom->fileName;
+        else if (current == "Zip File")
+            addition += currentRom->zipFile;
+        else if (current == "Internal Name")
+            addition += currentRom->internalName;
+        else if (current == "Size")
+            addition += currentRom->size;
+        else if (current == "MD5")
+            addition += currentRom->romMD5.toLower();
+        else if (current == "CRC1")
+            addition += currentRom->CRC1.toLower();
+        else if (current == "CRC2")
+            addition += currentRom->CRC2.toLower();
+        else if (current == "Players")
+            addition += currentRom->players;
+        else if (current == "Rumble")
+            addition += currentRom->rumble;
+        else if (current == "Save Type")
+            addition += currentRom->saveType;
         else if (current == "Game Title") {
             if (currentRom->gameTitle != "Not found")
-                addition += currentRom->gameTitle + "<br />";
-        }
-        else if (current == "Release Date") {
-            addition += currentRom->releaseDate + "<br />";
-        }
-        else if (current == "Overview") {
-            addition += currentRom->overview + "<br />";
-        }
-        else if (current == "ESRB") {
-            addition += currentRom->esrb + "<br />";
-        }
-        else if (current == "Genre") {
-            addition += currentRom->genre + "<br />";
-        }
-        else if (current == "Publisher") {
-            addition += currentRom->publisher + "<br />";
-        }
-        else if (current == "Developer") {
-            addition += currentRom->developer + "<br />";
-        }
-        else if (current == "Rating") {
-            addition += currentRom->rating + "<br />";
-        }
-        else //Invalid column name in config file
-            addition += "<br />";
+                addition += currentRom->gameTitle;
+        } else if (current == "Release Date")
+            addition += currentRom->releaseDate;
+        else if (current == "Overview")
+            addition += currentRom->overview;
+        else if (current == "ESRB")
+            addition += currentRom->esrb;
+        else if (current == "Genre")
+            addition += currentRom->genre;
+        else if (current == "Publisher")
+            addition += currentRom->publisher;
+        else if (current == "Developer")
+            addition += currentRom->developer;
+        else if (current == "Rating")
+            addition += currentRom->rating;
+
+        addition += "<br />";
 
         if (i == 0 && SETTINGS.value("List/firstitemheader","true") == "true")
             addition += "</h2>";
@@ -500,6 +483,9 @@ void CEN64Qt::addToTableView(Rom *currentRom)
         }
         else if (current == "Filename (extension)") {
             fileItem->setText(i, currentRom->fileName);
+        }
+        else if (current == "Zip File") {
+            fileItem->setText(i, currentRom->zipFile);
         }
         else if (current == "Internal Name") {
             fileItem->setText(i, currentRom->internalName);
@@ -1118,19 +1104,27 @@ void CEN64Qt::enableButtons()
 
 QString CEN64Qt::getDataLocation()
 {
+    QString dataDir;
+
 #ifdef Q_OS_WIN
-    return QCoreApplication::applicationDirPath();
+    dataDir = QCoreApplication::applicationDirPath();
 #else
 
 #if QT_VERSION >= 0x050000
-    return QStandardPaths::writableLocation(QStandardPaths::DataLocation)
+    dataDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation)
                     .replace("CEN64/CEN64-Qt","cen64-qt");
 #else
-    return QDesktopServices::storageLocation(QDesktopServices::DataLocation)
-                    .replace("CEN64/CEN64-Qt","cen64-qt");
+    dataDir = QDesktopServices::storageLocation(QDesktopServices::DataLocation)
+                    .remove("data/").replace("CEN64/CEN64-Qt","cen64-qt");
 #endif
 
 #endif
+
+     QDir data(dataDir);
+     if (!data.exists())
+         data.mkpath(dataDir);
+
+     return dataDir;
 }
 
 
@@ -1505,7 +1499,7 @@ void CEN64Qt::openLog()
 {
     if (lastOutput == "") {
         QMessageBox::information(this, "No Output", QString("There is no log. Either CEN64 has not ")
-                                 + "yet\nrun or there was no output from the last run.");
+                                 + "yet run or there was no output from the last run.");
     } else {
         logDialog = new QDialog(this);
         logDialog->setWindowTitle(tr("CEN64 Log"));
@@ -1595,7 +1589,7 @@ void CEN64Qt::openRom()
             int count = 0;
 
             foreach (QString file, zippedFiles) {
-                QString ext = file.right(4);
+                QString ext = file.right(4).toLower();
 
                 if (ext == ".z64" || ext == ".n64") {
                     last = file;

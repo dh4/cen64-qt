@@ -438,6 +438,7 @@ void SettingsDialog::populateAvailable(bool downloadItems) {
 
     available << "Filename"
               << "Filename (extension)"
+              << "Zip File"
               << "GoodName"
               << "Internal Name"
               << "Size"
