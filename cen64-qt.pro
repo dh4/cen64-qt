@@ -1,4 +1,4 @@
-QT       += core network xml
+QT       += core network xml sql
 
 lessThan(QT_MAJOR_VERSION, 5) {
     QT   += gui
@@ -34,3 +34,12 @@ HEADERS += src/global.h \
 RESOURCES += resources/cen64qt.qrc
 
 FORMS += src/settingsdialog.ui
+
+unix {
+    LIBS += -lquazip
+}
+
+win32 {
+    LIBS += quazip.dll
+    CONFIG += staticlib
+}
