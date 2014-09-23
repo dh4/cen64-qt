@@ -39,7 +39,7 @@ win32|macx {
     CONFIG += staticlib
     DEFINES += QUAZIP_STATIC
 
-    #Download quazip source and copy to quazip directory to project
+    #Download quazip source and copy the quazip directory to project
     SOURCES += quazip/*.cpp
     SOURCES += quazip/*.c
     HEADERS += quazip/*.h
