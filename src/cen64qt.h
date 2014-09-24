@@ -119,6 +119,7 @@ class CEN64Qt : public QMainWindow
 
 public:
     CEN64Qt(QWidget *parent = 0);
+    static QString getRomInfo(QString identifier, const Rom *rom, bool removeWarn = false, bool sort = false);
 
 protected:
     void closeEvent(QCloseEvent *event);
