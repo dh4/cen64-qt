@@ -443,7 +443,7 @@ void CEN64Qt::addToTableView(Rom *currentRom)
 
         if (center.contains(current))
             fileItem->setTextAlignment(i, Qt::AlignHCenter | Qt::AlignVCenter);
-        if (right.contains(current))
+        else if (right.contains(current))
             fileItem->setTextAlignment(i, Qt::AlignRight | Qt::AlignVCenter);
 
         i++;
@@ -2053,7 +2053,7 @@ void CEN64Qt::setupDatabase()
 
     if (!database.open())
             QMessageBox::warning(this, "Database Not Loaded",
-                                 "Could not connect to Sqlite database. Application my misbehave.");
+                                 "Could not connect to Sqlite database. Application may misbehave.");
 
     QSqlQuery query(QString()
                     + "CREATE TABLE IF NOT EXISTS rom_collection ("
@@ -2200,7 +2200,4 @@ bool romSorter(const Rom &firstRom, const Rom &lastRom) {
         return sortFirst > sortLast;
     else
         return sortFirst < sortLast;
-
-    //Catch all
-    return firstRom.fileName < lastRom.fileName;
 }
