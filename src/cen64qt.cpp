@@ -102,6 +102,13 @@ Rom CEN64Qt::addRom(QString fileName, QString zipFile, qint64 size, QSqlQuery qu
 
 void CEN64Qt::addRoms()
 {
+    database.open();
+
+    QSqlQuery query("DELETE FROM rom_collection", database);
+    query.prepare(QString("INSERT INTO rom_collection ")
+                  + "(filename, internal_name, md5, zip_file, size) "
+                  + "VALUES (:filename, :internal_name, :md5, :zip_file, :size)");
+
     QList<Rom> roms;
 
     QStringList tableVisible = SETTINGS.value("Table/columns", "Filename|Size").toString().split("|");
@@ -121,13 +128,6 @@ void CEN64Qt::addRoms()
                                                  QDir::Files | QDir::NoSymLinks);
 
             if (files.size() > 0) {
-                database.open();
-
-                QSqlQuery query("DELETE FROM rom_collection", database);
-                query.prepare(QString("INSERT INTO rom_collection ")
-                              + "(filename, internal_name, md5, zip_file, size) "
-                              + "VALUES (:filename, :internal_name, :md5, :zip_file, :size)");
-
                 setupProgressDialog(files.size());
 
                 int count = 0;
