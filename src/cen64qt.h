@@ -248,6 +248,7 @@ private slots:
     void saveSortOrder(int column, Qt::SortOrder order);
     void setGridPosition();
     void setListPosition();
+    void setTablePosition();
     void stopEmulator();
     void updateInputSetting();
     void updateLayoutSetting();

@@ -606,10 +606,14 @@ void CEN64Qt::cachedRoms(bool imageUpdated)
     stopAction->setEnabled(false);
 
 
+    //Save position in current layout
     positionx = 0;
     positiony = 0;
 
-    if (SETTINGS.value("View/layout", "None") == "Grid View") {
+    if (SETTINGS.value("View/layout", "None") == "Table View") {
+        positionx = romTree->horizontalScrollBar()->value();
+        positiony = romTree->verticalScrollBar()->value();
+    } else if (SETTINGS.value("View/layout", "None") == "Grid View") {
         positionx = gridView->horizontalScrollBar()->value();
         positiony = gridView->verticalScrollBar()->value();
     } else if (SETTINGS.value("View/layout", "None") == "List View") {
@@ -693,7 +697,9 @@ void CEN64Qt::cachedRoms(bool imageUpdated)
         timer->setInterval(0);
         timer->start();
 
-        if (SETTINGS.value("View/layout", "None") == "Grid View")
+        if (SETTINGS.value("View/layout", "None") == "Table View")
+            connect(timer, SIGNAL(timeout()), this, SLOT(setTablePosition()));
+        else if (SETTINGS.value("View/layout", "None") == "Grid View")
             connect(timer, SIGNAL(timeout()), this, SLOT(setGridPosition()));
         else if (SETTINGS.value("View/layout", "None") == "List View")
             connect(timer, SIGNAL(timeout()), this, SLOT(setListPosition()));
@@ -2091,6 +2097,13 @@ void CEN64Qt::setListPosition()
 {
     listView->horizontalScrollBar()->setValue(positionx);
     listView->verticalScrollBar()->setValue(positiony);
+}
+
+
+void CEN64Qt::setTablePosition()
+{
+    romTree->horizontalScrollBar()->setValue(positionx);
+    romTree->verticalScrollBar()->setValue(positiony);
 }
 
 
