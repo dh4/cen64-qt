@@ -57,6 +57,7 @@
 #include <QTextEdit>
 #include <QTextStream>
 #include <QTime>
+#include <QTimer>
 #include <QTreeWidget>
 #include <QUrl>
 #include <QVBoxLayout>
@@ -152,6 +153,8 @@ private:
     int currentGridRom;
     int currentListRom;
     int getGridSize(QString which);
+    int positionx;
+    int positiony;
     bool gridCurrent;
     bool listCurrent;
 
@@ -243,6 +246,8 @@ private slots:
     void runEmulatorFromWidget(QWidget *current);
     void runEmulatorFromZip();
     void saveSortOrder(int column, Qt::SortOrder order);
+    void setGridPosition();
+    void setListPosition();
     void stopEmulator();
     void updateInputSetting();
     void updateLayoutSetting();
