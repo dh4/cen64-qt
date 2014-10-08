@@ -396,7 +396,7 @@ QByteArray *getZippedRom(QString romFileName, QString zipFile)
 
 void initializeRom(Rom *currentRom, QDir romDir, bool cached, QWidget *parent)
 {
-    QSettings *romCatalog;
+    QSettings *romCatalog = new QSettings(parent);
     QString catalogFile = SETTINGS.value("Paths/catalog", "").toString();
 
     //Default text for GoodName to notify user
