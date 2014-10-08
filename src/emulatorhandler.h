@@ -40,27 +40,26 @@
 #include <QProcess>
 
 #include "common.h"
-#include "mainwindow.h"
 
-
-class MainWindow;
 
 class EmulatorHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit EmulatorHandler(MainWindow *parent = 0);
-    void startEmulator(QString input, QDir romDir, QString romFileName, QString zipFileName = "");
+    explicit EmulatorHandler(QObject *parent = 0);
+    void startEmulator(QDir romDir, QString romFileName, QString zipFileName = "");
     void stopEmulator();
 
     QString lastOutput;
 
 signals:
     void finished();
+    void started();
+    void statusUpdate(QString message, int timeout);
 
 private:
+    void updateStatus(QString message, int timeout = 0);
     QProcess *emulatorProc;
-    MainWindow *main;
 
 private slots:
     void checkStatus(int status);

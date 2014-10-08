@@ -58,8 +58,6 @@
 #include "v64converter.h"
 
 
-class EmulatorHandler;
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -151,6 +149,7 @@ private:
 
 private slots:
     void addRoms();
+    void disableButtons();
     void enableButtons();
     void highlightGridWidget(QWidget *current);
     void highlightListWidget(QWidget *current);
@@ -171,6 +170,7 @@ private slots:
     void stopEmulator();
     void updateInputSetting();
     void updateLayoutSetting();
+    void updateStatusBar(QString message, int timeout);
     void updateStatusBarView();
 
 };

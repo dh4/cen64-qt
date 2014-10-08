@@ -844,6 +844,12 @@ void MainWindow::createRomView()
 }
 
 
+void MainWindow::disableButtons()
+{
+    toggleMenus(false);
+}
+
+
 void MainWindow::enableButtons()
 {
     toggleMenus(true);
@@ -1181,10 +1187,11 @@ void MainWindow::resetLayouts(QStringList tableVisible, bool imageUpdated)
 
 void MainWindow::runEmulator(QString romFileName, QString zipFileName)
 {
-    emulation->startEmulator(inputGroup->checkedAction()->data().toString(),
-                             romDir, romFileName, zipFileName);
+    emulation->startEmulator(romDir, romFileName, zipFileName);
 
+    connect(emulation, SIGNAL(started()), this, SLOT(disableButtons()));
     connect(emulation, SIGNAL(finished()), this, SLOT(enableButtons()));
+    connect(emulation, SIGNAL(statusUpdate(QString, int)), this, SLOT(updateStatusBar(QString, int)));
 }
 
 
@@ -1390,6 +1397,12 @@ void MainWindow::updateLayoutSetting()
 
     startAction->setEnabled(false);
     downloadAction->setEnabled(false);
+}
+
+
+void MainWindow::updateStatusBar(QString message, int timeout)
+{
+    statusBar->showMessage(message, timeout);
 }
 
 
