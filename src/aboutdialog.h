@@ -40,6 +40,7 @@
 
 #include "global.h"
 
+
 class AboutDialog : public QDialog
 {
     Q_OBJECT

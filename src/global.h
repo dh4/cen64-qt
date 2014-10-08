@@ -32,6 +32,8 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include <QSettings>
+
 
 #ifdef Q_OS_WIN
     #define SETTINGS QSettings("cen64-qt.ini", QSettings::IniFormat)

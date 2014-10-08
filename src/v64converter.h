@@ -29,36 +29,23 @@
  *
  ***/
 
-#include <QApplication>
-#include <QDesktopWidget>
+#ifndef V64CONVERTER_H
+#define V64CONVERTER_H
 
-#include "global.h"
-#include "mainwindow.h"
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QWidget>
 
 
-int main(int argc, char *argv[])
+class V64Converter : public QWidget
 {
-    QApplication application(argc, argv);
+    Q_OBJECT
 
-    QCoreApplication::setOrganizationName("CEN64");
-    QCoreApplication::setApplicationName("CEN64-Qt");
+public:
+    explicit V64Converter(QString romPath, QDir romDir, QWidget *parent = 0);
 
-    MainWindow window;
+private:
+    void runConverter(QString v64File, QString saveFile);
+};
 
-
-    QString maximized = SETTINGS.value("Geometry/maximized", "").toString();
-    QString windowx = SETTINGS.value("Geometry/windowx", "").toString();
-    QString windowy = SETTINGS.value("Geometry/windowy", "").toString();
-
-    if (maximized == "true") {
-        window.showMaximized();
-    } else {
-        window.show();
-    }
-
-    if (windowx == "" && windowy == "") {
-        window.move(QApplication::desktop()->screen()->rect().center() - window.rect().center());
-    }
-
-    return application.exec();
-}
+#endif // V64CONVERTER_H

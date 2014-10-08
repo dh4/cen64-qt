@@ -18,18 +18,28 @@ win32:RC_FILE = windows/icon.rc
 
 
 SOURCES += src/main.cpp \
+    src/common.cpp \
+    src/mainwindow.cpp \
     src/aboutdialog.cpp \
-    src/cen64qt.cpp \
     src/settingsdialog.cpp \
     src/treewidgetitem.cpp \
-    src/clickablewidget.cpp
+    src/clickablewidget.cpp \
+    src/v64converter.cpp \
+    src/downloaddialog.cpp \
+    src/logdialog.cpp \
+    src/emulatorhandler.cpp
 
 HEADERS += src/global.h \
+    src/common.h \
+    src/mainwindow.h \
     src/aboutdialog.h \
-    src/cen64qt.h \
     src/settingsdialog.h \
     src/treewidgetitem.h \
-    src/clickablewidget.h
+    src/clickablewidget.h \
+    src/v64converter.h \
+    src/downloaddialog.h \
+    src/logdialog.h \
+    src/emulatorhandler.h
 
 RESOURCES += resources/cen64qt.qrc
 

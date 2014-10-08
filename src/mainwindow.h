@@ -29,96 +29,46 @@
  *
  ***/
 
-#ifndef CEN64QT_H
-#define CEN64QT_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-#include <QCloseEvent>
-#include <QCoreApplication>
 #include <QCryptographicHash>
-#include <QDesktopServices>
-#include <QDir>
-#include <QDialogButtonBox>
-#include <QEventLoop>
-#include <QLineEdit>
-#include <QGraphicsDropShadowEffect>
 #include <QHeaderView>
-#include <QListWidget>
 #include <QMainWindow>
 #include <QMenuBar>
-#include <QMessageBox>
 #include <QProcess>
 #include <QProgressDialog>
-#include <QPushButton>
 #include <QScrollArea>
 #include <QScrollBar>
-#include <QSettings>
 #include <QStatusBar>
-#include <QTableWidgetItem>
-#include <QTextEdit>
-#include <QTextStream>
-#include <QTime>
 #include <QTimer>
-#include <QTreeWidget>
-#include <QUrl>
-#include <QVBoxLayout>
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
-#include <QtXml/QDomDocument>
 
-#include <quazip/quazip.h>
-#include <quazip/quazipfile.h>
-
+#include "aboutdialog.h"
 #include "clickablewidget.h"
+#include "common.h"
+#include "downloaddialog.h"
+#include "emulatorhandler.h"
+#include "global.h"
+#include "logdialog.h"
+#include "settingsdialog.h"
 #include "treewidgetitem.h"
+#include "v64converter.h"
 
 
-typedef struct {
-    QString fileName;
-    QString romMD5;
-    QString internalName;
-    QString zipFile;
+class EmulatorHandler;
 
-    QString baseName;
-    QString size;
-    int sortSize;
-
-    QString goodName;
-    QString CRC1;
-    QString CRC2;
-    QString players;
-    QString saveType;
-    QString rumble;
-
-    QString gameTitle;
-    QString releaseDate;
-    QString sortDate;
-    QString overview;
-    QString esrb;
-    QString genre;
-    QString publisher;
-    QString developer;
-    QString rating;
-
-    QPixmap image;
-
-    int count;
-    bool imageExists;
-} Rom;
-
-bool romSorter(const Rom &firstRom, const Rom &lastRom);
-
-
-class CEN64Qt : public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    CEN64Qt(QWidget *parent = 0);
-    static QString getRomInfo(QString identifier, const Rom *rom, bool removeWarn = false, bool sort = false);
+    MainWindow(QWidget *parent = 0);
+    void toggleMenus(bool active);
+    QString getCurrentRomInfo(int index);
+    QStatusBar *statusBar;
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -130,36 +80,24 @@ private:
     void cachedRoms(bool imageUpdated = false);
     void createMenu();
     void createRomView();
-    void downloadGameInfo(QString identifier, QString searchName, QString gameID = "", bool force = false);
-    void initializeRom(Rom *currentRom, bool cached);
     void openZipDialog(QStringList zippedFiles);
     void resetLayouts(QStringList tableVisible, bool imageUpdated = false);
-    void runConverter(QString v64File, QString saveFile);
     void runEmulator(QString romFileName, QString zipFileName = "");
     void saveColumnWidths();
     void setGridBackground();
     void setupDatabase();
     void setupProgressDialog(int size);
-    void toggleMenus(bool active);
 
-    QByteArray getUrlContents(QUrl url);
-    QColor getColor(QString color, int transparency = 255);
-    QGraphicsDropShadowEffect *getShadow(bool active);
-    QSize getImageSize(QString view);
-    QString getDataLocation();
-    QString getCurrentRomInfo(int index);
-    Rom addRom(QString fileName, QString zipFile, qint64 size, QSqlQuery query);
+    Rom addRom(QByteArray *romData, QString fileName, QString zipFile, QSqlQuery query);
 
     int currentGridRom;
     int currentListRom;
-    int getGridSize(QString which);
     int positionx;
     int positiony;
     bool gridCurrent;
     bool listCurrent;
 
     QDir romDir;
-    QDir savesDir;
     QString romPath;
     QStringList headerLabels;
 
@@ -176,25 +114,13 @@ private:
     QAction *stopAction;
     QActionGroup *inputGroup;
     QActionGroup *layoutGroup;
-    QByteArray *romData;
-    QDialog *downloadDialog;
-    QDialog *logDialog;
     QDialog *zipDialog;
-    QDialogButtonBox *downloadButtonBox;
-    QDialogButtonBox *logButtonBox;
     QDialogButtonBox *zipButtonBox;
-    QGridLayout *downloadLayout;
     QGridLayout *emptyLayout;
     QGridLayout *gridLayout;
-    QGridLayout *logLayout;
     QGridLayout *zipLayout;
     QHeaderView *headerView;
-    QLabel *fileLabel;
-    QLabel *gameNameLabel;
-    QLabel *gameIDLabel;
     QLabel *icon;
-    QLineEdit *gameNameField;
-    QLineEdit *gameIDField;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
     QListWidget *zipList;
@@ -206,19 +132,13 @@ private:
     QMenu *settingsMenu;
     QMenu *viewMenu;
     QMenuBar *menuBar;
-    QProcess *cen64proc;
     QProgressDialog *progress;
     QScrollArea *emptyView;
     QScrollArea *listView;
     QScrollArea *gridView;
-    QSettings *romCatalog;
     QSqlDatabase database;
-    QStatusBar *statusBar;
-    QString lastOutput;
     QString openPath;
-    QTextEdit *logArea;
     QTreeWidget *romTree;
-    TreeWidgetItem *fileItem;
     QVBoxLayout *layout;
     QVBoxLayout *listLayout;
     QWidget *listWidget;
@@ -226,10 +146,11 @@ private:
     QWidget *gridWidget;
     QWidget *widget;
 
+    EmulatorHandler *emulation;
+    TreeWidgetItem *fileItem;
+
 private slots:
     void addRoms();
-    void checkStatus(int status);
-    void cleanTemp();
     void enableButtons();
     void highlightGridWidget(QWidget *current);
     void highlightListWidget(QWidget *current);
@@ -237,10 +158,8 @@ private slots:
     void openConverter();
     void openDownloader();
     void openLog();
-    void openOptions();
+    void openSettings();
     void openRom();
-    void readCEN64Output();
-    void runDownloader();
     void runEmulatorFromMenu();
     void runEmulatorFromRomTree();
     void runEmulatorFromWidget(QWidget *current);
@@ -256,4 +175,4 @@ private slots:
 
 };
 
-#endif // CEN64QT_H
+#endif // MAINWINDOW_H

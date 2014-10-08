@@ -34,7 +34,8 @@
 
 #include <QFileDialog>
 #include <QListWidget>
-#include <QSettings>
+
+#include "global.h"
 
 
 namespace Ui {
