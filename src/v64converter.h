@@ -34,18 +34,18 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QWidget>
+#include <QObject>
 
 
-class V64Converter : public QWidget
+class V64Converter : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit V64Converter(QString romPath, QDir romDir, QWidget *parent = 0);
+    explicit V64Converter(QString romPath, QWidget *parent = 0);
 
 private:
-    void runConverter(QString v64File, QString saveFile);
+    void runConverter(QString v64File, QString saveFile, QWidget *parent = 0);
 };
 
 #endif // V64CONVERTER_H

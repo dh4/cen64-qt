@@ -32,24 +32,26 @@
 #include "v64converter.h"
 
 
-V64Converter::V64Converter(QString romPath, QDir romDir, QWidget *parent) : QWidget(parent)
+V64Converter::V64Converter(QString romPath, QWidget *parent) : QObject(parent)
 {
-    QString v64File = QFileDialog::getOpenFileName(this, tr("Open v64 File"), romPath,
+    QDir romDir(romPath);
+
+    QString v64File = QFileDialog::getOpenFileName(parent, tr("Open v64 File"), romPath,
                                                    tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
 
     if (v64File != "") {
         QString defaultFileName = QFileInfo(v64File).completeBaseName() + ".z64";
         QString defaultFile = romDir.absoluteFilePath(defaultFileName);
-        QString saveFile = QFileDialog::getSaveFileName(this, tr("Save z64 File"), defaultFile,
+        QString saveFile = QFileDialog::getSaveFileName(parent, tr("Save z64 File"), defaultFile,
                                                         tr("Z64 ROMs (*.z64);;All Files (*)"));
 
         if (saveFile != "")
-            runConverter(v64File, saveFile);
+            runConverter(v64File, saveFile, parent);
     }
 }
 
 
-void V64Converter::runConverter(QString v64File, QString saveFile)
+void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *parent)
 {
     QFile v64(v64File);
     v64.open(QIODevice::ReadOnly);
@@ -61,7 +63,7 @@ void V64Converter::runConverter(QString v64File, QString saveFile)
         else
             message = "\"" + QFileInfo(v64).fileName() + "\" is not a valid .v64 file!";
 
-        QMessageBox::warning(this, tr("CEN64-Qt Converter"), message);
+        QMessageBox::warning(parent, tr("CEN64-Qt Converter"), message);
     } else {
         v64.seek(0);
 
@@ -92,7 +94,7 @@ void V64Converter::runConverter(QString v64File, QString saveFile)
         }
 
         z64.close();
-        QMessageBox::information(this, tr("CEN64-Qt Converter"), tr("Conversion complete!"));
+        QMessageBox::information(parent, tr("CEN64-Qt Converter"), tr("Conversion complete!"));
     }
 
     v64.close();

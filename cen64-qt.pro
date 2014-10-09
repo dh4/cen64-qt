@@ -27,7 +27,8 @@ SOURCES += src/main.cpp \
     src/v64converter.cpp \
     src/downloaddialog.cpp \
     src/logdialog.cpp \
-    src/emulatorhandler.cpp
+    src/emulatorhandler.cpp \
+    src/romcollection.cpp
 
 HEADERS += src/global.h \
     src/common.h \
@@ -39,7 +40,8 @@ HEADERS += src/global.h \
     src/v64converter.h \
     src/downloaddialog.h \
     src/logdialog.h \
-    src/emulatorhandler.h
+    src/emulatorhandler.h \
+    src/romcollection.h
 
 RESOURCES += resources/cen64qt.qrc
 

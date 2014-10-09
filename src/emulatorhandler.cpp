@@ -32,15 +32,17 @@
 #include "emulatorhandler.h"
 
 
-EmulatorHandler::EmulatorHandler(QObject *parent) : QObject(parent)
+EmulatorHandler::EmulatorHandler(QWidget *parent) : QObject(parent)
 {
+    this->parent = parent;
+
     lastOutput = "";
 }
 
 void EmulatorHandler::checkStatus(int status)
 {
     if (status > 0)
-        QMessageBox::warning(0, tr("Warning"),
+        QMessageBox::warning(parent, tr("Warning"),
             tr("CEN64 quit unexpectedly. Check to make sure you are using a valid ROM."));
     else
         updateStatus("Emulation stopped", 3000);
@@ -108,19 +110,19 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
     //Sanity checks
     if (!cen64File.exists() || QFileInfo(cen64File).isDir() || !QFileInfo(cen64File).isExecutable()) {
-        QMessageBox::warning(0, tr("Warning"), tr("CEN64 executable not found."));
+        QMessageBox::warning(parent, tr("Warning"), tr("CEN64 executable not found."));
         if (zip) cleanTemp();
         return;
     }
 
     if (!pifFile.exists() || QFileInfo(pifFile).isDir()) {
-        QMessageBox::warning(0, tr("Warning"), tr("PIFdata file not found."));
+        QMessageBox::warning(parent, tr("Warning"), tr("PIFdata file not found."));
         if (zip) cleanTemp();
         return;
     }
 
     if (!romFile.exists() || QFileInfo(romFile).isDir()) {
-        QMessageBox::warning(0, tr("Warning"), tr("ROM file not found."));
+        QMessageBox::warning(parent, tr("Warning"), tr("ROM file not found."));
         if (zip) cleanTemp();
         return;
     }
@@ -130,7 +132,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
     romFile.close();
 
     if (romCheck.toHex() != "80371240") {
-        QMessageBox::warning(0, tr("Warning"), tr("Not a valid Z64 File."));
+        QMessageBox::warning(parent, tr("Warning"), tr("Not a valid Z64 File."));
         if (zip) cleanTemp();
         return;
     }

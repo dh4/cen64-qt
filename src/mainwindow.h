@@ -32,19 +32,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QCryptographicHash>
 #include <QHeaderView>
 #include <QMainWindow>
 #include <QMenuBar>
-#include <QProcess>
-#include <QProgressDialog>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QStatusBar>
 #include <QTimer>
-
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
 
 #include "aboutdialog.h"
 #include "clickablewidget.h"
@@ -53,6 +47,7 @@
 #include "emulatorhandler.h"
 #include "global.h"
 #include "logdialog.h"
+#include "romcollection.h"
 #include "settingsdialog.h"
 #include "treewidgetitem.h"
 #include "v64converter.h"
@@ -64,9 +59,6 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = 0);
-    void toggleMenus(bool active);
-    QString getCurrentRomInfo(int index);
-    QStatusBar *statusBar;
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -75,18 +67,14 @@ private:
     void addToGridView(Rom *currentRom, int count);
     void addToListView(Rom *currentRom, int count);
     void addToTableView(Rom *currentRom);
-    void cachedRoms(bool imageUpdated = false);
     void createMenu();
     void createRomView();
     void openZipDialog(QStringList zippedFiles);
-    void resetLayouts(QStringList tableVisible, bool imageUpdated = false);
+    void resetLayouts(bool imageUpdated = false);
     void runEmulator(QString romFileName, QString zipFileName = "");
     void saveColumnWidths();
     void setGridBackground();
-    void setupDatabase();
-    void setupProgressDialog(int size);
-
-    Rom addRom(QByteArray *romData, QString fileName, QString zipFile, QSqlQuery query);
+    void toggleMenus(bool active);
 
     int currentGridRom;
     int currentListRom;
@@ -95,8 +83,8 @@ private:
     bool gridCurrent;
     bool listCurrent;
 
-    QDir romDir;
-    QString romPath;
+    QString getCurrentRomInfo(int index);
+    QString openPath;
     QStringList headerLabels;
 
     QAction *aboutAction;
@@ -118,7 +106,7 @@ private:
     QGridLayout *gridLayout;
     QGridLayout *zipLayout;
     QHeaderView *headerView;
-    QLabel *icon;
+    QLabel *emptyIcon;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
     QListWidget *zipList;
@@ -130,27 +118,27 @@ private:
     QMenu *settingsMenu;
     QMenu *viewMenu;
     QMenuBar *menuBar;
-    QProgressDialog *progress;
     QScrollArea *emptyView;
     QScrollArea *listView;
     QScrollArea *gridView;
-    QSqlDatabase database;
-    QString openPath;
+    QStatusBar *statusBar;
     QTreeWidget *romTree;
-    QVBoxLayout *layout;
     QVBoxLayout *listLayout;
-    QWidget *listWidget;
-    QWidget *gridContainer;
+    QVBoxLayout *mainLayout;
     QWidget *gridWidget;
-    QWidget *widget;
+    QWidget *listWidget;
+    QWidget *mainWidget;
 
     EmulatorHandler *emulation;
+    RomCollection *romCollection;
     TreeWidgetItem *fileItem;
 
 private slots:
-    void addRoms();
+    void addToView(Rom *currentRom, int count);
     void disableButtons();
+    void disableViews(bool imageUpdated);
     void enableButtons();
+    void enableViews(int romCount, bool cached);
     void highlightGridWidget(QWidget *current);
     void highlightListWidget(QWidget *current);
     void openAbout();
