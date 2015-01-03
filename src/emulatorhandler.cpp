@@ -139,42 +139,42 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
 
     QStringList args;
-    args << "-controller" << input;
+//    args << "-controller" << input;
 
-    if (SETTINGS.value("Saves/individualsave", "").toString() == "true") {
-        QString eepromPath = SETTINGS.value("Saves/eeprom", "").toString();
-        QString sramPath = SETTINGS.value("Saves/sram", "").toString();
+//    if (SETTINGS.value("Saves/individualsave", "").toString() == "true") {
+//        QString eepromPath = SETTINGS.value("Saves/eeprom", "").toString();
+//        QString sramPath = SETTINGS.value("Saves/sram", "").toString();
 
-        if (eepromPath != "")
-            args << "-eeprom" << eepromPath;
+//        if (eepromPath != "")
+//            args << "-eeprom" << eepromPath;
 
-        if (sramPath != "")
-            args << "-sram" << sramPath;
-    } else {
-        QString savesPath = SETTINGS.value("Saves/directory", "").toString();
-        if (savesPath != "") {
-            QDir savesDir(savesPath);
+//        if (sramPath != "")
+//            args << "-sram" << sramPath;
+//    } else {
+//        QString savesPath = SETTINGS.value("Saves/directory", "").toString();
+//        if (savesPath != "") {
+//            QDir savesDir(savesPath);
 
-            if (savesDir.exists()) {
-                romFile.open(QIODevice::ReadOnly);
-                QByteArray *romData = new QByteArray(romFile.readAll());
-                romFile.close();
+//            if (savesDir.exists()) {
+//                romFile.open(QIODevice::ReadOnly);
+//                QByteArray *romData = new QByteArray(romFile.readAll());
+//                romFile.close();
 
-                QString romMD5 = QString(QCryptographicHash::hash(*romData,
-                                                                  QCryptographicHash::Md5).toHex());
+//                QString romMD5 = QString(QCryptographicHash::hash(*romData,
+//                                                                  QCryptographicHash::Md5).toHex());
 
-                QString romBaseName = QFileInfo(romFile).completeBaseName();
-                QString eepromFileName = romBaseName + "." + romMD5 + ".eeprom";
-                QString sramFileName = romBaseName + "." + romMD5 + ".sram";
-                QString eepromPath = savesDir.absoluteFilePath(eepromFileName);
-                QString sramPath = savesDir.absoluteFilePath(sramFileName);
+//                QString romBaseName = QFileInfo(romFile).completeBaseName();
+//                QString eepromFileName = romBaseName + "." + romMD5 + ".eeprom";
+//                QString sramFileName = romBaseName + "." + romMD5 + ".sram";
+//                QString eepromPath = savesDir.absoluteFilePath(eepromFileName);
+//                QString sramPath = savesDir.absoluteFilePath(sramFileName);
 
-                args << "-eeprom" << eepromPath << "-sram" << sramPath;
+//                args << "-eeprom" << eepromPath << "-sram" << sramPath;
 
-                delete romData;
-            }
-        }
-    }
+//                delete romData;
+//            }
+//        }
+//    }
 
     args << pifPath << completeRomPath;
 
