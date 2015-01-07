@@ -1003,10 +1003,12 @@
   <tabstop>tabWidget</tabstop>
   <tabstop>cen64Path</tabstop>
   <tabstop>pifPath</tabstop>
+  <tabstop>n64ddPath</tabstop>
   <tabstop>romPath</tabstop>
   <tabstop>catalogPath</tabstop>
   <tabstop>cen64Button</tabstop>
   <tabstop>pifButton</tabstop>
+  <tabstop>n64ddButton</tabstop>
   <tabstop>romButton</tabstop>
   <tabstop>catalogButton</tabstop>
   <tabstop>savesPath</tabstop>
@@ -1017,9 +1019,9 @@
   <tabstop>eepromButton</tabstop>
   <tabstop>sramButton</tabstop>
   <tabstop>tableAvailableList</tabstop>
-  <tabstop>tableCurrentList</tabstop>
   <tabstop>tableAddButton</tabstop>
   <tabstop>tableRemoveButton</tabstop>
+  <tabstop>tableCurrentList</tabstop>
   <tabstop>tableSortDownButton</tabstop>
   <tabstop>tableSortUpButton</tabstop>
   <tabstop>tableSizeBox</tabstop>
@@ -1036,9 +1038,9 @@
   <tabstop>gridSortBox</tabstop>
   <tabstop>gridDescendingOption</tabstop>
   <tabstop>listAvailableList</tabstop>
-  <tabstop>listCurrentList</tabstop>
   <tabstop>listAddButton</tabstop>
   <tabstop>listRemoveButton</tabstop>
+  <tabstop>listCurrentList</tabstop>
   <tabstop>listSortDownButton</tabstop>
   <tabstop>listSortUpButton</tabstop>
   <tabstop>listCoverOption</tabstop>
@@ -1046,6 +1048,9 @@
   <tabstop>listSizeBox</tabstop>
   <tabstop>listSortBox</tabstop>
   <tabstop>listDescendingOption</tabstop>
+  <tabstop>downloadOption</tabstop>
+  <tabstop>outputOption</tabstop>
+  <tabstop>parametersLine</tabstop>
  </tabstops>
  <resources/>
  <connections/>
