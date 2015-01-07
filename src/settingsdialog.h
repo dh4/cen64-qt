@@ -70,6 +70,7 @@ private slots:
     void browseCatalog();
     void browseCen64();
     void browseEEPROM();
+    void browseN64DD();
     void browsePIF();
     void browseROM();
     void browseSaves();

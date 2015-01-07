@@ -54,11 +54,14 @@ public:
 
 signals:
     void finished();
+    void showLog();
     void started();
     void statusUpdate(QString message, int timeout);
 
 private:
     void updateStatus(QString message, int timeout = 0);
+
+    QStringList parseArgString(QString argString);
 
     QProcess *emulatorProc;
     QWidget *parent;

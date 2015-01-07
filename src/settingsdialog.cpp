@@ -42,6 +42,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     //Populate Paths tab
     ui->cen64Path->setText(SETTINGS.value("Paths/cen64", "").toString());
     ui->pifPath->setText(SETTINGS.value("Paths/pifrom", "").toString());
+    ui->n64ddPath->setText(SETTINGS.value("Paths/n64ddrom", "").toString());
     ui->romPath->setText(SETTINGS.value("Paths/roms", "").toString());
     ui->catalogPath->setText(SETTINGS.value("Paths/catalog", "").toString());
 
@@ -70,6 +71,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
     connect(ui->cen64Button, SIGNAL(clicked()), this, SLOT(browseCen64()));
     connect(ui->pifButton, SIGNAL(clicked()), this, SLOT(browsePIF()));
+    connect(ui->n64ddButton, SIGNAL(clicked()), this, SLOT(browseN64DD()));
     connect(ui->romButton, SIGNAL(clicked()), this, SLOT(browseROM()));
     connect(ui->catalogButton, SIGNAL(clicked()), this, SLOT(browseCatalog()));
     connect(ui->savesButton, SIGNAL(clicked()), this, SLOT(browseSaves()));
@@ -209,6 +211,8 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     ui->outputOption->setVisible(false);
 #endif
 
+    ui->parametersLine->setText(SETTINGS.value("Other/parameters", "").toString());
+
     connect(ui->downloadOption, SIGNAL(toggled(bool)), this, SLOT(toggleDownload(bool)));
     connect(ui->downloadOption, SIGNAL(toggled(bool)), this, SLOT(populateTableAndListTab(bool)));
 
@@ -268,10 +272,17 @@ void SettingsDialog::browseEEPROM()
         ui->eepromPath->setText(path);
 }
 
+void SettingsDialog::browseN64DD()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("N64DD IPL ROM File"));
+    if (path != "")
+        ui->n64ddPath->setText(path);
+}
+
 
 void SettingsDialog::browsePIF()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("PIF Data File"));
+    QString path = QFileDialog::getOpenFileName(this, tr("PIF IPL ROM File"));
     if (path != "")
         ui->pifPath->setText(path);
 }
@@ -316,6 +327,7 @@ void SettingsDialog::editSettings()
     //Paths tab
     SETTINGS.setValue("Paths/cen64", ui->cen64Path->text());
     SETTINGS.setValue("Paths/pifrom", ui->pifPath->text());
+    SETTINGS.setValue("Paths/n64ddrom", ui->n64ddPath->text());
     SETTINGS.setValue("Paths/roms", ui->romPath->text());
     SETTINGS.setValue("Paths/catalog", ui->catalogPath->text());
 
@@ -401,6 +413,8 @@ void SettingsDialog::editSettings()
     else
         SETTINGS.setValue("Other/consoleoutput", "");
 #endif
+
+    SETTINGS.setValue("Other/parameters", ui->parametersLine->text());
 
     close();
 }

@@ -41,11 +41,19 @@ EmulatorHandler::EmulatorHandler(QWidget *parent) : QObject(parent)
 
 void EmulatorHandler::checkStatus(int status)
 {
-    if (status > 0)
-        QMessageBox::warning(parent, tr("Warning"),
-            tr("CEN64 quit unexpectedly. Check to make sure you are using a valid ROM."));
-    else
-        updateStatus("Emulation stopped", 3000);
+    if (status > 0) {
+        QMessageBox exitDialog(parent);
+        exitDialog.setWindowTitle(tr("Warning"));
+        exitDialog.setText(tr("CEN64 quit unexpectedly. Check the log for more information."));
+        exitDialog.setIcon(QMessageBox::Warning);
+        exitDialog.addButton(QMessageBox::Ok);
+        exitDialog.addButton("View Log...", QMessageBox::HelpRole);
+
+        int ret = exitDialog.exec();
+        if (ret == 0) emit showLog();
+    }
+
+    updateStatus("Emulation stopped", 3000);
 }
 
 
@@ -58,6 +66,45 @@ void EmulatorHandler::cleanTemp()
 void EmulatorHandler::emitFinished()
 {
     emit finished();
+}
+
+
+QStringList EmulatorHandler::parseArgString(QString argString)
+{
+    QStringList result;
+    QString arg;
+    bool inQuote = false;
+    bool inApos = false;
+
+    for (int i = 0; i < argString.size(); i++)
+    {
+        // Check if inside of a quote
+        if (argString.at(i) == QLatin1Char('"')) {
+            inQuote = !inQuote;
+
+            // Only continue if outside of both quotes and apostrophes
+            if (arg.isEmpty() || (!inQuote && !inApos)) continue;
+        }
+
+        // Same check for apostrophes
+        if (argString.at(i) == QLatin1Char('\'')) {
+            inApos = !inApos;
+            if (arg.isEmpty() || (!inQuote && !inApos)) continue;
+        }
+
+        if (!inQuote && !inApos && argString.at(i).isSpace()) {
+            if (!arg.isEmpty()) {
+                result += arg;
+                arg.clear();
+            }
+        } else
+            arg += argString.at(i);
+    }
+
+    if (!arg.isEmpty())
+        result += arg;
+
+    return result;
 }
 
 
@@ -175,6 +222,14 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 //            }
 //        }
 //    }
+
+    QString n64ddROM = SETTINGS.value("Paths/n64ddrom", "").toString();
+    if (n64ddROM != "" && SETTINGS.value("Emulation/n64dd", "").toString() == "true")
+        args << "-ddipl" << n64ddROM;
+
+    QString otherParameters = SETTINGS.value("Other/parameters", "").toString();
+    if (otherParameters != "")
+        args.append(parseArgString(otherParameters));
 
     args << pifPath << completeRomPath;
 

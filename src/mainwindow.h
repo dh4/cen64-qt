@@ -90,6 +90,7 @@ private:
     QAction *convertAction;
     QAction *downloadAction;
     QAction *logAction;
+    QAction *n64ddAction;
     QAction *openAction;
     QAction *quitAction;
     QAction *refreshAction;
@@ -156,6 +157,7 @@ private slots:
     void stopEmulator();
     void updateInputSetting();
     void updateLayoutSetting();
+    void updateN64DD();
     void updateStatusBar(QString message, int timeout);
     void updateStatusBarView();
 

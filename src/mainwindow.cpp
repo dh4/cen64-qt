@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(emulation, SIGNAL(started()), this, SLOT(disableButtons()));
     connect(emulation, SIGNAL(finished()), this, SLOT(enableButtons()));
+    connect(emulation, SIGNAL(showLog()), this, SLOT(openLog()));
     connect(emulation, SIGNAL(statusUpdate(QString, int)), this, SLOT(updateStatusBar(QString, int)));
 
 
@@ -401,6 +402,8 @@ void MainWindow::createMenu()
     startAction = emulationMenu->addAction(tr("&Start"));
     stopAction = emulationMenu->addAction(tr("St&op"));
     emulationMenu->addSeparator();
+    n64ddAction = emulationMenu->addAction(tr("Enable N64DD"));
+    emulationMenu->addSeparator();
     logAction = emulationMenu->addAction(tr("View Log..."));
 
     startAction->setIcon(QIcon::fromTheme("media-playback-start"));
@@ -408,6 +411,14 @@ void MainWindow::createMenu()
 
     startAction->setEnabled(false);
     stopAction->setEnabled(false);
+
+    n64ddAction->setCheckable(true);
+
+    if (SETTINGS.value("Paths/n64ddrom", "").toString() != "") {
+        if (SETTINGS.value("Emulation/n64dd", "").toString() == "true")
+            n64ddAction->setChecked(true);
+    } else
+        n64ddAction->setEnabled(false);
 
     menuBar->addMenu(emulationMenu);
 
@@ -486,6 +497,7 @@ void MainWindow::createMenu()
 
     //Create list of actions that are enabled only when CEN64 is not running
     menuEnable << startAction
+               << n64ddAction
                << logAction
                << openAction
                << convertAction
@@ -504,6 +516,7 @@ void MainWindow::createMenu()
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(launchRomFromMenu()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
+    connect(n64ddAction, SIGNAL(triggered()), this, SLOT(updateN64DD()));
     connect(logAction, SIGNAL(triggered()), this, SLOT(openLog()));
     connect(configureAction, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
@@ -855,6 +868,14 @@ void MainWindow::openSettings()
             romCollection->cachedRoms(false);
     }
 
+    if (SETTINGS.value("Paths/n64ddrom", "").toString() != "") {
+        n64ddAction->setEnabled(true);
+    } else {
+        n64ddAction->setEnabled(false);
+        n64ddAction->setChecked(false);
+        updateN64DD();
+    }
+
     setGridBackground();
     toggleMenus(true);
 }
@@ -1123,9 +1144,11 @@ void MainWindow::toggleMenus(bool active)
         startAction->setEnabled(false);
     }
 
-    if (SETTINGS.value("Other/downloadinfo", "").toString() == "") {
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "")
         downloadAction->setEnabled(false);
-    }
+
+    if (SETTINGS.value("Paths/n64ddrom", "").toString() == "")
+        n64ddAction->setEnabled(false);
 }
 
 
@@ -1158,6 +1181,15 @@ void MainWindow::updateLayoutSetting()
 
     startAction->setEnabled(false);
     downloadAction->setEnabled(false);
+}
+
+
+void MainWindow::updateN64DD()
+{
+    if(n64ddAction->isChecked())
+        SETTINGS.setValue("Emulation/n64dd", true);
+    else
+        SETTINGS.setValue("Emulation/n64dd", "");
 }
 
 
