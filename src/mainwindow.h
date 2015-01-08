@@ -157,7 +157,7 @@ private slots:
     void stopEmulator();
     void updateInputSetting();
     void updateLayoutSetting();
-    void updateN64DD();
+    void update64DD();
     void updateStatusBar(QString message, int timeout);
     void updateStatusBarView();
 

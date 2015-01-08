@@ -402,7 +402,7 @@ void MainWindow::createMenu()
     startAction = emulationMenu->addAction(tr("&Start"));
     stopAction = emulationMenu->addAction(tr("St&op"));
     emulationMenu->addSeparator();
-    n64ddAction = emulationMenu->addAction(tr("Enable N64DD"));
+    n64ddAction = emulationMenu->addAction(tr("Enable 64DD"));
     emulationMenu->addSeparator();
     logAction = emulationMenu->addAction(tr("View Log..."));
 
@@ -414,8 +414,8 @@ void MainWindow::createMenu()
 
     n64ddAction->setCheckable(true);
 
-    if (SETTINGS.value("Paths/n64ddrom", "").toString() != "") {
-        if (SETTINGS.value("Emulation/n64dd", "").toString() == "true")
+    if (SETTINGS.value("Paths/64ddrom", "").toString() != "") {
+        if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
             n64ddAction->setChecked(true);
     } else
         n64ddAction->setEnabled(false);
@@ -516,7 +516,7 @@ void MainWindow::createMenu()
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(launchRomFromMenu()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
-    connect(n64ddAction, SIGNAL(triggered()), this, SLOT(updateN64DD()));
+    connect(n64ddAction, SIGNAL(triggered()), this, SLOT(update64DD()));
     connect(logAction, SIGNAL(triggered()), this, SLOT(openLog()));
     connect(configureAction, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
@@ -868,12 +868,12 @@ void MainWindow::openSettings()
             romCollection->cachedRoms(false);
     }
 
-    if (SETTINGS.value("Paths/n64ddrom", "").toString() != "") {
+    if (SETTINGS.value("Paths/64ddrom", "").toString() != "") {
         n64ddAction->setEnabled(true);
     } else {
         n64ddAction->setEnabled(false);
         n64ddAction->setChecked(false);
-        updateN64DD();
+        update64DD();
     }
 
     setGridBackground();
@@ -1147,7 +1147,7 @@ void MainWindow::toggleMenus(bool active)
     if (SETTINGS.value("Other/downloadinfo", "").toString() == "")
         downloadAction->setEnabled(false);
 
-    if (SETTINGS.value("Paths/n64ddrom", "").toString() == "")
+    if (SETTINGS.value("Paths/64ddrom", "").toString() == "")
         n64ddAction->setEnabled(false);
 }
 
@@ -1184,12 +1184,12 @@ void MainWindow::updateLayoutSetting()
 }
 
 
-void MainWindow::updateN64DD()
+void MainWindow::update64DD()
 {
     if(n64ddAction->isChecked())
-        SETTINGS.setValue("Emulation/n64dd", true);
+        SETTINGS.setValue("Emulation/64dd", true);
     else
-        SETTINGS.setValue("Emulation/n64dd", "");
+        SETTINGS.setValue("Emulation/64dd", "");
 }
 
 

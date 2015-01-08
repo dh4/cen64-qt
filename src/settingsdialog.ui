@@ -36,7 +36,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="pathsWidget">
       <attribute name="title">
@@ -122,7 +122,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="n64ddPathLabel">
               <property name="text">
-               <string>N64DD IPL file:</string>
+               <string>64DD IPL file:</string>
               </property>
              </widget>
             </item>

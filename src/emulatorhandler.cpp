@@ -223,8 +223,8 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 //        }
 //    }
 
-    QString n64ddROM = SETTINGS.value("Paths/n64ddrom", "").toString();
-    if (n64ddROM != "" && SETTINGS.value("Emulation/n64dd", "").toString() == "true")
+    QString n64ddROM = SETTINGS.value("Paths/64ddrom", "").toString();
+    if (n64ddROM != "" && SETTINGS.value("Emulation/64dd", "").toString() == "true")
         args << "-ddipl" << n64ddROM;
 
     QString otherParameters = SETTINGS.value("Other/parameters", "").toString();
