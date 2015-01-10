@@ -120,7 +120,7 @@ void RomCollection::addRoms()
             QDir romDir(romPath);
             QStringList files = romDir.entryList(fileTypes, QDir::Files | QDir::NoSymLinks);
 
-            int romCount;
+            int romCount = 0;
 
             foreach (QString fileName, files)
             {
@@ -164,9 +164,8 @@ void RomCollection::addRoms()
                 progress->setValue(count);
             }
 
-            if (romCount == 0) {
+            if (romCount == 0)
                 QMessageBox::warning(parent, "Warning", "No ROMs found in " + romPath + ".");
-            }
         }
 
         progress->close();
