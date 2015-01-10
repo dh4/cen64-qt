@@ -174,17 +174,17 @@
              <widget class="QLineEdit" name="cen64Path"/>
             </item>
             <item row="2" column="2">
-             <widget class="QPushButton" name="n64ddButton">
+             <widget class="QPushButton" name="ddButton">
               <property name="text">
                <string>Browse...</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="n64ddPath"/>
+             <widget class="QLineEdit" name="ddPath"/>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="n64ddPathLabel">
+             <widget class="QLabel" name="ddPathLabel">
               <property name="text">
                <string>64DD IPL file:</string>
               </property>
@@ -209,7 +209,7 @@
         </spacer>
        </item>
        <item row="1" column="0">
-        <widget class="QGroupBox" name="n64dd">
+        <widget class="QGroupBox" name="roms">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -229,6 +229,9 @@
                 <width>16777215</width>
                 <height>80</height>
                </size>
+              </property>
+              <property name="toolTip">
+               <string>CEN64-Qt will search for all .z64, .n64, .ndd, and .zip files in these directories</string>
               </property>
              </widget>
             </item>
@@ -1041,11 +1044,11 @@
   <tabstop>tabWidget</tabstop>
   <tabstop>cen64Path</tabstop>
   <tabstop>pifPath</tabstop>
-  <tabstop>n64ddPath</tabstop>
+  <tabstop>ddPath</tabstop>
   <tabstop>catalogPath</tabstop>
   <tabstop>cen64Button</tabstop>
   <tabstop>pifButton</tabstop>
-  <tabstop>n64ddButton</tabstop>
+  <tabstop>ddButton</tabstop>
   <tabstop>catalogButton</tabstop>
   <tabstop>romList</tabstop>
   <tabstop>romAddButton</tabstop>

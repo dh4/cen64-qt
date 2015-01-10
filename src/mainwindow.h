@@ -92,7 +92,7 @@ private:
     QAction *convertAction;
     QAction *downloadAction;
     QAction *logAction;
-    QAction *n64ddAction;
+    QAction *ddAction;
     QAction *openAction;
     QAction *quitAction;
     QAction *refreshAction;
@@ -107,7 +107,7 @@ private:
     QGridLayout *gridLayout;
     QGridLayout *zipLayout;
     QHeaderView *headerView;
-    QHeaderView *n64ddHeaderView;
+    QHeaderView *ddHeaderView;
     QLabel *emptyIcon;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
@@ -125,7 +125,7 @@ private:
     QScrollArea *gridView;
     QSplitter *viewSplitter;
     QStatusBar *statusBar;
-    QTreeWidget *n64ddView;
+    QTreeWidget *ddView;
     QTreeWidget *tableView;
     QVBoxLayout *listLayout;
     QVBoxLayout *mainLayout;

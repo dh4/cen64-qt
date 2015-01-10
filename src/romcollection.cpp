@@ -43,14 +43,14 @@ RomCollection::RomCollection(QStringList fileTypes, QStringList romPaths, QWidge
 
 
 Rom RomCollection::addRom(QByteArray *romData, QString fileName, QString directory, QString zipFile,
-                          QSqlQuery query, bool n64dd)
+                          QSqlQuery query, bool ddRom)
 {
     Rom currentRom;
 
     currentRom.fileName = fileName;
     currentRom.directory = directory;
 
-    if (n64dd)
+    if (ddRom)
         currentRom.internalName = "";
     else
         currentRom.internalName = QString(romData->mid(32, 20)).trimmed();
@@ -67,14 +67,14 @@ Rom RomCollection::addRom(QByteArray *romData, QString fileName, QString directo
     query.bindValue(":zip_file",      currentRom.zipFile);
     query.bindValue(":size",          currentRom.sortSize);
 
-    if (n64dd)
-        query.bindValue(":n64dd", 1);
+    if (ddRom)
+        query.bindValue(":dd_rom", 1);
     else
-        query.bindValue(":n64dd", 0);
+        query.bindValue(":dd_rom", 0);
 
     query.exec();
 
-    if (!n64dd)
+    if (!ddRom)
         initializeRom(&currentRom, false);
 
     return currentRom;
@@ -103,13 +103,13 @@ void RomCollection::addRoms()
 
     QSqlQuery query("DELETE FROM rom_collection", database);
     query.prepare(QString("INSERT INTO rom_collection ")
-                  + "(filename, directory, internal_name, md5, zip_file, size, n64dd) "
-                  + "VALUES (:filename, :directory, :internal_name, :md5, :zip_file, :size, :n64dd)");
+                  + "(filename, directory, internal_name, md5, zip_file, size, dd_rom) "
+                  + "VALUES (:filename, :directory, :internal_name, :md5, :zip_file, :size, :dd_rom)");
 
     scrapper = new TheGamesDBScrapper(parent);
 
     QList<Rom> roms;
-    QList<Rom> n64ddRoms;
+    QList<Rom> ddRoms;
 
     if (totalCount != 0) {
         int count = 0;
@@ -138,7 +138,7 @@ void RomCollection::addRoms()
                             roms.append(addRom(romData, zippedFile, romPath, fileName, query));
                             romCount++;
                         } else if (romData->left(4).toHex() == "e848d316") { //64DD ROM
-                            n64ddRoms.append(addRom(romData, zippedFile, romPath, fileName, query, true));
+                            ddRoms.append(addRom(romData, zippedFile, romPath, fileName, query, true));
                             romCount++;
                         }
 
@@ -153,7 +153,7 @@ void RomCollection::addRoms()
                         roms.append(addRom(romData, fileName, romPath, "", query));
                         romCount++;
                     } else if (romData->left(4).toHex() == "e848d316") { //64DD ROM
-                        n64ddRoms.append(addRom(romData, fileName, romPath, "", query, true));
+                        ddRoms.append(addRom(romData, fileName, romPath, "", query, true));
                         romCount++;
                     }
 
@@ -185,10 +185,10 @@ void RomCollection::addRoms()
         emit romAdded(&roms[i], i);
 
     //Emit signals for 64DD roms
-    qSort(n64ddRoms.begin(), n64ddRoms.end(), romSorter);
+    qSort(ddRoms.begin(), ddRoms.end(), romSorter);
 
-    for (int i = 0; i < n64ddRoms.size(); i++)
-        emit n64ddRomAdded(&n64ddRoms[i]);
+    for (int i = 0; i < ddRoms.size(); i++)
+        emit ddRomAdded(&ddRoms[i]);
 
     emit updateEnded(roms.size());
 }
@@ -199,7 +199,7 @@ void RomCollection::cachedRoms(bool imageUpdated)
     emit updateStarted(imageUpdated);
 
     database.open();
-    QSqlQuery query(QString("SELECT filename, directory, md5, internal_name, zip_file, size, n64dd ")
+    QSqlQuery query(QString("SELECT filename, directory, md5, internal_name, zip_file, size, dd_rom ")
                     + "FROM rom_collection", database);
 
     query.last();
@@ -212,7 +212,7 @@ void RomCollection::cachedRoms(bool imageUpdated)
     }
 
     QList<Rom> roms;
-    QList<Rom> n64ddRoms;
+    QList<Rom> ddRoms;
 
     int count = 0;
     bool showProgress = false;
@@ -228,13 +228,13 @@ void RomCollection::cachedRoms(bool imageUpdated)
         currentRom.internalName = query.value(3).toString();
         currentRom.zipFile = query.value(4).toString();
         currentRom.sortSize = query.value(5).toInt();
-        int n64dd = query.value(6).toInt();
+        int ddRom = query.value(6).toInt();
 
         //Check performance of adding first item to see if progress dialog needs to be shown
         if (count == 0) checkPerformance.start();
 
-        if (n64dd == 1)
-            n64ddRoms.append(currentRom);
+        if (ddRom == 1)
+            ddRoms.append(currentRom);
         else {
             initializeRom(&currentRom, true);
             roms.append(currentRom);
@@ -268,10 +268,10 @@ void RomCollection::cachedRoms(bool imageUpdated)
         emit romAdded(&roms[i], i);
 
     //Emit signals for 64DD roms
-    qSort(n64ddRoms.begin(), n64ddRoms.end(), romSorter);
+    qSort(ddRoms.begin(), ddRoms.end(), romSorter);
 
-    for (int i = 0; i < n64ddRoms.size(); i++)
-        emit n64ddRomAdded(&n64ddRoms[i]);
+    for (int i = 0; i < ddRoms.size(); i++)
+        emit ddRomAdded(&ddRoms[i]);
 
     emit updateEnded(roms.size(), true);
 }
@@ -437,7 +437,7 @@ void RomCollection::setupDatabase()
                         + "internal_name TEXT, "
                         + "zip_file TEXT, "
                         + "size INTEGER, "
-                        + "n64dd INTEGER)");
+                        + "dd_rom INTEGER)");
 
     database.close();
 }

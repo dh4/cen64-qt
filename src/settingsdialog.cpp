@@ -42,7 +42,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     //Populate Paths tab
     ui->cen64Path->setText(SETTINGS.value("Paths/cen64", "").toString());
     ui->pifPath->setText(SETTINGS.value("Paths/pifrom", "").toString());
-    ui->n64ddPath->setText(SETTINGS.value("Paths/ddiplrom", "").toString());
+    ui->ddPath->setText(SETTINGS.value("Paths/ddiplrom", "").toString());
     ui->catalogPath->setText(SETTINGS.value("Paths/catalog", "").toString());
 
     QStringList romDirectories = SETTINGS.value("Paths/roms", "").toString().split("|");
@@ -74,7 +74,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
     connect(ui->cen64Button, SIGNAL(clicked()), this, SLOT(browseCen64()));
     connect(ui->pifButton, SIGNAL(clicked()), this, SLOT(browsePIF()));
-    connect(ui->n64ddButton, SIGNAL(clicked()), this, SLOT(browse64DD()));
+    connect(ui->ddButton, SIGNAL(clicked()), this, SLOT(browse64DD()));
     connect(ui->catalogButton, SIGNAL(clicked()), this, SLOT(browseCatalog()));
     connect(ui->romAddButton, SIGNAL(clicked()), this, SLOT(addRomDirectory()));
     connect(ui->romRemoveButton, SIGNAL(clicked()), this, SLOT(removeRomDirectory()));
@@ -264,7 +264,7 @@ void SettingsDialog::browse64DD()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("64DD IPL ROM File"));
     if (path != "")
-        ui->n64ddPath->setText(path);
+        ui->ddPath->setText(path);
 }
 
 
@@ -340,7 +340,7 @@ void SettingsDialog::editSettings()
     //Paths tab
     SETTINGS.setValue("Paths/cen64", ui->cen64Path->text());
     SETTINGS.setValue("Paths/pifrom", ui->pifPath->text());
-    SETTINGS.setValue("Paths/ddiplrom", ui->n64ddPath->text());
+    SETTINGS.setValue("Paths/ddiplrom", ui->ddPath->text());
     SETTINGS.setValue("Paths/catalog", ui->catalogPath->text());
 
     SETTINGS.setValue("Saves/directory", ui->savesPath->text());

@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(romCollection, SIGNAL(updateStarted(bool)), this, SLOT(disableViews(bool)));
     connect(romCollection, SIGNAL(romAdded(Rom*, int)), this, SLOT(addToView(Rom*, int)));
-    connect(romCollection, SIGNAL(n64ddRomAdded(Rom*)), this, SLOT(addTo64DDView(Rom*)));
+    connect(romCollection, SIGNAL(ddRomAdded(Rom*)), this, SLOT(addTo64DDView(Rom*)));
     connect(romCollection, SIGNAL(updateEnded(int, bool)), this, SLOT(enableViews(int, bool)));
 
 
@@ -72,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     if (SETTINGS.value("Paths/ddiplrom", "").toString() != "") {
         if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
-            n64ddView->setHidden(false);
+            ddView->setHidden(false);
     }
 
     mainLayout = new QVBoxLayout(mainWidget);
@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 void MainWindow::addTo64DDView(Rom *currentRom)
 {
-    fileItem = new TreeWidgetItem(n64ddView);
+    fileItem = new TreeWidgetItem(ddView);
 
     fileItem->setText(0, currentRom->fileName); //Filename for launching ROM
     fileItem->setText(1, currentRom->directory); //Directory ROM is located in
@@ -100,7 +100,7 @@ void MainWindow::addTo64DDView(Rom *currentRom)
 
     fileItem->setText(5, QFileInfo(currentRom->fileName).completeBaseName()); //Visible filename
 
-    n64ddView->addTopLevelItem(fileItem);
+    ddView->addTopLevelItem(fileItem);
 }
 
 
@@ -117,7 +117,7 @@ void MainWindow::addToView(Rom *currentRom, int count)
 
 void MainWindow::addToGridView(Rom *currentRom, int count)
 {
-    if (n64ddAction->isChecked()) // Add place for "No Cart" entry
+    if (ddAction->isChecked()) // Add place for "No Cart" entry
         count++;
 
     ClickableWidget *gameGridItem = new ClickableWidget(gridWidget);
@@ -151,7 +151,7 @@ void MainWindow::addToGridView(Rom *currentRom, int count)
         image = currentRom->image.scaled(getImageSize("Grid"), Qt::IgnoreAspectRatio,
                                         Qt::SmoothTransformation);
     else {
-        if (n64ddAction->isChecked() && count == 0)
+        if (ddAction->isChecked() && count == 0)
             image = QPixmap(":/images/no-cart.png").scaled(getImageSize("Grid"), Qt::IgnoreAspectRatio,
                                                              Qt::SmoothTransformation);
         else
@@ -173,7 +173,7 @@ void MainWindow::addToGridView(Rom *currentRom, int count)
 
         text = getRomInfo(labelText, currentRom);
 
-        if (n64ddAction->isChecked() && count == 0)
+        if (ddAction->isChecked() && count == 0)
             text = "No Cart";
 
         gridTextLabel->setText(text);
@@ -207,7 +207,7 @@ void MainWindow::addToGridView(Rom *currentRom, int count)
 
 void MainWindow::addToListView(Rom *currentRom, int count)
 {
-    if (n64ddAction->isChecked()) // Add place for "No Cart" entry
+    if (ddAction->isChecked()) // Add place for "No Cart" entry
         count++;
 
     QStringList visible = SETTINGS.value("List/columns", "Filename|Internal Name|Size").toString().split("|");
@@ -242,7 +242,7 @@ void MainWindow::addToListView(Rom *currentRom, int count)
             image = currentRom->image.scaled(getImageSize("List"), Qt::KeepAspectRatio,
                                             Qt::SmoothTransformation);
         else {
-            if (n64ddAction->isChecked() && count == 0)
+            if (ddAction->isChecked() && count == 0)
                 image = QPixmap(":/images/no-cart.png").scaled(getImageSize("List"), Qt::KeepAspectRatio,
                                                                  Qt::SmoothTransformation);
             else
@@ -284,7 +284,7 @@ void MainWindow::addToListView(Rom *currentRom, int count)
     //Remove last break tag
     listText.remove(QRegExp("<br />$"));
 
-    if (n64ddAction->isChecked() && count == 0)
+    if (ddAction->isChecked() && count == 0)
         listText = "<h2>No Cart</h2>";
 
     listTextLabel->setText(listText);
@@ -454,7 +454,7 @@ void MainWindow::createMenu()
     startAction = emulationMenu->addAction(tr("&Start"));
     stopAction = emulationMenu->addAction(tr("St&op"));
     emulationMenu->addSeparator();
-    n64ddAction = emulationMenu->addAction(tr("Enable 64DD"));
+    ddAction = emulationMenu->addAction(tr("Enable 64DD"));
     emulationMenu->addSeparator();
     logAction = emulationMenu->addAction(tr("View Log..."));
 
@@ -464,13 +464,13 @@ void MainWindow::createMenu()
     startAction->setEnabled(false);
     stopAction->setEnabled(false);
 
-    n64ddAction->setCheckable(true);
+    ddAction->setCheckable(true);
 
     if (SETTINGS.value("Paths/ddiplrom", "").toString() != "") {
         if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
-            n64ddAction->setChecked(true);
+            ddAction->setChecked(true);
     } else
-        n64ddAction->setEnabled(false);
+        ddAction->setEnabled(false);
 
     menuBar->addMenu(emulationMenu);
 
@@ -549,7 +549,7 @@ void MainWindow::createMenu()
 
     //Create list of actions that are enabled only when CEN64 is not running
     menuEnable << startAction
-               << n64ddAction
+               << ddAction
                << logAction
                << openAction
                << convertAction
@@ -568,7 +568,7 @@ void MainWindow::createMenu()
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(launchRomFromMenu()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
-    connect(n64ddAction, SIGNAL(triggered()), this, SLOT(update64DD()));
+    connect(ddAction, SIGNAL(triggered()), this, SLOT(update64DD()));
     connect(logAction, SIGNAL(triggered()), this, SLOT(openLog()));
     connect(configureAction, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
@@ -665,26 +665,26 @@ void MainWindow::createRomView()
 
 
     //Create 64DD view
-    n64ddView = new QTreeWidget(this);
-    n64ddView->setWordWrap(false);
-    n64ddView->setAllColumnsShowFocus(true);
-    n64ddView->setRootIsDecorated(false);
-    n64ddView->setStyleSheet("QTreeView { border: none; } QTreeView::item { height: 25px; }");
-    n64ddView->setHeaderLabels(QStringList() << "" << "" << "" << "" << "" << "64DD ROM");
-    n64ddView->header()->setHidden(true);
-    n64ddView->setColumnHidden(0, true); //Hidden filename for launching emulator
-    n64ddView->setColumnHidden(1, true); //Hidden directory of ROM location
-    n64ddView->setColumnHidden(2, true); //Hidden goodname for searching
-    n64ddView->setColumnHidden(3, true); //Hidden md5 for cache info
-    n64ddView->setColumnHidden(4, true); //Hidden column for zip file
-    n64ddView->setHidden(true);
+    ddView = new QTreeWidget(this);
+    ddView->setWordWrap(false);
+    ddView->setAllColumnsShowFocus(true);
+    ddView->setRootIsDecorated(false);
+    ddView->setStyleSheet("QTreeView { border: none; } QTreeView::item { height: 25px; }");
+    ddView->setHeaderLabels(QStringList() << "" << "" << "" << "" << "" << "64DD ROM");
+    ddView->header()->setHidden(true);
+    ddView->setColumnHidden(0, true); //Hidden filename for launching emulator
+    ddView->setColumnHidden(1, true); //Hidden directory of ROM location
+    ddView->setColumnHidden(2, true); //Hidden goodname for searching
+    ddView->setColumnHidden(3, true); //Hidden md5 for cache info
+    ddView->setColumnHidden(4, true); //Hidden column for zip file
+    ddView->setHidden(true);
 
 
     viewSplitter->addWidget(emptyView);
     viewSplitter->addWidget(tableView);
     viewSplitter->addWidget(gridView);
     viewSplitter->addWidget(listView);
-    viewSplitter->addWidget(n64ddView);
+    viewSplitter->addWidget(ddView);
 
     //Restore 64DD Panel size
     QStringList sizes = SETTINGS.value("View/64ddsize", "").toString().split("|");
@@ -711,8 +711,8 @@ void MainWindow::createRomView()
 
     connect(tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons()));
     connect(tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchRomFromTable()));
-    connect(n64ddView, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons()));
-    connect(n64ddView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchRomFromMenu()));
+    connect(ddView, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons()));
+    connect(ddView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchRomFromMenu()));
     connect(headerView, SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),
             this, SLOT(saveSortOrder(int,Qt::SortOrder)));
 }
@@ -730,9 +730,9 @@ void MainWindow::disableViews(bool imageUpdated)
 
     resetLayouts(imageUpdated);
     tableView->clear();
-    n64ddView->clear();
+    ddView->clear();
 
-    if (n64ddAction->isChecked()) { //64DD enabled so show "No Cart" options
+    if (ddAction->isChecked()) { //64DD enabled so show "No Cart" options
         fileItem = new TreeWidgetItem(tableView);
 
         if (tableVisible.at(0) == "Game Cover") {
@@ -749,16 +749,16 @@ void MainWindow::disableViews(bool imageUpdated)
         addToGridView(&dummyRom, -1);
         addToListView(&dummyRom, -1);
 
-        fileItem = new TreeWidgetItem(n64ddView);
+        fileItem = new TreeWidgetItem(ddView);
         fileItem->setText(5, "No Disk");
         fileItem->setForeground(5, QBrush(Qt::gray));
-        n64ddView->addTopLevelItem(fileItem);
+        ddView->addTopLevelItem(fileItem);
     }
 
     tableView->setEnabled(false);
     gridView->setEnabled(false);
     listView->setEnabled(false);
-    n64ddView->setEnabled(false);
+    ddView->setEnabled(false);
     downloadAction->setEnabled(false);
     startAction->setEnabled(false);
     stopAction->setEnabled(false);
@@ -796,7 +796,7 @@ void MainWindow::enableViews(int romCount, bool cached)
 
         gridView->setEnabled(true);
         listView->setEnabled(true);
-        n64ddView->setEnabled(true);
+        ddView->setEnabled(true);
 
         if (cached) {
             QTimer *timer = new QTimer(this);
@@ -883,13 +883,12 @@ void MainWindow::highlightListWidget(QWidget *current)
 
 void MainWindow::launchRom(QDir romDir, QString romFileName, QString zipFileName)
 {
-    if (n64ddAction->isChecked() && n64ddView->currentItem() != NULL) {
-        QString n64ddFileName = QVariant(n64ddView->currentItem()->data(0, 0)).toString();
-        QString n64ddDirName = QVariant(n64ddView->currentItem()->data(1, 0)).toString();
-        QString n64ddZipName = QVariant(n64ddView->currentItem()->data(4, 0)).toString();
+    if (ddAction->isChecked() && ddView->currentItem() != NULL) {
+        QString ddFileName = QVariant(ddView->currentItem()->data(0, 0)).toString();
+        QString ddDirName = QVariant(ddView->currentItem()->data(1, 0)).toString();
+        QString ddZipName = QVariant(ddView->currentItem()->data(4, 0)).toString();
 
-        emulation->startEmulator(romDir, romFileName, zipFileName,
-                                 QDir(n64ddDirName), n64ddFileName, n64ddZipName);
+        emulation->startEmulator(romDir, romFileName, zipFileName, QDir(ddDirName), ddFileName, ddZipName);
     } else
         emulation->startEmulator(romDir, romFileName, zipFileName);
 }
@@ -996,7 +995,7 @@ void MainWindow::openSettings()
 
     QStringList romSave = SETTINGS.value("Paths/roms","").toString().split("|");
     if (romCollection->romPaths != romSave) {
-        romCollection->updatePaths(QStringList() << romSave);
+        romCollection->updatePaths(romSave);
         romCollection->addRoms();
     } else if (downloadBefore == "" && downloadAfter == "true") {
         romCollection->addRoms();
@@ -1008,10 +1007,10 @@ void MainWindow::openSettings()
     }
 
     if (SETTINGS.value("Paths/ddiplrom", "").toString() != "") {
-        n64ddAction->setEnabled(true);
+        ddAction->setEnabled(true);
     } else {
-        n64ddAction->setEnabled(false);
-        n64ddAction->setChecked(false);
+        ddAction->setEnabled(false);
+        ddAction->setChecked(false);
         update64DD();
     }
 
@@ -1279,8 +1278,7 @@ void MainWindow::toggleMenus(bool active)
     gridView->setEnabled(active);
     listView->setEnabled(active);
 
-    if (tableView->currentItem() == NULL && !gridCurrent && !listCurrent
-            && n64ddView->currentItem() == NULL) {
+    if (tableView->currentItem() == NULL && !gridCurrent && !listCurrent && ddView->currentItem() == NULL) {
         downloadAction->setEnabled(false);
         startAction->setEnabled(false);
     }
@@ -1289,7 +1287,7 @@ void MainWindow::toggleMenus(bool active)
         downloadAction->setEnabled(false);
 
     if (SETTINGS.value("Paths/ddiplrom", "").toString() == "")
-        n64ddAction->setEnabled(false);
+        ddAction->setEnabled(false);
 }
 
 
@@ -1327,13 +1325,13 @@ void MainWindow::updateLayoutSetting()
 
 void MainWindow::update64DD()
 {
-    if(n64ddAction->isChecked()) {
+    if(ddAction->isChecked()) {
         SETTINGS.setValue("Emulation/64dd", true);
-        n64ddView->setHidden(false);
+        ddView->setHidden(false);
         viewSplitter->setSizes(QList<int>() << 500 << 500 << 500 << 500 << 100);
     } else {
         SETTINGS.setValue("Emulation/64dd", "");
-        n64ddView->setHidden(true);
+        ddView->setHidden(true);
     }
 
     romCollection->cachedRoms();
