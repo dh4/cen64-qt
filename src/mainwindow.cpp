@@ -750,10 +750,10 @@ void MainWindow::disableViews(bool imageUpdated)
         fileItem = new TreeWidgetItem(tableView);
 
         if (tableVisible.at(0) == "Game Cover") {
-            fileItem->setText(6, "No Cart");
+            fileItem->setText(6, " No Cart");
             fileItem->setForeground(6, QBrush(Qt::gray));
         } else {
-            fileItem->setText(5, "No Cart");
+            fileItem->setText(5, " No Cart");
             fileItem->setForeground(5, QBrush(Qt::gray));
         }
         tableView->addTopLevelItem(fileItem);
