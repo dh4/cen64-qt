@@ -70,10 +70,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     if (SETTINGS.value("View/statusbar", "").toString() == "")
         statusBar->hide();
 
-    if (SETTINGS.value("Paths/ddiplrom", "").toString() != "") {
-        if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
-            ddView->setHidden(false);
-    }
+    QString ddipl = SETTINGS.value("Paths/ddiplrom", "").toString();
+    QString ddEnabled = SETTINGS.value("Emulation/64dd", "").toString();
+    QString currentView = SETTINGS.value("View/layout", "None").toString();
+
+    if (ddipl != "" && ddEnabled == "true" && currentView != "None")
+        ddView->setHidden(false);
 
     mainLayout = new QVBoxLayout(mainWidget);
     mainLayout->setMenuBar(menuBar);
@@ -690,9 +692,21 @@ void MainWindow::createRomView()
     QStringList sizes = SETTINGS.value("View/64ddsize", "").toString().split("|");
     QList<int> sizeInts;
 
-    foreach (QString size, sizes)
-        sizeInts << size.toInt();
+    int mainSize = 1, ddSize = 1;
 
+    if (!sizes.isEmpty())
+        ddSize = sizes.last().toInt();
+
+    foreach (QString size, sizes)
+    {
+        if (size.toInt() != 0) {
+            mainSize = size.toInt(); //Set all views to same height in case user switches view
+            break;
+        }
+    }
+
+    if (ddSize == 0) ddSize = 1;
+    sizeInts << mainSize << mainSize << mainSize << mainSize << ddSize;
     viewSplitter->setSizes(sizeInts);
 
 
@@ -1306,6 +1320,7 @@ void MainWindow::updateLayoutSetting()
     tableView->setHidden(true);
     gridView->setHidden(true);
     listView->setHidden(true);
+    ddView->setHidden(true);
 
     romCollection->cachedRoms();
 
@@ -1318,6 +1333,13 @@ void MainWindow::updateLayoutSetting()
     else
         emptyView->setHidden(false);
 
+    //Don't snow 64DD panel for empty view
+    QString ddipl = SETTINGS.value("Paths/ddiplrom", "").toString();
+    QString ddEnabled = SETTINGS.value("Emulation/64dd", "").toString();
+
+    if (visibleLayout != "None" && ddipl != "" && ddEnabled == "true")
+        ddView->setHidden(false);
+
     startAction->setEnabled(false);
     downloadAction->setEnabled(false);
 }
@@ -1325,9 +1347,14 @@ void MainWindow::updateLayoutSetting()
 
 void MainWindow::update64DD()
 {
-    if(ddAction->isChecked()) {
+    QString ddipl = SETTINGS.value("Paths/ddiplrom", "").toString();
+
+    if(ddAction->isChecked() && ddipl != "") {
         SETTINGS.setValue("Emulation/64dd", true);
-        ddView->setHidden(false);
+
+        if (SETTINGS.value("View/layout", "None").toString() != "None")
+            ddView->setHidden(false);
+
         viewSplitter->setSizes(QList<int>() << 500 << 500 << 500 << 500 << 100);
     } else {
         SETTINGS.setValue("Emulation/64dd", "");
