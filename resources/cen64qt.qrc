@@ -3,5 +3,6 @@
         <file>images/cen64.png</file>
         <file>other/LICENSE</file>
         <file>images/not-found.png</file>
+        <file>images/no-cart.png</file>
     </qresource>
 </RCC>

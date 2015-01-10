@@ -37,6 +37,7 @@
 #include <QMenuBar>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QSplitter>
 #include <QStatusBar>
 
 #include "aboutdialog.h"
@@ -68,6 +69,7 @@ private:
     void addToTableView(Rom *currentRom);
     void createMenu();
     void createRomView();
+    void launchRom(QDir romDir, QString romFileName, QString zipFileName);
     void openZipDialog(QStringList zippedFiles);
     void resetLayouts(bool imageUpdated = false);
     void saveColumnWidths();
@@ -105,6 +107,7 @@ private:
     QGridLayout *gridLayout;
     QGridLayout *zipLayout;
     QHeaderView *headerView;
+    QHeaderView *n64ddHeaderView;
     QLabel *emptyIcon;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
@@ -120,7 +123,9 @@ private:
     QScrollArea *emptyView;
     QScrollArea *listView;
     QScrollArea *gridView;
+    QSplitter *viewSplitter;
     QStatusBar *statusBar;
+    QTreeWidget *n64ddView;
     QTreeWidget *tableView;
     QVBoxLayout *listLayout;
     QVBoxLayout *mainLayout;
@@ -133,6 +138,7 @@ private:
     TreeWidgetItem *fileItem;
 
 private slots:
+    void addTo64DDView(Rom *currentRom);
     void addToView(Rom *currentRom, int count);
     void disableButtons();
     void disableViews(bool imageUpdated);

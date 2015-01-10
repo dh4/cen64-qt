@@ -66,13 +66,13 @@ private:
 
 private slots:
     void addColumn(QListWidget *currentList, QListWidget *availableList);
+    void addRomDirectory();
+    void browse64DD();
     void browseBackground();
     void browseCatalog();
     void browseCen64();
     void browseEEPROM();
-    void browse64DD();
     void browsePIF();
-    void browseROM();
     void browseSaves();
     void browseSRAM();
     void editSettings();
@@ -81,6 +81,7 @@ private slots:
     void listSortDown();
     void listSortUp();
     void removeColumn(QListWidget *currentList, QListWidget *availableList);
+    void removeRomDirectory();
     void populateTableAndListTab(bool downloadItems);
     void sortDown(QListWidget *currentList);
     void sortUp(QListWidget *currentList);

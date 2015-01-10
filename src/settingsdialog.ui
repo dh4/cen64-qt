@@ -43,105 +43,7 @@
        <string>Paths</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="paths">
-         <property name="title">
-          <string>CEN64 Files</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="pathsLayout">
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="cen64Path"/>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="cen64Button">
-              <property name="text">
-               <string>Browse...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="2">
-             <widget class="QPushButton" name="catalogButton">
-              <property name="text">
-               <string>Browse...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="pifPath"/>
-            </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="pifButton">
-              <property name="text">
-               <string>Browse...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="catalogPathLabel">
-              <property name="text">
-               <string>ROM catalog:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="catalogPath"/>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="romPathLabel">
-              <property name="text">
-               <string>ROM directory:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QPushButton" name="romButton">
-              <property name="text">
-               <string>Browse...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="cen64PathLabel">
-              <property name="text">
-               <string>CEN64 executable: </string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="pifPathLabel">
-              <property name="text">
-               <string>PIF IPL file:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="romPath"/>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="n64ddPathLabel">
-              <property name="text">
-               <string>64DD IPL file:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="n64ddPath"/>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="n64ddButton">
-              <property name="text">
-               <string>Browse...</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QGroupBox" name="saves">
          <property name="title">
           <string>Save Files</string>
@@ -212,7 +114,88 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="paths">
+         <property name="title">
+          <string>CEN64 Files</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="pathsLayout">
+            <item row="0" column="2">
+             <widget class="QPushButton" name="cen64Button">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="pifPath"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QPushButton" name="catalogButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QPushButton" name="pifButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="catalogPath"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="pifPathLabel">
+              <property name="text">
+               <string>PIF IPL file:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="catalogPathLabel">
+              <property name="text">
+               <string>ROM catalog:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="cen64PathLabel">
+              <property name="text">
+               <string>CEN64 executable: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="cen64Path"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="QPushButton" name="n64ddButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="n64ddPath"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="n64ddPathLabel">
+              <property name="text">
+               <string>64DD IPL file:</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <spacer name="pathsSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -224,6 +207,61 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="n64dd">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>120</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>ROM Directories</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="romLayout">
+            <item row="0" column="0">
+             <widget class="QListWidget" name="romList">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>80</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QWidget" name="listActionWidget" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>60</height>
+               </size>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <widget class="QPushButton" name="romAddButton">
+                 <property name="text">
+                  <string>Add...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="romRemoveButton">
+                 <property name="text">
+                  <string>Remove</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1004,13 +1042,14 @@
   <tabstop>cen64Path</tabstop>
   <tabstop>pifPath</tabstop>
   <tabstop>n64ddPath</tabstop>
-  <tabstop>romPath</tabstop>
   <tabstop>catalogPath</tabstop>
   <tabstop>cen64Button</tabstop>
   <tabstop>pifButton</tabstop>
   <tabstop>n64ddButton</tabstop>
-  <tabstop>romButton</tabstop>
   <tabstop>catalogButton</tabstop>
+  <tabstop>romList</tabstop>
+  <tabstop>romAddButton</tabstop>
+  <tabstop>romRemoveButton</tabstop>
   <tabstop>savesPath</tabstop>
   <tabstop>savesButton</tabstop>
   <tabstop>saveOption</tabstop>

@@ -42,9 +42,12 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     //Populate Paths tab
     ui->cen64Path->setText(SETTINGS.value("Paths/cen64", "").toString());
     ui->pifPath->setText(SETTINGS.value("Paths/pifrom", "").toString());
-    ui->n64ddPath->setText(SETTINGS.value("Paths/64ddrom", "").toString());
-    ui->romPath->setText(SETTINGS.value("Paths/roms", "").toString());
+    ui->n64ddPath->setText(SETTINGS.value("Paths/ddiplrom", "").toString());
     ui->catalogPath->setText(SETTINGS.value("Paths/catalog", "").toString());
+
+    QStringList romDirectories = SETTINGS.value("Paths/roms", "").toString().split("|");
+    foreach (QString directory, romDirectories)
+        ui->romList->addItem(directory);
 
     ui->savesPath->setText(SETTINGS.value("Saves/directory", "").toString());
     ui->eepromPath->setText(SETTINGS.value("Saves/eeprom", "").toString());
@@ -72,8 +75,9 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     connect(ui->cen64Button, SIGNAL(clicked()), this, SLOT(browseCen64()));
     connect(ui->pifButton, SIGNAL(clicked()), this, SLOT(browsePIF()));
     connect(ui->n64ddButton, SIGNAL(clicked()), this, SLOT(browse64DD()));
-    connect(ui->romButton, SIGNAL(clicked()), this, SLOT(browseROM()));
     connect(ui->catalogButton, SIGNAL(clicked()), this, SLOT(browseCatalog()));
+    connect(ui->romAddButton, SIGNAL(clicked()), this, SLOT(addRomDirectory()));
+    connect(ui->romRemoveButton, SIGNAL(clicked()), this, SLOT(removeRomDirectory()));
     connect(ui->savesButton, SIGNAL(clicked()), this, SLOT(browseSaves()));
     connect(ui->eepromButton, SIGNAL(clicked()), this, SLOT(browseEEPROM()));
     connect(ui->sramButton, SIGNAL(clicked()), this, SLOT(browseSRAM()));
@@ -240,6 +244,30 @@ void SettingsDialog::addColumn(QListWidget *currentList, QListWidget *availableL
 }
 
 
+void SettingsDialog::addRomDirectory()
+{
+    QString path = QFileDialog::getExistingDirectory(this, tr("ROM Directory"));
+    if (path != "") {
+        //check for duplicates
+        bool found = false;
+        foreach (QListWidgetItem *item, ui->romList->findItems("*", Qt::MatchWildcard))
+            if (path == item->text())
+                found = true;
+
+        if (!found)
+            ui->romList->addItem(path);
+    }
+}
+
+
+void SettingsDialog::browse64DD()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("64DD IPL ROM File"));
+    if (path != "")
+        ui->n64ddPath->setText(path);
+}
+
+
 void SettingsDialog::browseBackground()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Background Image"));
@@ -272,27 +300,12 @@ void SettingsDialog::browseEEPROM()
         ui->eepromPath->setText(path);
 }
 
-void SettingsDialog::browse64DD()
-{
-    QString path = QFileDialog::getOpenFileName(this, tr("64DD IPL ROM File"));
-    if (path != "")
-        ui->n64ddPath->setText(path);
-}
-
 
 void SettingsDialog::browsePIF()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("PIF IPL ROM File"));
     if (path != "")
         ui->pifPath->setText(path);
-}
-
-
-void SettingsDialog::browseROM()
-{
-    QString path = QFileDialog::getExistingDirectory(this, tr("ROM Directory"));
-    if (path != "")
-        ui->romPath->setText(path);
 }
 
 
@@ -327,13 +340,18 @@ void SettingsDialog::editSettings()
     //Paths tab
     SETTINGS.setValue("Paths/cen64", ui->cen64Path->text());
     SETTINGS.setValue("Paths/pifrom", ui->pifPath->text());
-    SETTINGS.setValue("Paths/64ddrom", ui->n64ddPath->text());
-    SETTINGS.setValue("Paths/roms", ui->romPath->text());
+    SETTINGS.setValue("Paths/ddiplrom", ui->n64ddPath->text());
     SETTINGS.setValue("Paths/catalog", ui->catalogPath->text());
 
     SETTINGS.setValue("Saves/directory", ui->savesPath->text());
     SETTINGS.setValue("Saves/eeprom", ui->eepromPath->text());
     SETTINGS.setValue("Saves/sram", ui->sramPath->text());
+
+    QStringList romDirectories;
+    foreach (QListWidgetItem *item, ui->romList->findItems("*", Qt::MatchWildcard))
+        romDirectories << item->text();
+
+    SETTINGS.setValue("Paths/roms", romDirectories.join("|"));
 
     if (ui->saveOption->isChecked())
         SETTINGS.setValue("Saves/individualsave", true);
@@ -577,6 +595,15 @@ void SettingsDialog::removeColumn(QListWidget *currentList, QListWidget *availab
 
         availableList->sortItems();
     }
+}
+
+
+void SettingsDialog::removeRomDirectory()
+{
+    int row = ui->romList->currentRow();
+
+    if (row >= 0)
+        delete ui->romList->takeItem(row);
 }
 
 

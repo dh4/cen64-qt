@@ -47,7 +47,8 @@ class EmulatorHandler : public QObject
     Q_OBJECT
 public:
     explicit EmulatorHandler(QWidget *parent = 0);
-    void startEmulator(QDir romDir, QString romFileName, QString zipFileName = "");
+    void startEmulator(QDir romDir, QString romFileName, QString zipFileName = "",
+                       QDir n64ddDir = QDir(), QString n64ddFileName = "", QString n64ddZipName = "");
     void stopEmulator();
 
     QString lastOutput;

@@ -60,6 +60,7 @@ void EmulatorHandler::checkStatus(int status)
 void EmulatorHandler::cleanTemp()
 {
     QFile::remove(QDir::tempPath() + "/cen64-qt/temp.z64");
+    QFile::remove(QDir::tempPath() + "/cen64-qt/64dd-temp.z64");
 }
 
 
@@ -122,66 +123,146 @@ void EmulatorHandler::readOutput()
 }
 
 
-void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zipFileName)
+void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zipFileName,
+                                    QDir n64ddDir, QString n64ddFileName, QString n64ddZipName)
 {
-    QString completeRomPath;
-    bool zip = false;
+    QString completeRomPath = "", complete64DDPath = "";
+    bool zip = false, n64ddZip = false;
 
-    if (zipFileName != "") { //If zipped file, extract and write to temp location for loading
-        zip = true;
+    //If zipped file, extract and write to temp location for loading
+    QStringList zippedFiles;
+    zippedFiles << zipFileName << n64ddZipName;
+    bool n64ddZipCheck = false;
 
-        QString zipFile = romDir.absoluteFilePath(zipFileName);
-        QByteArray *romData = getZippedRom(romFileName, zipFile);
+    foreach (QString zippedFile, zippedFiles)
+    {
+        if (zippedFile != "") {
+            QString fileInZip;
 
-        QString tempDir = QDir::tempPath() + "/cen64-qt";
-        QDir().mkdir(tempDir);
-        completeRomPath = tempDir + "/temp.z64";
+            if (!n64ddZipCheck) {
+                zip = true;
+                fileInZip = romFileName;
+            } else {
+                n64ddZip = true;
+                fileInZip = n64ddFileName;
+            }
 
-        QFile tempRom(completeRomPath);
-        tempRom.open(QIODevice::WriteOnly);
-        tempRom.write(*romData);
-        tempRom.close();
+            QString zipFile = romDir.absoluteFilePath(zippedFile);
 
-        delete romData;
-    } else
+            QByteArray *romData = getZippedRom(fileInZip, zipFile);
+
+            QString tempDir = QDir::tempPath() + "/cen64-qt";
+            QDir().mkdir(tempDir);
+
+            if (!n64ddZipCheck)
+                completeRomPath = tempDir + "/temp.z64";
+            else
+                complete64DDPath = tempDir + "/64dd-temp.z64";
+
+            QFile tempRom(completeRomPath);
+            tempRom.open(QIODevice::WriteOnly);
+            tempRom.write(*romData);
+            tempRom.close();
+
+            delete romData;
+        }
+
+        n64ddZipCheck = true;
+    }
+
+    if (zipFileName == "" && romFileName != "")
         completeRomPath = romDir.absoluteFilePath(romFileName);
+    if (n64ddZipName == "" && n64ddFileName != "")
+        complete64DDPath = n64ddDir.absoluteFilePath(n64ddFileName);
 
     QString cen64Path = SETTINGS.value("Paths/cen64", "").toString();
     QString pifPath = SETTINGS.value("Paths/pifrom", "").toString();
+    QString n64ddIPLPath = SETTINGS.value("Paths/ddiplrom", "").toString();
     QString input = SETTINGS.value("input", "").toString();
+
+    bool n64ddMode = false;
+    if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
+        n64ddMode = true;
 
     QFile cen64File(cen64Path);
     QFile pifFile(pifPath);
+    QFile n64ddIPL(n64ddIPLPath);
     QFile romFile(completeRomPath);
+    QFile n64ddFile(complete64DDPath);
 
 
     //Sanity checks
     if (!cen64File.exists() || QFileInfo(cen64File).isDir() || !QFileInfo(cen64File).isExecutable()) {
         QMessageBox::warning(parent, tr("Warning"), tr("CEN64 executable not found."));
-        if (zip) cleanTemp();
+        if (zip || n64ddZip) cleanTemp();
         return;
     }
 
     if (!pifFile.exists() || QFileInfo(pifFile).isDir()) {
-        QMessageBox::warning(parent, tr("Warning"), tr("PIFdata file not found."));
-        if (zip) cleanTemp();
+        QMessageBox::warning(parent, tr("Warning"), tr("PIF IPL file not found."));
+        if (zip || n64ddZip) cleanTemp();
         return;
     }
 
-    if (!romFile.exists() || QFileInfo(romFile).isDir()) {
+    if (n64ddIPLPath != "" && (!n64ddIPL.exists() || QFileInfo(n64ddIPL).isDir())) {
+        QMessageBox::warning(parent, tr("Warning"), tr("64DD IPL file not found."));
+        if (zip || n64ddZip) cleanTemp();
+        return;
+    }
+
+    if (completeRomPath != "" && (!romFile.exists() || QFileInfo(romFile).isDir())) {
         QMessageBox::warning(parent, tr("Warning"), tr("ROM file not found."));
-        if (zip) cleanTemp();
+        if (zip || n64ddZip) cleanTemp();
         return;
     }
 
-    romFile.open(QIODevice::ReadOnly);
-    QByteArray romCheck = romFile.read(4);
-    romFile.close();
-
-    if (romCheck.toHex() != "80371240") {
-        QMessageBox::warning(parent, tr("Warning"), tr("Not a valid Z64 File."));
-        if (zip) cleanTemp();
+    if (completeRomPath == "" && complete64DDPath != ""
+            && (!n64ddFile.exists() || QFileInfo(n64ddFile).isDir())) {
+        QMessageBox::warning(parent, tr("Warning"), tr("64DD ROM file not found."));
+        if (zip || n64ddZip) cleanTemp();
         return;
+    }
+
+    if (completeRomPath == "" && complete64DDPath == "") {
+        QMessageBox::warning(parent, tr("Warning"), tr("No ROM selected."));
+        if (zip || n64ddZip) cleanTemp();
+        return;
+    }
+
+    if (completeRomPath != "") {
+        romFile.open(QIODevice::ReadOnly);
+        QByteArray romCheck = romFile.read(4);
+        romFile.close();
+
+        if (romCheck.toHex() != "80371240") {
+            if (romCheck.toHex() == "e848d316") { // 64DD file instead
+                if (complete64DDPath == "" && n64ddMode) {
+                    complete64DDPath = completeRomPath;
+                    n64ddFile.setFileName(complete64DDPath);
+                    completeRomPath = "";
+                } else {
+                    QMessageBox::warning(parent, tr("Warning"), tr("64DD not enabled."));
+                    if (zip || n64ddZip) cleanTemp();
+                    return;
+                }
+            } else {
+                QMessageBox::warning(parent, tr("Warning"), tr("Not a valid Z64 File."));
+                if (zip || n64ddZip) cleanTemp();
+                return;
+            }
+        }
+    }
+
+    if (complete64DDPath != "" && n64ddMode) {
+        n64ddFile.open(QIODevice::ReadOnly);
+        QByteArray romCheck = n64ddFile.read(4);
+        n64ddFile.close();
+
+        if (romCheck.toHex() != "e848d316") {
+            QMessageBox::warning(parent, tr("Warning"), tr("Not a valid 64DD File."));
+            if (zip || n64ddZip) cleanTemp();
+            return;
+        }
     }
 
 
@@ -223,21 +304,28 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 //        }
 //    }
 
-    QString n64ddROM = SETTINGS.value("Paths/64ddrom", "").toString();
-    if (n64ddROM != "" && SETTINGS.value("Emulation/64dd", "").toString() == "true")
-        args << "-ddipl" << n64ddROM;
+    if (n64ddIPLPath != "" && complete64DDPath != "" && n64ddMode)
+        args << "-ddipl" << n64ddIPLPath << "-ddrom" << complete64DDPath;
+    else if (completeRomPath == "") {
+        QMessageBox::warning(parent, tr("Warning"), tr("No ROM selected or 64DD not enabled."));
+        if (zip || n64ddZip) cleanTemp();
+        return;
+    }
 
     QString otherParameters = SETTINGS.value("Other/parameters", "").toString();
     if (otherParameters != "")
         args.append(parseArgString(otherParameters));
 
-    args << pifPath << completeRomPath;
+    args << pifPath;
+
+    if (completeRomPath != "")
+        args << completeRomPath;
 
     emulatorProc = new QProcess(this);
     connect(emulatorProc, SIGNAL(finished(int)), this, SLOT(emitFinished()));
     connect(emulatorProc, SIGNAL(finished(int)), this, SLOT(checkStatus(int)));
 
-    if (zip)
+    if (zip || n64ddZip)
         connect(emulatorProc, SIGNAL(finished(int)), this, SLOT(cleanTemp()));
 
 
