@@ -36,6 +36,7 @@ RomCollection::RomCollection(QStringList fileTypes, QStringList romPaths, QWidge
 {
     this->fileTypes = fileTypes;
     this->romPaths = romPaths;
+    this->romPaths.removeAll("");
     this->parent = parent;
 
     setupDatabase();
@@ -85,7 +86,6 @@ void RomCollection::addRoms()
 {
     emit updateStarted();
 
-
     //Count files so we know how to setup the progress dialog
     int totalCount = 0;
 
@@ -98,22 +98,20 @@ void RomCollection::addRoms()
         }
     }
 
-
-    database.open();
-
-    QSqlQuery query("DELETE FROM rom_collection", database);
-    query.prepare(QString("INSERT INTO rom_collection ")
-                  + "(filename, directory, internal_name, md5, zip_file, size, dd_rom) "
-                  + "VALUES (:filename, :directory, :internal_name, :md5, :zip_file, :size, :dd_rom)");
-
-    scrapper = new TheGamesDBScrapper(parent);
-
     QList<Rom> roms;
     QList<Rom> ddRoms;
 
     if (totalCount != 0) {
         int count = 0;
         setupProgressDialog(totalCount);
+
+        database.open();
+        QSqlQuery query("DELETE FROM rom_collection", database);
+        query.prepare(QString("INSERT INTO rom_collection ")
+                      + "(filename, directory, internal_name, md5, zip_file, size, dd_rom) "
+                      + "VALUES (:filename, :directory, :internal_name, :md5, :zip_file, :size, :dd_rom)");
+
+        scrapper = new TheGamesDBScrapper(parent);
 
         foreach (QString romPath, romPaths)
         {
@@ -168,14 +166,12 @@ void RomCollection::addRoms()
                 QMessageBox::warning(parent, "Warning", "No ROMs found in " + romPath + ".");
         }
 
+        delete scrapper;
+        database.close();
         progress->close();
-    } else {
+    } else if (romPaths.size() != 0) {
         QMessageBox::warning(parent, "Warning", "No ROMs found.");
     }
-
-    delete scrapper;
-
-    database.close();
 
     //Emit signals for regular roms
     qSort(roms.begin(), roms.end(), romSorter);
@@ -462,4 +458,5 @@ void RomCollection::setupProgressDialog(int size)
 void RomCollection::updatePaths(QStringList romPaths)
 {
     this->romPaths = romPaths;
+    this->romPaths.removeAll("");
 }

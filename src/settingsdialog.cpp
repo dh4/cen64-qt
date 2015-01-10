@@ -46,6 +46,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     ui->catalogPath->setText(SETTINGS.value("Paths/catalog", "").toString());
 
     QStringList romDirectories = SETTINGS.value("Paths/roms", "").toString().split("|");
+    romDirectories.removeAll("");
     foreach (QString directory, romDirectories)
         ui->romList->addItem(directory);
 
