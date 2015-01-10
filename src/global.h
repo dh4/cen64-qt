@@ -33,7 +33,6 @@
 #define GLOBAL_H
 
 #include <QSettings>
-#include <QDebug>
 
 
 #ifdef Q_OS_WIN
