@@ -123,8 +123,6 @@ void MainWindow::addToGridView(Rom *currentRom, int count)
         count++;
 
     ClickableWidget *gameGridItem = new ClickableWidget(gridWidget);
-    gameGridItem->setMinimumHeight(getGridSize("height"));
-    gameGridItem->setMaximumHeight(getGridSize("height"));
     gameGridItem->setMinimumWidth(getGridSize("width"));
     gameGridItem->setMaximumWidth(getGridSize("width"));
     gameGridItem->setGraphicsEffect(getShadow(false));
@@ -183,11 +181,6 @@ void MainWindow::addToGridView(Rom *currentRom, int count)
         QString textHex = getColor(SETTINGS.value("Grid/labelcolor","White").toString()).name();
         int fontSize = getGridSize("font");
 
-#ifdef Q_OS_OSX //OSX is funky with the label text
-        if (text.length() > 30)
-            fontSize -= 2;
-#endif
-
         gridTextLabel->setStyleSheet("QLabel { font-weight: bold; color: " + textHex + "; font-size: "
                                      + QString::number(fontSize) + "px; }");
         gridTextLabel->setWordWrap(true);
@@ -197,6 +190,8 @@ void MainWindow::addToGridView(Rom *currentRom, int count)
     }
 
     gameGridItem->setLayout(gameGridLayout);
+
+    gameGridItem->setMinimumHeight(gameGridItem->sizeHint().height());
 
     int columnCount = SETTINGS.value("Grid/columncount", "4").toInt();
     gridLayout->addWidget(gameGridItem, count / columnCount + 1, count % columnCount + 1);
