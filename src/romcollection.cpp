@@ -160,6 +160,7 @@ void RomCollection::addRoms()
 
                 count++;
                 progress->setValue(count);
+                QCoreApplication::processEvents(QEventLoop::AllEvents);
             }
 
             if (romCount == 0)
@@ -247,8 +248,10 @@ void RomCollection::cachedRoms(bool imageUpdated)
 
         count++;
 
-        if (showProgress)
+        if (showProgress) {
             progress->setValue(count);
+            QCoreApplication::processEvents(QEventLoop::AllEvents);
+        }
     }
 
     database.close();
