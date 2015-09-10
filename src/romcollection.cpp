@@ -410,6 +410,8 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
 
 void RomCollection::setupDatabase()
 {
+    // Bump this when updating rom_collection structure
+    // Will cause clients to delete and recreate the table
     int dbVersion = 1;
 
     database = QSqlDatabase::addDatabase("QSQLITE");

@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>550</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>550</width>
-    <height>450</height>
+    <height>550</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -240,7 +240,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>80</height>
                </size>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout">
@@ -635,7 +635,16 @@
           </item>
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridImageLayout" rowstretch="0,0,0,0" columnstretch="0,0" columnminimumwidth="150,0">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
              <number>0</number>
             </property>
             <item row="2" column="0">
