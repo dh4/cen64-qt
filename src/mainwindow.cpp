@@ -444,6 +444,7 @@ void MainWindow::createMenu()
     convertAction = fileMenu->addAction(tr("&Convert V64..."));
     refreshAction = fileMenu->addAction(tr("&Refresh List"));
     downloadAction = fileMenu->addAction(tr("&Download/Update Info..."));
+    deleteAction = fileMenu->addAction(tr("D&elete Current Info..."));
 #ifndef Q_OS_OSX //OSX does not show the quit action so the separator is unneeded
     fileMenu->addSeparator();
 #endif
@@ -454,6 +455,7 @@ void MainWindow::createMenu()
     quitAction->setIcon(QIcon::fromTheme("application-exit"));
 
     downloadAction->setEnabled(false);
+    deleteAction->setEnabled(false);
 
     menuBar->addMenu(fileMenu);
 
@@ -562,6 +564,7 @@ void MainWindow::createMenu()
                << openAction
                << convertAction
                << downloadAction
+               << deleteAction
                << refreshAction
                << configureAction
                << quitAction;
@@ -573,6 +576,7 @@ void MainWindow::createMenu()
     connect(convertAction, SIGNAL(triggered()), this, SLOT(openConverter()));
     connect(refreshAction, SIGNAL(triggered()), romCollection, SLOT(addRoms()));
     connect(downloadAction, SIGNAL(triggered()), this, SLOT(openDownloader()));
+    connect(deleteAction, SIGNAL(triggered()), this, SLOT(openDeleteDialog()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
     connect(startAction, SIGNAL(triggered()), this, SLOT(launchRomFromMenu()));
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stopEmulator()));
@@ -780,6 +784,7 @@ void MainWindow::disableViews(bool imageUpdated)
     listView->setEnabled(false);
     ddView->setEnabled(false);
     downloadAction->setEnabled(false);
+    deleteAction->setEnabled(false);
     startAction->setEnabled(false);
     stopAction->setEnabled(false);
 
@@ -839,18 +844,19 @@ QString MainWindow::getCurrentRomInfo(int index)
 {
     if (index < 3) {
         const char *infoChar;
+        int table;
 
         switch (index) {
-            case 0:  infoChar = "fileName"; break;
-            case 1:  infoChar = "search";   break;
-            case 2:  infoChar = "romMD5";   break;
-            default: infoChar = "";         break;
+            case 0:  infoChar = "fileName"; table = 0; break;
+            case 1:  infoChar = "search";   table = 2; break;
+            case 2:  infoChar = "romMD5";   table = 3; break;
+            default: infoChar = "";         table = 0; break;
         }
 
         QString visibleLayout = SETTINGS.value("View/layout", "None").toString();
 
         if (visibleLayout == "Table View")
-            return tableView->currentItem()->data(index, 0).toString();
+            return tableView->currentItem()->data(table, 0).toString();
         else if (visibleLayout == "Grid View" && gridCurrent)
             return gridLayout->itemAt(currentGridRom)->widget()->property(infoChar).toString();
         else if (visibleLayout == "List View" && listCurrent)
@@ -969,6 +975,16 @@ void MainWindow::openAbout()
 void MainWindow::openConverter()
 {
     V64Converter v64converter(romCollection->romPaths.at(0), this);
+}
+
+
+void MainWindow::openDeleteDialog()
+{
+    scrapper = new TheGamesDBScrapper(this);
+    scrapper->deleteGameInfo(getCurrentRomInfo(0), getCurrentRomInfo(2));
+    delete scrapper;
+
+    romCollection->cachedRoms();
 }
 
 
@@ -1300,11 +1316,14 @@ void MainWindow::toggleMenus(bool active)
 
     if (tableView->currentItem() == NULL && !gridCurrent && !listCurrent && ddView->currentItem() == NULL) {
         downloadAction->setEnabled(false);
+        deleteAction->setEnabled(false);
         startAction->setEnabled(false);
     }
 
-    if (SETTINGS.value("Other/downloadinfo", "").toString() == "")
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "") {
         downloadAction->setEnabled(false);
+        deleteAction->setEnabled(false);
+    }
 
     if (SETTINGS.value("Paths/ddiplrom", "").toString() == "")
         ddAction->setEnabled(false);
@@ -1348,6 +1367,7 @@ void MainWindow::updateLayoutSetting()
 
     startAction->setEnabled(false);
     downloadAction->setEnabled(false);
+    deleteAction->setEnabled(false);
 }
 
 

@@ -90,6 +90,7 @@ private:
     QAction *aboutAction;
     QAction *configureAction;
     QAction *convertAction;
+    QAction *deleteAction;
     QAction *downloadAction;
     QAction *logAction;
     QAction *ddAction;
@@ -135,6 +136,7 @@ private:
 
     EmulatorHandler *emulation;
     RomCollection *romCollection;
+    TheGamesDBScrapper *scrapper;
     TreeWidgetItem *fileItem;
 
 private slots:
@@ -152,6 +154,7 @@ private slots:
     void launchRomFromZip();
     void openAbout();
     void openConverter();
+    void openDeleteDialog();
     void openDownloader();
     void openLog();
     void openSettings();
