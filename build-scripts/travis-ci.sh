@@ -3,7 +3,7 @@
 export WORKING_DIR=$HOME/build/dh4
 
 if [[ $1 == 'package' ]]; then
-    VERSION=$(echo $TRAVIS_TAG | sed -e 's/v//g')
+    VERSION=$(echo $TRAVIS_TAG | sed -e 's/v//g' -e 's/-alpha//g')
     [[ -z $VERSION ]] && VERSION='git-latest'
     export VERSION=$VERSION
 fi
