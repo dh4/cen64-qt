@@ -35,6 +35,8 @@
 #include <QSettings>
 
 
+const QString Version = "(missing)";
+
 #ifdef Q_OS_WIN
     #define SETTINGS QSettings("cen64-qt.ini", QSettings::IniFormat)
 #else
