@@ -1,0 +1,40 @@
+language: cpp
+sudo: required
+env:
+  matrix:
+  - BUILD=windows
+  - BUILD=native
+os:
+- linux
+- osx
+matrix:
+  exclude:
+  - os: osx
+    env: BUILD=windows
+install:
+- "./build-scripts/travis-ci.sh setup_qt"
+- "./build-scripts/travis-ci.sh get_quazip"
+script:
+- "./build-scripts/travis-ci.sh build"
+before_deploy:
+- "./build-scripts/travis-ci.sh package"
+deploy:
+- provider: s3
+  access_key_id:
+    secure: GsN4LS6DXbwkMlUchj6RX/E/id4g+PTjFYzwATjVuk+Yilipdn/vpGWGLthJpNN9ontgXaTI9+R8vBgAxR6IRmmMHGafYQVBnH0n/RwA9qG4UTV5DEO/Vje2fXUAIxsinHG7jqJewIOAODvfkj4uG+DgUUv9V3BgWUl0whPyoAlkoXlZJ6iCWrCdgQ6RSXKqIJbaIjd1m5AvATXVTkpW2V6Fqk0/uTZDAM7pGVpY3Ddkpo1Xt6djRyz1W9Y9GyxxcUh9ecyeK2TdUoy8bvm43EnCNtLbOqSdkF1zWWU7uguDfYXw5tHtxf5BWbP2H1addGdExLHsFvG88zW0YhxzLWEhKaPQOvTstMZ1QUvP2b5pUVE/VyRF7he2xoG3X8UOHk0KKgO+8BxQo5sydt/91IuyJ9DVZxmHHWvIrOm5PJxF82RfmVxw8lTR5mb8Y9A0cN+KBa7QaLwPo+vLOqREIQh2Vk12aP/9GXwZF0NLv2vusvoosOJ9NsTR6gtMKY8nkbBLTLnxWNm94OEm2dLAL9qc4Gl5InitVEoJA51eK+EVpvdVWnqaC+TSL8482Xly+hYIyBOkBgywkP2FEszonleK/BMu7J+fEmoJz2FtnTumGOszm8hioy/p2eGv8ilgpeIP9yq4CPVBdoucVI4sNeq53VF6jyexhfF/zkkBPOk=
+  secret_access_key:
+    secure: tUdQW5zil2MP3vYQFYEF7Y6bUeADbvr36S8EJdNdAsxu+1dRSdLsUg04qzD8bNb7GN1Ez+b3XiEc5TZx4zRZ44O8I/Sdggcpb5JqUhOJjwQIq3VFBsJll4OIJkt536sSh2S/YpYkIU45npatcHZVrxxqy/Gs4R89tyltwzjy6bMgQjOF8bRaXZnu4Yz8pn7GyVCHAXJ4Y+09su7qZnTjixe9097SgJMAzSLh8aqBIqkT0ULuU8ePaM1xOIwMuq7PjYi/QtDN19yOyGIHt8ceQ1VA16uio1UdOys4PHKY+2a9WMcT344OGLN5pQ5qYLuJYnFrjlnW2fBWfM9CG1Tua+jjiegyLMl7FPxja1V5ML2q/EzZemQkpoy9AiJQUO+8AMACK7osSFUIfx2f+Ppj2sjCXgb0FJtey0kSiATLsHBFx5lAlkGuv2vTM090bOQ6zWoymmIu5O9rnox2fh5PS5XfJ0yB9BVWHBC9p1VYRq17/keOPTDcsdXVd6gkNzdDlDgKEqrwcEltYynWEL/qQqVOFYj5thxpaxG79z5nKnGew87gigr5iHp8/B4OqzzGwMovSYYLmS3ihAycuwzHdUeXoZ+r+PyYjqGvMZURVemqXsz/mXkbH5NdgXOd7Q7ZStvs3X9uzqq7LaCrKiYaGLeVWEY/YB8cvGLWW4uS8gw=
+  bucket: dh4
+  skip_cleanup: true
+  local_dir: build
+  upload-dir: cen64-qt/latest
+  on:
+    branch: master
+- provider: releases
+  api_key:
+    secure: QuZh8ZFU3Zxa2EIVujUsPAT0USGQDElDZdsf7DpKF16POJcnL5UwUZnlc4BtiU15yb8AUUsrsIMn14lUYLI9EzYxoUamrNczEnp6k+4IGfsXV9XtKu084MS5rVS6L8hTpizf7qeEy+9qjDw6Du05PM6Olcxq5Us8Ozbecd8ga1PgU3LUgToGT3E/3Sj9TapFg0VrlyxSkrN4eSBbhoU8MQpJ8SjSZtEgQYYwX+c4VX9BqMcSzFO6qHinyq3cME6Z/HIj4m8jsX/tq3NdXhy+QQRg3+O8vMRaL+mbAEPrGUQw79gCv1ZUIRcShKvWPbwZH16wlc21+YCBbsuYJC6Htv2/MQaiN+Dfhx33/AjsRdZ63IKgvDHPMy737U2pdi5i98qPr1npXPo50eWIF5kYB8TgW8w/LHu8dH4fnTBXAO/t4b9vqt/AicmWhcoS0r3K1SoAX75ULHCv0Ruz1ftTuudxtSHHsXkBEyqxHM5up/0Od5r9STW36GeDSTpVyi+3gj6rMbOXIfEHxp5wDZ/L7P6F+es03UpCsg/thTzdNz4UA9WKa9mZt1Ul/WvizSH7fPMN1dNhuUbkcggZb0P96l/Dr8n9yzJ4tIDWsSSc4d+7KscVL/XXORLFiKD1QOirgyBWRd9efeChRDeEgb0Gf8DlbeLZ8wg3BYtUvPLy1Hc=
+  skip_cleanup: true
+  file_glob: true
+  file: build/cen64-qt_*
+  on:
+    tags: true
