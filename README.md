@@ -1,6 +1,27 @@
-# CEN64-Qt
+# CEN64-Qt [![Build Status](https://travis-ci.org/dh4/cen64-qt.svg?branch=master)](https://travis-ci.org/dh4/cen64-qt)
 
 A basic cross-platform frontend for CEN64.
+
+![CEN64-Qt Grid View](https://dl.dropboxusercontent.com/u/232085155/cen64-qt/github.jpg)
+
+
+## Getting CEN64-Qt
+
+### Stable
+
+Stable releases can be found on the [releases](https://github.com/dh4/cen64-qt/releases) page.
+
+Note these are currently only alpha releases versioned with the date. I don't plan to adopt a version scheme until CEN64 is more stable.
+
+### Development
+
+Automatic builds of the latest git commit can be downloaded here:  
+Linux: [cen64-qt_linux_git-latest.tar.gz](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_linux_git-latest.tar.gz)  
+Windows: [cen64-qt_win_git-latest.zip](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_win_git-latest.zip)  
+OSX: [cen64-qt_osx_git-latest.dmg](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_osx_git-latest.dmg)
+
+Be aware that these may contain bugs not present in the stable releases.
+
 
 ## Building
 
@@ -35,3 +56,14 @@ Then create the Makefile with qmake and build with make:
 $ qmake-qt4
 $ make
 ```
+
+#### Compiling QuaZIP statically
+
+You also have the option to compile QuaZIP statically. Download the QuaZIP sources from Sourceforge. Place the contents of `quazip-<version>/quazip/` in `quazip/` within the project directory. Then run:
+
+```
+$ qmake CONFIG+=linux_quazip_static
+$ make
+```
+
+You will see warnings after the qmake step if the QuaZIP sources are in the wrong place.
