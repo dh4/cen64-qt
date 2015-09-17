@@ -1,19 +1,19 @@
 # CEN64-Qt [![Build Status](https://travis-ci.org/dh4/cen64-qt.svg?branch=master)](https://travis-ci.org/dh4/cen64-qt)
 
-A basic cross-platform frontend for CEN64.
+A basic cross-platform frontend for [CEN64](http://cen64.com/).
 
 ![CEN64-Qt Grid View](https://dl.dropboxusercontent.com/u/232085155/cen64-qt/github.jpg)
 
 
 ## Getting CEN64-Qt
 
-### Stable
+### Stable Builds
 
 Stable releases can be found on the [releases](https://github.com/dh4/cen64-qt/releases) page.
 
 Note these are currently only alpha releases versioned with the date. I don't plan to adopt a version scheme until CEN64 is more stable.
 
-### Development
+### Development Builds
 
 Automatic builds of the latest git commit can be downloaded here:  
 Linux: [cen64-qt_linux_git-latest.tar.gz](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_linux_git-latest.tar.gz)  
@@ -22,10 +22,7 @@ OSX: [cen64-qt_osx_git-latest.dmg](https://s3.amazonaws.com/dh4/cen64-qt/latest/
 
 Be aware that these may contain bugs not present in the stable releases.
 
-
-## Building
-
-### Linux
+### Building (Linux)
 
 You'll need to make sure you have qmake, g++, the Qt development libraries and the QuaZIP development files installed. On Debian/Ubuntu, this can be accomplished by:
 
