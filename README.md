@@ -7,9 +7,9 @@ A basic cross-platform frontend for [CEN64](http://cen64.com/).
 
 ## Getting CEN64-Qt
 
-### Stable Builds
+### Release Builds
 
-Stable releases can be found on the [releases](https://github.com/dh4/cen64-qt/releases) page.
+Release builds can be found on the [releases](https://github.com/dh4/cen64-qt/releases) page.
 
 Note these are currently only alpha releases versioned with the date. I don't plan to adopt a version scheme until CEN64 is more stable.
 
@@ -20,7 +20,7 @@ Linux: [cen64-qt_linux_git-latest.tar.gz](https://s3.amazonaws.com/dh4/cen64-qt/
 Windows: [cen64-qt_win_git-latest.zip](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_win_git-latest.zip)  
 OSX: [cen64-qt_osx_git-latest.dmg](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_osx_git-latest.dmg)
 
-Be aware that these may contain bugs not present in the stable releases.
+Be aware that these may contain bugs not present in the release builds.
 
 ### Building (Linux)
 
