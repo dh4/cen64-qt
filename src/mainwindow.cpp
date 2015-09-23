@@ -487,6 +487,7 @@ void MainWindow::createMenu()
 
     settingsMenu = new QMenu(tr("&Settings"), this);
     inputMenu = settingsMenu->addMenu(tr("&Input"));
+    inputMenu->setEnabled(false);
     inputMenu->setIcon(QIcon::fromTheme("input-gaming"));
     inputGroup = new QActionGroup(this);
 

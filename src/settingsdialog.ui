@@ -45,6 +45,9 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="2" column="0">
         <widget class="QGroupBox" name="saves">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="title">
           <string>Save Files</string>
          </property>
