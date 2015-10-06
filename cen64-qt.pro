@@ -13,8 +13,8 @@ macx {
 }
 
 TEMPLATE = app
-macx:ICON = macosx/cen64.icns
-win32:RC_FILE = windows/icon.rc
+macx:ICON = dist/macosx/cen64.icns
+win32:RC_FILE = dist/windows/icon.rc
 
 
 SOURCES += src/main.cpp \
