@@ -4,5 +4,6 @@
         <file>other/LICENSE</file>
         <file>images/not-found.png</file>
         <file>images/no-cart.png</file>
+        <file>other/VERSION</file>
     </qresource>
 </RCC>
