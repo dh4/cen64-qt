@@ -29,11 +29,11 @@
  *
  ***/
 
-#include <QApplication>
-#include <QDesktopWidget>
-
 #include "global.h"
 #include "mainwindow.h"
+
+#include <QApplication>
+#include <QDesktopWidget>
 
 
 int main(int argc, char *argv[])

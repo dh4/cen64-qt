@@ -32,8 +32,6 @@
 #ifndef V64CONVERTER_H
 #define V64CONVERTER_H
 
-#include <QFileDialog>
-#include <QMessageBox>
 #include <QObject>
 
 

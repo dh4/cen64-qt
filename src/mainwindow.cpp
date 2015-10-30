@@ -30,6 +30,34 @@
  ***/
 
 #include "mainwindow.h"
+#include "aboutdialog.h"
+#include "clickablewidget.h"
+#include "common.h"
+#include "downloaddialog.h"
+#include "emulatorhandler.h"
+#include "global.h"
+#include "logdialog.h"
+#include "romcollection.h"
+#include "settingsdialog.h"
+#include "v64converter.h"
+#include "thegamesdbscrapper.h"
+#include "treewidgetitem.h"
+
+#include <QCloseEvent>
+#include <QDialogButtonBox>
+#include <QHeaderView>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QLabel>
+#include <QListWidget>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QScrollArea>
+#include <QScrollBar>
+#include <QSplitter>
+#include <QStatusBar>
+#include <QTimer>
+#include <QVBoxLayout>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)

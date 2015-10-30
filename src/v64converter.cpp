@@ -31,6 +31,9 @@
 
 #include "v64converter.h"
 
+#include <QFileDialog>
+#include <QMessageBox>
+
 
 V64Converter::V64Converter(QString romPath, QWidget *parent) : QObject(parent)
 {
