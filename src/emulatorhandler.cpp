@@ -323,7 +323,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
                 QString catalogFile = SETTINGS.value("Paths/catalog", "").toString();
                 if (QFileInfo(catalogFile).exists()) {
                     QSettings romCatalog(catalogFile, QSettings::IniFormat, parent);
-                    QString saveType = romCatalog.value(romMD5+"/SaveType","").toString();
+                    QString saveType = romCatalog.value(romMD5.toUpper()+"/SaveType","").toString();
 
                     if (saveType == "Eeprom 4KB")
                         args << "-eep4k"  << eeprom4kPath;
