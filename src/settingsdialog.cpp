@@ -55,16 +55,24 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
         ui->romList->addItem(directory);
 
     ui->savesPath->setText(SETTINGS.value("Saves/directory", "").toString());
-    ui->eepromPath->setText(SETTINGS.value("Saves/eeprom", "").toString());
+    ui->eeprom4kPath->setText(SETTINGS.value("Saves/eeprom4k", "").toString());
+    ui->eeprom16kPath->setText(SETTINGS.value("Saves/eeprom16k", "").toString());
     ui->sramPath->setText(SETTINGS.value("Saves/sram", "").toString());
+    ui->flashPath->setText(SETTINGS.value("Saves/flash", "").toString());
 
     //Widgets enabled when save checkbox is active
-    saveEnable << ui->eepromPathLabel
-               << ui->eepromPath
-               << ui->eepromButton
+    saveEnable << ui->eeprom4kPathLabel
+               << ui->eeprom4kPath
+               << ui->eeprom4kButton
+               << ui->eeprom16kPathLabel
+               << ui->eeprom16kPath
+               << ui->eeprom16kButton
                << ui->sramPathLabel
                << ui->sramPath
-               << ui->sramButton;
+               << ui->sramButton
+               << ui->flashPathLabel
+               << ui->flashPath
+               << ui->flashButton;
 
     //Widgets disabled when save checkbox is active
     saveDisable << ui->savesPathLabel
@@ -84,9 +92,20 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     connect(ui->romAddButton, SIGNAL(clicked()), this, SLOT(addRomDirectory()));
     connect(ui->romRemoveButton, SIGNAL(clicked()), this, SLOT(removeRomDirectory()));
     connect(ui->savesButton, SIGNAL(clicked()), this, SLOT(browseSaves()));
-    connect(ui->eepromButton, SIGNAL(clicked()), this, SLOT(browseEEPROM()));
+    connect(ui->eeprom4kButton, SIGNAL(clicked()), this, SLOT(browseEEPROM4k()));
+    connect(ui->eeprom16kButton, SIGNAL(clicked()), this, SLOT(browseEEPROM16k()));
     connect(ui->sramButton, SIGNAL(clicked()), this, SLOT(browseSRAM()));
+    connect(ui->flashButton, SIGNAL(clicked()), this, SLOT(browseFlashRAM()));
     connect(ui->saveOption, SIGNAL(toggled(bool)), this, SLOT(toggleSaves(bool)));
+
+
+    //Populate Emulation tab
+    if (SETTINGS.value("Emulation/multithread", "").toString() == "true")
+        ui->multithreadOption->setChecked(true);
+    if (SETTINGS.value("Emulation/noaudio", "").toString() == "true")
+        ui->noAudioOption->setChecked(true);
+    if (SETTINGS.value("Emulation/novideo", "").toString() == "true")
+        ui->noVideoOption->setChecked(true);
 
 
     //Populate Table tab
@@ -289,7 +308,6 @@ void SettingsDialog::browseCatalog()
 }
 
 
-
 void SettingsDialog::browseCen64()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("CEN64 Executable"));
@@ -298,11 +316,27 @@ void SettingsDialog::browseCen64()
 }
 
 
-void SettingsDialog::browseEEPROM()
+void SettingsDialog::browseEEPROM4k()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("EEPROM File"));
+    QString path = QFileDialog::getOpenFileName(this, tr("4kbit EEPROM File"));
     if (path != "")
-        ui->eepromPath->setText(path);
+        ui->eeprom4kPath->setText(path);
+}
+
+
+void SettingsDialog::browseEEPROM16k()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("16kbit EEPROM File"));
+    if (path != "")
+        ui->eeprom16kPath->setText(path);
+}
+
+
+void SettingsDialog::browseFlashRAM()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("FlashRAM File"));
+    if (path != "")
+        ui->flashPath->setText(path);
 }
 
 
@@ -349,8 +383,10 @@ void SettingsDialog::editSettings()
     SETTINGS.setValue("Paths/catalog", ui->catalogPath->text());
 
     SETTINGS.setValue("Saves/directory", ui->savesPath->text());
-    SETTINGS.setValue("Saves/eeprom", ui->eepromPath->text());
+    SETTINGS.setValue("Saves/eeprom4k", ui->eeprom4kPath->text());
+    SETTINGS.setValue("Saves/eeprom16k", ui->eeprom16kPath->text());
     SETTINGS.setValue("Saves/sram", ui->sramPath->text());
+    SETTINGS.setValue("Saves/flash", ui->flashPath->text());
 
     QStringList romDirectories;
     foreach (QListWidgetItem *item, ui->romList->findItems("*", Qt::MatchWildcard))
@@ -362,6 +398,24 @@ void SettingsDialog::editSettings()
         SETTINGS.setValue("Saves/individualsave", true);
     else
         SETTINGS.setValue("Saves/individualsave", "");
+
+
+    //Emulation tab
+    if (ui->multithreadOption->isChecked())
+        SETTINGS.setValue("Emulation/multithread", true);
+    else
+        SETTINGS.setValue("Emulation/multithread", "");
+
+    if (ui->noAudioOption->isChecked())
+        SETTINGS.setValue("Emulation/noaudio", true);
+    else
+        SETTINGS.setValue("Emulation/noaudio", "");
+
+    if (ui->noVideoOption->isChecked())
+        SETTINGS.setValue("Emulation/novideo", true);
+    else
+        SETTINGS.setValue("Emulation/novideo", "");
+
 
 
     //Table tab

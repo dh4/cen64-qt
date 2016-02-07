@@ -7,36 +7,26 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>600</height>
+    <height>675</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>550</width>
-    <height>550</height>
+    <height>650</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="3" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="tabShape">
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="pathsWidget">
       <attribute name="title">
@@ -46,7 +36,7 @@
        <item row="2" column="0">
         <widget class="QGroupBox" name="saves">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="title">
           <string>Save Files</string>
@@ -54,6 +44,40 @@
          <layout class="QGridLayout" name="gridLayout_6">
           <item row="0" column="0">
            <layout class="QGridLayout" name="savesLayout">
+            <item row="5" column="2">
+             <widget class="QPushButton" name="flashButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="flashPath"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="eeprom16kPathLabel">
+              <property name="text">
+               <string>16 kbit EEPROM file:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="flashPathLabel">
+              <property name="text">
+               <string>FlashRAM file:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QPushButton" name="eeprom16kButton">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="eeprom16kPath"/>
+            </item>
             <item row="0" column="2">
              <widget class="QPushButton" name="savesButton">
               <property name="text">
@@ -79,36 +103,36 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="eepromPath"/>
+             <widget class="QLineEdit" name="eeprom4kPath"/>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <widget class="QLineEdit" name="sramPath"/>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="eepromPathLabel">
-              <property name="text">
-               <string>EEPROM file:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="sramPathLabel">
-              <property name="text">
-               <string>SRAM file:</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="2">
-             <widget class="QPushButton" name="eepromButton">
+             <widget class="QPushButton" name="eeprom4kButton">
               <property name="text">
                <string>Browse...</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
+            <item row="2" column="0">
+             <widget class="QLabel" name="eeprom4kPathLabel">
+              <property name="text">
+               <string>4 kbit EEPROM file:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
              <widget class="QPushButton" name="sramButton">
               <property name="text">
                <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="sramPathLabel">
+              <property name="text">
+               <string>SRAM file:</string>
               </property>
              </widget>
             </item>
@@ -268,6 +292,91 @@
           </item>
          </layout>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="emulationWidget">
+      <attribute name="title">
+       <string>Emulation</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_14">
+       <item row="0" column="1">
+        <spacer name="emulationHSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="emulationLayout">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="multithreadLabel">
+           <property name="text">
+            <string>Run CEN64 multithreaded:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="multithreadOption">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="noAudioLabel">
+           <property name="text">
+            <string>No audio:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="noAudioOption">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="noVideoLabel">
+           <property name="text">
+            <string>No video:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="noVideoOption">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <spacer name="emulationVSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -1049,6 +1158,16 @@
      </widget>
     </widget>
    </item>
+   <item row="3" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -1068,9 +1187,9 @@
   <tabstop>savesPath</tabstop>
   <tabstop>savesButton</tabstop>
   <tabstop>saveOption</tabstop>
-  <tabstop>eepromPath</tabstop>
+  <tabstop>eeprom4kPath</tabstop>
   <tabstop>sramPath</tabstop>
-  <tabstop>eepromButton</tabstop>
+  <tabstop>eeprom4kButton</tabstop>
   <tabstop>sramButton</tabstop>
   <tabstop>tableAvailableList</tabstop>
   <tabstop>tableAddButton</tabstop>

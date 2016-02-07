@@ -36,6 +36,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QProcess>
+#include <QCryptographicHash>
 
 #include <quazip/quazip.h>
 #include <quazip/quazipfile.h>
@@ -192,7 +193,6 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
     QString cen64Path = SETTINGS.value("Paths/cen64", "").toString();
     QString pifPath = SETTINGS.value("Paths/pifrom", "").toString();
     QString ddIPLPath = SETTINGS.value("Paths/ddiplrom", "").toString();
-    QString input = SETTINGS.value("input", "").toString();
 
     bool ddMode = false;
     if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
@@ -281,42 +281,81 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
 
     QStringList args;
-//    args << "-controller" << input;
 
-//    if (SETTINGS.value("Saves/individualsave", "").toString() == "true") {
-//        QString eepromPath = SETTINGS.value("Saves/eeprom", "").toString();
-//        QString sramPath = SETTINGS.value("Saves/sram", "").toString();
+    if (SETTINGS.value("Saves/individualsave", "").toString() == "true") {
+        QString eeprom4kPath = SETTINGS.value("Saves/eeprom4k", "").toString();
+        QString eeprom16kPath = SETTINGS.value("Saves/eeprom16k", "").toString();
+        QString sramPath = SETTINGS.value("Saves/sram", "").toString();
+        QString flashPath = SETTINGS.value("Saves/flash", "").toString();
 
-//        if (eepromPath != "")
-//            args << "-eeprom" << eepromPath;
+        if (eeprom4kPath != "")
+            args << "-eep4k" << eeprom4kPath;
+        if (eeprom16kPath != "")
+            args << "-eep16k" << eeprom16kPath;
+        if (sramPath != "")
+            args << "-sram" << sramPath;
+        if (flashPath != "")
+            args << "-flash" << flashPath;
+    } else {
+        QString savesPath = SETTINGS.value("Saves/directory", "").toString();
+        if (savesPath != "") {
+            QDir savesDir(savesPath);
 
-//        if (sramPath != "")
-//            args << "-sram" << sramPath;
-//    } else {
-//        QString savesPath = SETTINGS.value("Saves/directory", "").toString();
-//        if (savesPath != "") {
-//            QDir savesDir(savesPath);
+            if (savesDir.exists()) {
+                romFile.open(QIODevice::ReadOnly);
+                QByteArray *romData = new QByteArray(romFile.readAll());
+                romFile.close();
 
-//            if (savesDir.exists()) {
-//                romFile.open(QIODevice::ReadOnly);
-//                QByteArray *romData = new QByteArray(romFile.readAll());
-//                romFile.close();
+                QString romMD5 = QString(QCryptographicHash::hash(*romData,
+                                                                  QCryptographicHash::Md5).toHex());
 
-//                QString romMD5 = QString(QCryptographicHash::hash(*romData,
-//                                                                  QCryptographicHash::Md5).toHex());
+                QString romBaseName = QFileInfo(romFile).completeBaseName();
+                QString eeprom4kFileName = romBaseName + "." + romMD5 + ".eep4k";
+                QString eeprom16kFileName = romBaseName + "." + romMD5 + ".eep16k";
+                QString sramFileName = romBaseName + "." + romMD5 + ".sram";
+                QString flashFileName = romBaseName + "." + romMD5 + ".flash";
+                QString eeprom4kPath = savesDir.absoluteFilePath(eeprom4kFileName);
+                QString eeprom16kPath = savesDir.absoluteFilePath(eeprom16kFileName);
+                QString sramPath = savesDir.absoluteFilePath(sramFileName);
+                QString flashPath = savesDir.absoluteFilePath(flashFileName);
 
-//                QString romBaseName = QFileInfo(romFile).completeBaseName();
-//                QString eepromFileName = romBaseName + "." + romMD5 + ".eeprom";
-//                QString sramFileName = romBaseName + "." + romMD5 + ".sram";
-//                QString eepromPath = savesDir.absoluteFilePath(eepromFileName);
-//                QString sramPath = savesDir.absoluteFilePath(sramFileName);
+                // Check ROM catalog to determine save type
+                QString catalogFile = SETTINGS.value("Paths/catalog", "").toString();
+                if (QFileInfo(catalogFile).exists()) {
+                    QSettings romCatalog(catalogFile, QSettings::IniFormat, parent);
+                    QString saveType = romCatalog.value(romMD5+"/SaveType","").toString();
 
-//                args << "-eeprom" << eepromPath << "-sram" << sramPath;
+                    if (saveType == "Eeprom 4KB")
+                        args << "-eep4k"  << eeprom4kPath;
+                    else if (saveType == "Eeprom 16KB")
+                        args << "-eep16k"  << eeprom16kPath;
+                    else if (saveType == "SRAM")
+                        args << "-sram"  << sramPath;
+                    else if (saveType == "Flash RAM")
+                        args << "-flash"  << flashPath;
+                    else
+                        args << "-eep4k"  << eeprom4kPath
+                             << "-eep16k" << eeprom16kPath
+                             << "-sram"   << sramPath
+                             << "-flash"  << flashPath;
+                } else {
+                    args << "-eep4k"  << eeprom4kPath
+                         << "-eep16k" << eeprom16kPath
+                         << "-sram"   << sramPath
+                         << "-flash"  << flashPath;
+                }
 
-//                delete romData;
-//            }
-//        }
-//    }
+                delete romData;
+            }
+        }
+    }
+
+    if (SETTINGS.value("Emulation/multithread", "").toString() == "true")
+        args << "-multithread";
+    if (SETTINGS.value("Emulation/noaudio", "").toString() == "true")
+        args << "-noaudio";
+    if (SETTINGS.value("Emulation/novideo", "").toString() == "true")
+        args << "-novideo";
 
     if (ddIPLPath != "" && complete64DDPath != "" && ddMode)
         args << "-ddipl" << ddIPLPath << "-ddrom" << complete64DDPath;

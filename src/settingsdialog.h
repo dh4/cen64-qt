@@ -70,7 +70,9 @@ private slots:
     void browseBackground();
     void browseCatalog();
     void browseCen64();
-    void browseEEPROM();
+    void browseEEPROM4k();
+    void browseEEPROM16k();
+    void browseFlashRAM();
     void browsePIF();
     void browseSaves();
     void browseSRAM();
