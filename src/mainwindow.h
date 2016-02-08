@@ -101,7 +101,6 @@ private:
     QAction *startAction;
     QAction *statusBarAction;
     QAction *stopAction;
-    QActionGroup *inputGroup;
     QActionGroup *layoutGroup;
     QDialog *zipDialog;
     QDialogButtonBox *zipButtonBox;
@@ -117,7 +116,6 @@ private:
     QMenu *emulationMenu;
     QMenu *fileMenu;
     QMenu *helpMenu;
-    QMenu *inputMenu;
     QMenu *layoutMenu;
     QMenu *settingsMenu;
     QMenu *viewMenu;
@@ -165,7 +163,6 @@ private slots:
     void setListPosition();
     void setTablePosition();
     void stopEmulator();
-    void updateInputSetting();
     void updateLayoutSetting();
     void update64DD();
     void updateStatusBar(QString message, int timeout);

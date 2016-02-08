@@ -26,7 +26,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="pathsWidget">
       <attribute name="title">
@@ -324,7 +324,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="multithreadLabel">
            <property name="text">
-            <string>Run CEN64 multithreaded:</string>
+            <string>Run multithreaded (quasi-accurate):</string>
            </property>
           </widget>
          </item>
@@ -377,6 +377,416 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="controllersWidget">
+      <attribute name="title">
+       <string>Controllers</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_18">
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="controllersTabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="ctrl1Widget">
+          <attribute name="title">
+           <string>Controller #1</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_15">
+           <item row="1" column="0">
+            <spacer name="ctrl1VSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="ctrl1Layout" columnstretch="0,0,0" columnminimumwidth="0,300,0">
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="ctrl1TPakSave"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="ctrl1TPakROMLabel">
+               <property name="text">
+                <string>Transfer Pak ROM:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="ctrl1Accessory"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="ctrl1TPakSaveLabel">
+               <property name="text">
+                <string>Transfer Pak Save:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="ctrl1MemPakLabel">
+               <property name="text">
+                <string>Controller Pak File:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="ctrl1AccessoryLabel">
+               <property name="text">
+                <string>Accessory:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="ctrl1MemPak"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="ctrl1Enabled">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="ctrl1TPakROM"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="ctrl1EnabledLabel">
+               <property name="text">
+                <string>Enabled:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="ctrl1MemPakButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="ctrl1TPakROMButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QPushButton" name="ctrl1TPakSaveButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="ctrl2Widget">
+          <attribute name="title">
+           <string>Controller #2</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_20">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="ctrl2Layout" columnstretch="0,0,0" columnminimumwidth="0,300,0">
+             <item row="4" column="0">
+              <widget class="QLabel" name="ctrl2TPakSaveLabel">
+               <property name="text">
+                <string>Transfer Pak Save:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="ctrl2TPakROMLabel">
+               <property name="text">
+                <string>Transfer Pak ROM:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="ctrl2Accessory"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="ctrl2MemPakLabel">
+               <property name="text">
+                <string>Controller Pak File:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="ctrl2AccessoryLabel">
+               <property name="text">
+                <string>Accessory:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="ctrl2MemPak"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="ctrl2Enabled">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="ctrl2TPakROM"/>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="ctrl2TPakSave"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="ctrl2EnabledLabel">
+               <property name="text">
+                <string>Enabled:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="ctrl2MemPakButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="ctrl2TPakROMButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QPushButton" name="ctrl2TPakSaveButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <spacer name="ctrl2VSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="ctrl3Widget">
+          <attribute name="title">
+           <string>Controller #3</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_21">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="ctrl3Layout" columnstretch="0,0,0" columnminimumwidth="0,300,0">
+             <item row="3" column="0">
+              <widget class="QLabel" name="ctrl3TPakROMLabel">
+               <property name="text">
+                <string>Transfer Pak ROM:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="ctrl3Accessory"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="ctrl3TPakSaveLabel">
+               <property name="text">
+                <string>Transfer Pak Save:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="ctrl3MemPakLabel">
+               <property name="text">
+                <string>Controller Pak File:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="ctrl3AccessoryLabel">
+               <property name="text">
+                <string>Accessory:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="ctrl3MemPak"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="ctrl3Enabled">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="ctrl3TPakROM"/>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="ctrl3TPakSave"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="ctrl3EnabledLabel">
+               <property name="text">
+                <string>Enabled:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="ctrl3MemPakButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="ctrl3TPakROMButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QPushButton" name="ctrl3TPakSaveButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <spacer name="ctrl3VSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="ctrl4Widget">
+          <attribute name="title">
+           <string>Controller #4</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_22">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="ctrl4Layout" columnstretch="0,0,0" columnminimumwidth="0,300,0">
+             <item row="3" column="0">
+              <widget class="QLabel" name="ctrl4TPakROMLabel">
+               <property name="text">
+                <string>Transfer Pak ROM:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="ctrl4Accessory"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="ctrl4TPakSaveLabel">
+               <property name="text">
+                <string>Transfer Pak Save:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="ctrl4MemPakLabel">
+               <property name="text">
+                <string>Controller Pak File:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="ctrl4AccessoryLabel">
+               <property name="text">
+                <string>Accessory:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="ctrl4MemPak"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="ctrl4Enabled">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="ctrl4TPakROM"/>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="ctrl4TPakSave"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="ctrl4EnabledLabel">
+               <property name="text">
+                <string>Enabled:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="ctrl4MemPakButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="ctrl4TPakROMButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QPushButton" name="ctrl4TPakSaveButton">
+               <property name="text">
+                <string>Browse...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <spacer name="ctrl4VSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1171,7 +1581,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>buttonBox</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>cen64Path</tabstop>
   <tabstop>pifPath</tabstop>
@@ -1188,9 +1597,37 @@
   <tabstop>savesButton</tabstop>
   <tabstop>saveOption</tabstop>
   <tabstop>eeprom4kPath</tabstop>
+  <tabstop>eeprom16kPath</tabstop>
   <tabstop>sramPath</tabstop>
+  <tabstop>flashPath</tabstop>
   <tabstop>eeprom4kButton</tabstop>
+  <tabstop>eeprom16kButton</tabstop>
   <tabstop>sramButton</tabstop>
+  <tabstop>flashButton</tabstop>
+  <tabstop>multithreadOption</tabstop>
+  <tabstop>noAudioOption</tabstop>
+  <tabstop>noVideoOption</tabstop>
+  <tabstop>controllersTabWidget</tabstop>
+  <tabstop>ctrl1Enabled</tabstop>
+  <tabstop>ctrl1Accessory</tabstop>
+  <tabstop>ctrl1MemPak</tabstop>
+  <tabstop>ctrl1TPakROM</tabstop>
+  <tabstop>ctrl1TPakSave</tabstop>
+  <tabstop>ctrl2Enabled</tabstop>
+  <tabstop>ctrl2Accessory</tabstop>
+  <tabstop>ctrl2MemPak</tabstop>
+  <tabstop>ctrl2TPakROM</tabstop>
+  <tabstop>ctrl2TPakSave</tabstop>
+  <tabstop>ctrl3Enabled</tabstop>
+  <tabstop>ctrl3Accessory</tabstop>
+  <tabstop>ctrl3MemPak</tabstop>
+  <tabstop>ctrl3TPakROM</tabstop>
+  <tabstop>ctrl3TPakSave</tabstop>
+  <tabstop>ctrl4Enabled</tabstop>
+  <tabstop>ctrl4Accessory</tabstop>
+  <tabstop>ctrl4MemPak</tabstop>
+  <tabstop>ctrl4TPakROM</tabstop>
+  <tabstop>ctrl4TPakSave</tabstop>
   <tabstop>tableAvailableList</tabstop>
   <tabstop>tableAddButton</tabstop>
   <tabstop>tableRemoveButton</tabstop>

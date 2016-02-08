@@ -108,6 +108,97 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
         ui->noVideoOption->setChecked(true);
 
 
+    //Populate Controllers tab
+    ctrlEnabled << ui->ctrl1Enabled
+                << ui->ctrl2Enabled
+                << ui->ctrl3Enabled
+                << ui->ctrl4Enabled;
+
+    ctrlAccessory << ui->ctrl1Accessory
+                  << ui->ctrl2Accessory
+                  << ui->ctrl3Accessory
+                  << ui->ctrl4Accessory;
+
+    ctrlAccessoryLabel << ui->ctrl1AccessoryLabel
+                       << ui->ctrl2AccessoryLabel
+                       << ui->ctrl3AccessoryLabel
+                       << ui->ctrl4AccessoryLabel;
+
+    ctrlMemPak << ui->ctrl1MemPak
+               << ui->ctrl2MemPak
+               << ui->ctrl3MemPak
+               << ui->ctrl4MemPak;
+
+    ctrlMemPakButton << ui->ctrl1MemPakButton
+                     << ui->ctrl2MemPakButton
+                     << ui->ctrl3MemPakButton
+                     << ui->ctrl4MemPakButton;
+
+    ctrlMemPakLabel << ui->ctrl1MemPakLabel
+                    << ui->ctrl2MemPakLabel
+                    << ui->ctrl3MemPakLabel
+                    << ui->ctrl4MemPakLabel;
+
+    ctrlTPakROM << ui->ctrl1TPakROM
+                << ui->ctrl2TPakROM
+                << ui->ctrl3TPakROM
+                << ui->ctrl4TPakROM;
+
+    ctrlTPakROMButton << ui->ctrl1TPakROMButton
+                      << ui->ctrl2TPakROMButton
+                      << ui->ctrl3TPakROMButton
+                      << ui->ctrl4TPakROMButton;
+
+    ctrlTPakROMLabel << ui->ctrl1TPakROMLabel
+                     << ui->ctrl2TPakROMLabel
+                     << ui->ctrl3TPakROMLabel
+                     << ui->ctrl4TPakROMLabel;
+
+    ctrlTPakSave << ui->ctrl1TPakSave
+                 << ui->ctrl2TPakSave
+                 << ui->ctrl3TPakSave
+                 << ui->ctrl4TPakSave;
+
+    ctrlTPakSaveButton << ui->ctrl1TPakSaveButton
+                       << ui->ctrl2TPakSaveButton
+                       << ui->ctrl3TPakSaveButton
+                       << ui->ctrl4TPakSaveButton;
+
+    ctrlTPakSaveLabel << ui->ctrl1TPakSaveLabel
+                      << ui->ctrl2TPakSaveLabel
+                      << ui->ctrl3TPakSaveLabel
+                      << ui->ctrl4TPakSaveLabel;
+
+    QStringList ctrlOptions;
+    ctrlOptions << tr("None") << tr("Rumble Pak") << tr("Controller Pak") << tr("Transfer Pak");
+
+    for (int i = 0; i <= 3; i++)
+    {
+        QString ctrl = "Controller"+ QString::number(i + 1);
+
+        ctrlAccessory.at(i)->insertItems(0, ctrlOptions);
+        int ctrlAccessoryIndex = SETTINGS.value(ctrl+"/accessory", 0).toInt();
+        if (ctrlAccessoryIndex >= 0) ctrlAccessory.at(i)->setCurrentIndex(ctrlAccessoryIndex);
+        toggleAccessory(ctrlAccessory.at(i)->currentIndex(), i);
+
+        ctrlMemPak.at(i)->setText(SETTINGS.value(ctrl+"/mempak", "").toString());
+        ctrlTPakROM.at(i)->setText(SETTINGS.value(ctrl+"/tpakrom", "").toString());
+        ctrlTPakSave.at(i)->setText(SETTINGS.value(ctrl+"/tpaksave", "").toString());
+
+        if (SETTINGS.value(ctrl+"/enabled", "").toString() == "true") {
+            ctrlEnabled.at(i)->setChecked(true);
+            toggleController(true, i);
+        } else
+            toggleController(false, i);
+
+        connect(ctrlEnabled.at(i), SIGNAL(toggled(bool)), this, SLOT(toggleController(bool)));
+        connect(ctrlAccessory.at(i), SIGNAL(currentIndexChanged(int)), this, SLOT(toggleAccessory(int)));
+        connect(ctrlMemPakButton.at(i), SIGNAL(clicked()), this, SLOT(browseMemPak()));
+        connect(ctrlTPakROMButton.at(i), SIGNAL(clicked()), this, SLOT(browseTPakROM()));
+        connect(ctrlTPakSaveButton.at(i), SIGNAL(clicked()), this, SLOT(browseTPakSave()));
+    }
+
+
     //Populate Table tab
     QStringList sizes;
     sizes << "Extra Small"
@@ -340,6 +431,14 @@ void SettingsDialog::browseFlashRAM()
 }
 
 
+void SettingsDialog::browseMemPak()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Controller Pak File"));
+    if (path != "")
+        ctrlMemPak.at(ui->controllersTabWidget->currentIndex())->setText(path);
+}
+
+
 void SettingsDialog::browsePIF()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("PIF IPL ROM File"));
@@ -361,6 +460,22 @@ void SettingsDialog::browseSRAM()
     QString path = QFileDialog::getOpenFileName(this, tr("SRAM File"));
     if (path != "")
         ui->sramPath->setText(path);
+}
+
+
+void SettingsDialog::browseTPakROM()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Transfer Pak ROM File"));
+    if (path != "")
+        ctrlTPakROM.at(ui->controllersTabWidget->currentIndex())->setText(path);
+}
+
+
+void SettingsDialog::browseTPakSave()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Transfer Pak Save File"));
+    if (path != "")
+        ctrlTPakSave.at(ui->controllersTabWidget->currentIndex())->setText(path);
 }
 
 
@@ -416,6 +531,23 @@ void SettingsDialog::editSettings()
     else
         SETTINGS.setValue("Emulation/novideo", "");
 
+
+    //Controllers tab
+    for (int i = 0; i <= 3; i++)
+    {
+        QString ctrl = "Controller"+QString::number(i + 1);
+
+        if (ctrlEnabled.at(i)->isChecked())
+            SETTINGS.setValue(ctrl+"/enabled", true);
+        else
+            SETTINGS.setValue(ctrl+"/enabled", "");
+
+        SETTINGS.setValue(ctrl+"/accessory", ctrlAccessory.at(i)->currentIndex());
+
+        SETTINGS.setValue(ctrl+"/mempak", ctrlMemPak.at(i)->text());
+        SETTINGS.setValue(ctrl+"/tpakrom", ctrlTPakROM.at(i)->text());
+        SETTINGS.setValue(ctrl+"/tpaksave", ctrlTPakSave.at(i)->text());
+    }
 
 
     //Table tab
@@ -711,6 +843,77 @@ void SettingsDialog::tableSortDown()
 void SettingsDialog::tableSortUp()
 {
     sortUp(ui->tableCurrentList);
+}
+
+
+void SettingsDialog::toggleAccessory(int index, int i)
+{
+    int ctrl;
+
+    if (i >= 0 && i <= 3)
+        ctrl = i;
+    else
+        ctrl = ui->controllersTabWidget->currentIndex();
+
+    QList<QWidget*> memPakEnable;
+    memPakEnable << ctrlMemPak.at(ctrl)
+                 << ctrlMemPakButton.at(ctrl)
+                 << ctrlMemPakLabel.at(ctrl);
+
+    QList<QWidget*> tPakEnable;
+    tPakEnable << ctrlTPakROM.at(ctrl)
+               << ctrlTPakROMButton.at(ctrl)
+               << ctrlTPakROMLabel.at(ctrl)
+               << ctrlTPakSave.at(ctrl)
+               << ctrlTPakSaveButton.at(ctrl)
+               << ctrlTPakSaveLabel.at(ctrl);
+
+    QList<QWidget*> allEnable;
+    allEnable << memPakEnable << tPakEnable;
+
+    foreach (QWidget *next, allEnable)
+        next->setEnabled(false);
+
+    if (index == 2) //Controller Pak
+        foreach (QWidget *next, memPakEnable)
+            next->setEnabled(true);
+    else if (index == 3) //Transfer Pak
+        foreach (QWidget *next, tPakEnable)
+            next->setEnabled(true);
+}
+
+
+void SettingsDialog::toggleController(bool active, int i)
+{
+    int ctrl;
+
+    if (i >= 0 && i <= 3)
+        ctrl = i;
+    else
+        ctrl = ui->controllersTabWidget->currentIndex();
+
+    QList<QWidget*> cEnable;
+
+    if (active)
+        cEnable << ctrlAccessory.at(ctrl);
+    else
+        cEnable << ctrlAccessory.at(ctrl)
+                << ctrlAccessoryLabel.at(ctrl)
+                << ctrlMemPak.at(ctrl)
+                << ctrlMemPakButton.at(ctrl)
+                << ctrlMemPakLabel.at(ctrl)
+                << ctrlTPakROM.at(ctrl)
+                << ctrlTPakROMButton.at(ctrl)
+                << ctrlTPakROMLabel.at(ctrl)
+                << ctrlTPakSave.at(ctrl)
+                << ctrlTPakSaveButton.at(ctrl)
+                << ctrlTPakSaveLabel.at(ctrl);
+
+    foreach (QWidget *next, cEnable)
+        next->setEnabled(active);
+
+    if (active)
+        toggleAccessory(ctrlAccessory.at(ctrl)->currentIndex(), ctrl);
 }
 
 

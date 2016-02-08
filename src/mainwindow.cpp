@@ -514,33 +514,6 @@ void MainWindow::createMenu()
 
 
     settingsMenu = new QMenu(tr("&Settings"), this);
-    inputMenu = settingsMenu->addMenu(tr("&Input"));
-    inputMenu->setEnabled(false);
-    inputMenu->setIcon(QIcon::fromTheme("input-gaming"));
-    inputGroup = new QActionGroup(this);
-
-    QStringList inputs;
-    inputs << "keyboard" << "mayflash64" << "retrolink" << "wiiu" << "x360";
-
-    QString inputValue = SETTINGS.value("input","keyboard").toString();
-
-    foreach (QString inputName, inputs)
-    {
-        QAction *input = inputMenu->addAction(inputName);
-        input->setData(inputName);
-        input->setCheckable(true);
-        inputGroup->addAction(input);
-
-        //Only enable input actions when CEN64 is not running
-        menuEnable << input;
-
-        if(inputValue == inputName)
-            input->setChecked(true);
-    }
-
-#ifndef Q_OS_OSX //OSX does not show the configure action so the separator is unneeded
-    settingsMenu->addSeparator();
-#endif
     configureAction = settingsMenu->addAction(tr("&Configure..."));
     configureAction->setIcon(QIcon::fromTheme("preferences-other"));
 
@@ -614,7 +587,6 @@ void MainWindow::createMenu()
     connect(configureAction, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(statusBarAction, SIGNAL(triggered()), this, SLOT(updateStatusBarView()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
-    connect(inputGroup, SIGNAL(triggered(QAction*)), this, SLOT(updateInputSetting()));
     connect(layoutGroup, SIGNAL(triggered(QAction*)), this, SLOT(updateLayoutSetting()));
 }
 
@@ -1356,12 +1328,6 @@ void MainWindow::toggleMenus(bool active)
 
     if (SETTINGS.value("Paths/ddiplrom", "").toString() == "")
         ddAction->setEnabled(false);
-}
-
-
-void MainWindow::updateInputSetting()
-{
-    SETTINGS.setValue("input", inputGroup->checkedAction()->data().toString());
 }
 
 

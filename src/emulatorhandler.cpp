@@ -333,6 +333,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
                         args << "-sram"  << sramPath;
                     else if (saveType == "Flash RAM")
                         args << "-flash"  << flashPath;
+                    else if (saveType == "Controller Pack");
                     else
                         args << "-eep4k"  << eeprom4kPath
                              << "-eep16k" << eeprom16kPath
@@ -347,6 +348,30 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
                 delete romData;
             }
+        }
+    }
+
+    for (int i = 1; i <= 4; i++)
+    {
+        QString ctrl = "Controller"+QString::number(i);
+
+        if (SETTINGS.value(ctrl+"/enabled", "").toString() == "true") {
+            args << "-controller";
+            QString options = "num="+QString::number(i);
+
+            int accessory = SETTINGS.value(ctrl+"/accessory", 0).toInt();
+            QString memPak = SETTINGS.value(ctrl+"/mempak", "").toString();
+            QString tPakROM = SETTINGS.value(ctrl+"/tpakrom", "").toString();
+            QString tPakSave = SETTINGS.value(ctrl+"/tpaksave", "").toString();
+
+            if (accessory == 1) //Rumble Pak
+                options += ",pak=rumble";
+            else if (accessory == 2 && memPak != "") //Controller Pak
+                options += ",mempak="+memPak;
+            else if (accessory == 3 && tPakROM != "" && tPakSave != "") //Transfer Pak
+                options += ",tpak_rom="+tPakROM+",tpak_save="+tPakSave;
+
+            args << options;
         }
     }
 
