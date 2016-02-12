@@ -177,14 +177,14 @@ void RomCollection::addRoms()
             }
 
             if (romCount == 0)
-                QMessageBox::warning(parent, "Warning", "No ROMs found in " + romPath + ".");
+                QMessageBox::warning(parent, tr("Warning"), tr("No ROMs found in ") + romPath + ".");
         }
 
         delete scrapper;
         database.close();
         progress->close();
     } else if (romPaths.size() != 0) {
-        QMessageBox::warning(parent, "Warning", "No ROMs found.");
+        QMessageBox::warning(parent, tr("Warning"), tr("No ROMs found."));
     }
 
     //Emit signals for regular roms
@@ -307,7 +307,7 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
     QDir romDir(currentRom->directory);
 
     //Default text for GoodName to notify user
-    currentRom->goodName = "Requires catalog file";
+    currentRom->goodName = getTranslation("Requires catalog file");
     currentRom->imageExists = false;
 
     bool getGoodName = false;
@@ -324,8 +324,8 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
 
     if (getGoodName) {
         //Join GoodName on ", ", otherwise entries with a comma won't show
-        QVariant goodNameVariant = romCatalog->value(currentRom->romMD5+"/GoodName","Unknown ROM");
-        currentRom->goodName = goodNameVariant.toStringList().join(", ");
+        QVariant gNameRaw = romCatalog->value(currentRom->romMD5+"/GoodName",getTranslation("Unknown ROM"));
+        currentRom->goodName = gNameRaw.toStringList().join(", ");
 
         QStringList CRC = romCatalog->value(currentRom->romMD5+"/CRC","").toString().split(" ");
 
@@ -344,7 +344,8 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
     }
 
     if (!cached && SETTINGS.value("Other/downloadinfo", "").toString() == "true") {
-        if (currentRom->goodName != "Unknown ROM" && currentRom->goodName != "Requires catalog file") {
+        if (currentRom->goodName != getTranslation("Unknown ROM") &&
+            currentRom->goodName != getTranslation("Requires catalog file")) {
             scrapper->downloadGameInfo(currentRom->romMD5, currentRom->goodName);
         } else {
             //tweak internal name by adding spaces to get better results
@@ -374,7 +375,7 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
         QString regex = "[^A-Za-z 0-9 \\.,\\?'""!@#\\$%\\^&\\*\\(\\)-_=\\+;:<>\\/\\\\|\\}\\{\\[\\]`~]*";
 
         currentRom->gameTitle = game.firstChildElement("GameTitle").text().remove(QRegExp(regex));
-        if (currentRom->gameTitle == "") currentRom->gameTitle = "Not found";
+        if (currentRom->gameTitle == "") currentRom->gameTitle = getTranslation("Not found");
 
         currentRom->releaseDate = game.firstChildElement("ReleaseDate").text();
 
@@ -431,8 +432,8 @@ void RomCollection::setupDatabase()
     database.setDatabaseName(getDataLocation() + "/cen64-qt.sqlite");
 
     if (!database.open())
-        QMessageBox::warning(parent, "Database Not Loaded",
-                             "Could not connect to Sqlite database. Application may misbehave.");
+        QMessageBox::warning(parent, tr("Database Not Loaded"),
+                             tr("Could not connect to Sqlite database. Application may misbehave."));
 
     QSqlQuery version = database.exec("PRAGMA user_version");
     version.next();
@@ -461,7 +462,7 @@ void RomCollection::setupDatabase()
 
 void RomCollection::setupProgressDialog(int size)
 {
-    progress = new QProgressDialog("Loading ROMs...", "Cancel", 0, size, parent);
+    progress = new QProgressDialog(tr("Loading ROMs..."), tr("Cancel"), 0, size, parent);
 #if QT_VERSION >= 0x050000
     progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowCloseButtonHint);
     progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowMinimizeButtonHint);

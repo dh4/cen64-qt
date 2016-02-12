@@ -40,13 +40,15 @@ V64Converter::V64Converter(QString romPath, QWidget *parent) : QObject(parent)
     QDir romDir(romPath);
 
     QString v64File = QFileDialog::getOpenFileName(parent, tr("Open v64 File"), romPath,
-                                                   tr("V64 ROMs (*.v64 *.n64);;All Files (*)"));
+                                                   tr("V64 ROMs") + " (*.v64 *.n64);;" +
+                                                   tr("All Files") + " (*)");
 
     if (v64File != "") {
         QString defaultFileName = QFileInfo(v64File).completeBaseName() + ".z64";
         QString defaultFile = romDir.absoluteFilePath(defaultFileName);
         QString saveFile = QFileDialog::getSaveFileName(parent, tr("Save z64 File"), defaultFile,
-                                                        tr("Z64 ROMs (*.z64);;All Files (*)"));
+                                                        tr("Z64 ROMs") + " (*.z64);;" +
+                                                        tr("All Files") + " (*)");
 
         if (saveFile != "")
             runConverter(v64File, saveFile, parent);
@@ -62,9 +64,9 @@ void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *pare
     QString v64Check(v64.read(4).toHex()), message;
     if (v64Check != "37804012") {
         if (v64Check == "80371240")
-            message = "\"" + QFileInfo(v64).fileName() + "\" already in z64 format!";
+            message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("already in z64 format!");
         else
-            message = "\"" + QFileInfo(v64).fileName() + "\" is not a valid .v64 file!";
+            message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("is not a valid .v64 file!");
 
         QMessageBox::warning(parent, tr("CEN64-Qt Converter"), message);
     } else {

@@ -58,13 +58,13 @@ void EmulatorHandler::checkStatus(int status)
         exitDialog.setText(tr("CEN64 quit unexpectedly. Check the log for more information."));
         exitDialog.setIcon(QMessageBox::Warning);
         exitDialog.addButton(QMessageBox::Ok);
-        exitDialog.addButton("View Log...", QMessageBox::HelpRole);
+        exitDialog.addButton(tr("View Log..."), QMessageBox::HelpRole);
 
         int ret = exitDialog.exec();
         if (ret == 0) emit showLog();
     }
 
-    updateStatus("Emulation stopped", 3000);
+    updateStatus(tr("Emulation stopped"), 3000);
 }
 
 
@@ -419,7 +419,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
     emulatorProc->start(cen64Path, args);
 
-    updateStatus("Emulation started", 3000);
+    updateStatus(tr("Emulation started"), 3000);
     emit started();
 }
 

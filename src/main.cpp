@@ -34,11 +34,24 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QFileInfo>
+#include <QTranslator>
 
 
 int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
+
+    QTranslator translator;
+    QString language = SETTINGS.value("language", "EN").toString();
+
+    if (language != "EN") {
+        QString resource = ":/locale/cen64-qt_"+language.toLower()+".qm";
+        if (QFileInfo(resource).exists()) {
+            translator.load(resource);
+            application.installTranslator(&translator);
+        }
+    }
 
     QCoreApplication::setOrganizationName("CEN64");
     QCoreApplication::setApplicationName("CEN64-Qt");

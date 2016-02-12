@@ -49,6 +49,8 @@ RESOURCES += resources/cen64qt.qrc
 
 FORMS += src/settingsdialog.ui
 
+TRANSLATIONS += resources/locale/cen64-qt_fr.ts
+
 win32|macx|linux_quazip_static {
     CONFIG += staticlib
     DEFINES += QUAZIP_STATIC

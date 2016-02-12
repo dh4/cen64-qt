@@ -115,6 +115,7 @@ private slots:
     void toggleLabel(bool active);
     void toggleListCover(bool active);
     void toggleSaves(bool active);
+    void updateLanguageInfo();
 };
 
 #endif // SETTINGSDIALOG_H
