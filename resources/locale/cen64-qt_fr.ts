@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="44"/>
         <source>About CEN64-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos de CEN64-Qt</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="58"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="59"/>
         <source>A basic frontend for CEN64 using Qt.</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface graphique pour CEN64</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="61"/>
         <source>CEN64 website</source>
-        <translation type="unfinished"></translation>
+        <translation>Site web</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="62"/>
         <source>GitHub repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Dépôt GitHub</translation>
     </message>
 </context>
 <context>
@@ -34,32 +34,32 @@
     <message>
         <location filename="../../src/downloaddialog.cpp" line="48"/>
         <source>Search Game Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher des informations sur le jeu</translation>
     </message>
     <message>
         <location filename="../../src/downloaddialog.cpp" line="52"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier</translation>
     </message>
     <message>
         <location filename="../../src/downloaddialog.cpp" line="54"/>
         <source>Name of Game:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du jeu</translation>
     </message>
     <message>
         <location filename="../../src/downloaddialog.cpp" line="55"/>
         <source>or Game ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>ou identifiant du jeu</translation>
     </message>
     <message>
         <location filename="../../src/downloaddialog.cpp" line="61"/>
         <source>From thegamesdb.net URL of game</source>
-        <translation type="unfinished"></translation>
+        <translation>URL du jeu sur thegamesdb.net</translation>
     </message>
     <message>
         <location filename="../../src/downloaddialog.cpp" line="64"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher</translation>
     </message>
 </context>
 <context>
@@ -82,72 +82,72 @@
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="58"/>
         <source>CEN64 quit unexpectedly. Check the log for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>CEN64 a quitté de manière inattendue. Consultez les journaux pour plus d&apos;informations.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="61"/>
         <source>View Log...</source>
-        <translation type="unfinished"></translation>
+        <translation>Consulter les journaux...</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="67"/>
         <source>Emulation stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>Émulation arrêtée</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="210"/>
         <source>CEN64 executable not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Executable CEN64 non trouvé.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="216"/>
         <source>PIF IPL file not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier PIF IPL non trouvé.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="222"/>
         <source>64DD IPL file not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier 64DD IPL manquant</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="228"/>
         <source>ROM file not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier ROM manquant.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="235"/>
         <source>64DD ROM file not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>ROM 64DD introuvable.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="241"/>
         <source>No ROM selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune ROM sélectionnée.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="258"/>
         <source>64DD not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>64DD non activé.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="263"/>
         <source>Not a valid Z64 File.</source>
-        <translation type="unfinished"></translation>
+        <translation>N&apos;est pas un fichier Z64 valide.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="276"/>
         <source>Not a valid 64DD File.</source>
-        <translation type="unfinished"></translation>
+        <translation>N&apos;est pas un fichier 64DD valide.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="388"/>
         <source>No ROM selected or 64DD not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune ROM sélectionnée ou 64 DD non activé.</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="422"/>
         <source>Emulation started</source>
-        <translation type="unfinished"></translation>
+        <translation>Émulation démarrée</translation>
     </message>
 </context>
 <context>
@@ -155,12 +155,12 @@
     <message>
         <location filename="../../src/logdialog.cpp" line="46"/>
         <source>CEN64 Log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Journaux CEN64</translation>
     </message>
     <message>
         <location filename="../../src/logdialog.cpp" line="66"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -168,7 +168,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="65"/>
         <source>CEN64-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>CEN64-Qt</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="215"/>
@@ -181,117 +181,117 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="474"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fichier</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="475"/>
         <source>&amp;Open ROM...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ouvrir une ROM</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="477"/>
         <source>&amp;Convert V64...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Convertir au format V64</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="478"/>
         <source>&amp;Refresh List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Recharger la liste</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="479"/>
         <source>&amp;Download/Update Info...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Télécharger/Mettre à jour les infos...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="480"/>
         <source>D&amp;elete Current Info...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Effacer les infos actuelles...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="484"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitter</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="496"/>
         <source>&amp;Emulation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Émulation</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="497"/>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Démarer</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="498"/>
         <source>St&amp;op</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrêter</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="500"/>
         <source>Enable 64DD</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer 64DD</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="502"/>
         <source>View Log...</source>
-        <translation type="unfinished"></translation>
+        <translation>Consulter les journaux...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="521"/>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Paramètres</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="522"/>
         <source>&amp;Configure...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Configurer...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="528"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Affichage</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="529"/>
         <source>&amp;Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Disposition</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="533"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="534"/>
         <source>Table View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue en tableau</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="535"/>
         <source>Grid View</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grille</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="536"/>
         <source>List View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue en liste</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="555"/>
         <source>&amp;Status Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barre de statut</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="565"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aide</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="566"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;À propos</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="786"/>
@@ -311,12 +311,12 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="1071"/>
         <source>All Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les fichiers</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1073"/>
         <source>Open ROM File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouvrir un fichier ROM</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1091"/>
@@ -331,12 +331,12 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="1106"/>
         <source>Select ROM</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une ROM</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1123"/>
         <source>Launch</source>
-        <translation type="unfinished"></translation>
+        <translation>Lancer</translation>
     </message>
 </context>
 <context>
@@ -349,7 +349,7 @@
     <message>
         <location filename="../../src/common.cpp" line="278"/>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du fichier</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="279"/>
@@ -359,37 +359,37 @@
     <message>
         <location filename="../../src/common.cpp" line="280"/>
         <source>Zip File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier Zip</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="281"/>
         <source>Internal Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom interne</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="282"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="283"/>
         <source>MD5</source>
-        <translation type="unfinished"></translation>
+        <translation>MD5</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="284"/>
         <source>CRC1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">CRC1</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="285"/>
         <source>CRC2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="286"/>
         <source>Players</source>
-        <translation type="unfinished"></translation>
+        <translation>Joueurs</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="287"/>
@@ -404,17 +404,17 @@
     <message>
         <location filename="../../src/common.cpp" line="289"/>
         <source>Game Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre du jeu</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="290"/>
         <source>Release Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date de publication</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="291"/>
         <source>Overview</source>
-        <translation type="unfinished"></translation>
+        <translation>Aperçu</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="292"/>
@@ -424,17 +424,17 @@
     <message>
         <location filename="../../src/common.cpp" line="293"/>
         <source>Genre</source>
-        <translation type="unfinished"></translation>
+        <translation>Genre</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="294"/>
         <source>Publisher</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditeur</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="295"/>
         <source>Developer</source>
-        <translation type="unfinished"></translation>
+        <translation>Développeur</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="296"/>
@@ -444,7 +444,7 @@
     <message>
         <location filename="../../src/common.cpp" line="297"/>
         <source>Unknown ROM</source>
-        <translation type="unfinished"></translation>
+        <translation>ROM inconnue</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="298"/>
@@ -466,22 +466,22 @@
         <location filename="../../src/thegamesdbscrapper.cpp" line="203"/>
         <location filename="../../src/thegamesdbscrapper.cpp" line="248"/>
         <source>Game Information Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger les informations sur le jeu</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="199"/>
         <source>No results found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun résultat.</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="201"/>
         <source>No more results found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas d&apos;autre résultat.</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="249"/>
         <source>Download Complete!</source>
-        <translation type="unfinished"></translation>
+        <translation>Téléchargement terminé !</translation>
     </message>
 </context>
 <context>
@@ -500,12 +500,12 @@
     <message>
         <location filename="../../src/romcollection.cpp" line="187"/>
         <source>No ROMs found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune ROM trouvée.</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="435"/>
         <source>Database Not Loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Base de données non chargée</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="436"/>
@@ -515,12 +515,12 @@
     <message>
         <location filename="../../src/romcollection.cpp" line="465"/>
         <source>Loading ROMs...</source>
-        <translation type="unfinished"></translation>
+        <translation>Chargements des ROMS...</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="465"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuler</translation>
     </message>
 </context>
 <context>
@@ -528,17 +528,17 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="20"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="33"/>
         <source>Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemins</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="42"/>
         <source>Save Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers de sauvegarde</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="50"/>
@@ -564,22 +564,22 @@
         <location filename="../../src/settingsdialog.ui" line="768"/>
         <location filename="../../src/settingsdialog.ui" line="1096"/>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Naviguer...</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="60"/>
         <source>16 kbit EEPROM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier EEPROM 16 kbit :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="67"/>
         <source>FlashRAM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier FlashRAM :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="91"/>
         <source>Save directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier de sauvegarde</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="101"/>
@@ -589,62 +589,62 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="121"/>
         <source>4 kbit EEPROM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier EEPROM 4 kbit :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="135"/>
         <source>SRAM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier SRAM :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="147"/>
         <source>CEN64 Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier CEN64</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="182"/>
         <source>PIF IPL file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier PIF IPL :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="189"/>
         <source>ROM catalog:</source>
-        <translation type="unfinished"></translation>
+        <translation>Catalogue des ROMS :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="196"/>
         <source>CEN64 executable: </source>
-        <translation type="unfinished"></translation>
+        <translation>Exécutable CEN 64 :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="216"/>
         <source>64DD IPL file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier IPL 64DD :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="247"/>
         <source>ROM Directories</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier des ROMS</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="261"/>
         <source>CEN64-Qt will search for all .z64, .n64, .ndd, and .zip files in these directories</source>
-        <translation type="unfinished"></translation>
+        <translation>CEN64-Qt cherchera tous les fichiers z64, n64, ndd et zip dans ces dossiers</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="277"/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter...</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="284"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlever</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="300"/>
         <source>Emulation</source>
-        <translation type="unfinished"></translation>
+        <translation>Émulation</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="327"/>
@@ -654,12 +654,12 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="341"/>
         <source>No audio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de son :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="355"/>
         <source>No video:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de vidéo :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="385"/>
@@ -729,12 +729,12 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="795"/>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Tableau</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="848"/>
         <source>Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>Image :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="885"/>
@@ -761,7 +761,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="976"/>
         <source>Available Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Colonnes disponibles :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="986"/>
@@ -792,29 +792,29 @@
         <location filename="../../src/settingsdialog.ui" line="1088"/>
         <location filename="../../src/settingsdialog.ui" line="1468"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Autre</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1103"/>
         <source>Custom Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir un arrière-plan :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1110"/>
         <location filename="../../src/settingsdialog.ui" line="1422"/>
         <source>Sorting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Classement :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1120"/>
         <location filename="../../src/settingsdialog.ui" line="1415"/>
         <source>Descending</source>
-        <translation type="unfinished"></translation>
+        <translation>Descendant</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1142"/>
         <source>ROM Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Images des ROMS</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1175"/>
@@ -829,18 +829,18 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1189"/>
         <source>Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Colonne :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1196"/>
         <location filename="../../src/settingsdialog.ui" line="1408"/>
         <source>Image Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des images :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1258"/>
         <source>List</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1285"/>
@@ -855,17 +855,17 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1391"/>
         <source>Available Items:</source>
-        <translation type="unfinished"></translation>
+        <translation>Intitulés disponibles :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1401"/>
         <source>Display Cover Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afficher </translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1488"/>
         <source>Additional Parameters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres supplémentaires : </translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1505"/>
@@ -875,7 +875,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1521"/>
         <source>Download Game Information (thegamesdb.net):</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger les informations sur les jeux (thegamesdb.net) :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1528"/>
@@ -890,12 +890,12 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1545"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Langue :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1580"/>
         <source>&lt;b&gt;Note:&lt;/b&gt; Language changes will not take place until application restart.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Note :&lt;/b&gt;Le changement de langue ne prendra effet qu&apos;après le redémarrage du programme.</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="175"/>
@@ -920,37 +920,37 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="209"/>
         <source>Extra Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Très petite</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="210"/>
         <source>Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="211"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Moyenne</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="212"/>
         <source>Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Grande</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="213"/>
         <source>Extra Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Très grande</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="245"/>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Noir</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="246"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Blanc</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="247"/>
@@ -985,7 +985,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="253"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rouge</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="254"/>
@@ -1010,7 +1010,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="412"/>
         <source>ROM Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossiers des ROMS</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="428"/>
@@ -1045,7 +1045,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="476"/>
         <source>FlashRAM File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier FlashRAM</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="484"/>
@@ -1060,12 +1060,12 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="500"/>
         <source>Save Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier de sauvegarde</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="508"/>
         <source>SRAM File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier SRAM</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="516"/>
@@ -1118,7 +1118,7 @@
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="70"/>
         <source>Delete Game Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer les informations du jeu</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="163"/>
@@ -1152,7 +1152,7 @@
     <message>
         <location filename="../../src/v64converter.cpp" line="42"/>
         <source>Open v64 File</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir un fichier v64</translation>
     </message>
     <message>
         <location filename="../../src/v64converter.cpp" line="43"/>
@@ -1163,7 +1163,7 @@
         <location filename="../../src/v64converter.cpp" line="44"/>
         <location filename="../../src/v64converter.cpp" line="51"/>
         <source>All Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les fichiers</translation>
     </message>
     <message>
         <location filename="../../src/v64converter.cpp" line="49"/>
@@ -1178,7 +1178,7 @@
     <message>
         <location filename="../../src/v64converter.cpp" line="67"/>
         <source>already in z64 format!</source>
-        <translation type="unfinished"></translation>
+        <translation>Déjà au format z64 !</translation>
     </message>
     <message>
         <location filename="../../src/v64converter.cpp" line="69"/>
@@ -1194,7 +1194,7 @@
     <message>
         <location filename="../../src/v64converter.cpp" line="102"/>
         <source>Conversion complete!</source>
-        <translation type="unfinished"></translation>
+        <translation>Conversion terminée !</translation>
     </message>
 </context>
 </TS>
