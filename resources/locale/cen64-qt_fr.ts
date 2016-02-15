@@ -306,7 +306,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="1013"/>
         <source>There is no log. Either CEN64 has not yet run or there was no output from the last run.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il n&apos;y a pas de journaux. Soit CEN64 n’a pas encore été lancé, soit il n’y a pas de données concernant le dernier démarrage. </translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1071"/>
@@ -321,7 +321,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="1091"/>
         <source>No ROMs</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune ROM</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1091"/>
@@ -510,7 +510,7 @@
     <message>
         <location filename="../../src/romcollection.cpp" line="436"/>
         <source>Could not connect to Sqlite database. Application may misbehave.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de se connecter à la base de données Sqlite. L&apos;application peut dysfonctionner.</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="465"/>
@@ -579,12 +579,12 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="91"/>
         <source>Save directory:</source>
-        <translation>Dossier de sauvegarde</translation>
+        <translation>Dossier de sauvegarde :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="101"/>
         <source>Specify individual files for saves</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribuer un fichier spécifique pour les sauvegardes</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="121"/>
@@ -654,12 +654,12 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="341"/>
         <source>No audio:</source>
-        <translation>Pas de son :</translation>
+        <translation>Désactiver le son :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="355"/>
         <source>No video:</source>
-        <translation>Pas de vidéo :</translation>
+        <translation>Désactiver la vidéo :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="385"/>
@@ -701,7 +701,7 @@
         <location filename="../../src/settingsdialog.ui" line="625"/>
         <location filename="../../src/settingsdialog.ui" line="724"/>
         <source>Accessory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Accessoire :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="463"/>
@@ -709,7 +709,7 @@
         <location filename="../../src/settingsdialog.ui" line="648"/>
         <location filename="../../src/settingsdialog.ui" line="747"/>
         <source>Enabled:</source>
-        <translation type="unfinished">Activé :</translation>
+        <translation>Activée :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="494"/>
@@ -850,7 +850,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1292"/>
         <source>Current Items:</source>
-        <translation type="unfinished"></translation>
+        <translation>Intitulé actuel :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1391"/>
@@ -860,7 +860,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1401"/>
         <source>Display Cover Image</source>
-        <translation type="unfinished">Afficher </translation>
+        <translation>Afficher les vignettes</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1488"/>
@@ -885,7 +885,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1538"/>
         <source>Use to pass additional parameters to CEN64</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter des paramètres supplémentaires à CEN64</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1545"/>
@@ -895,12 +895,12 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1580"/>
         <source>&lt;b&gt;Note:&lt;/b&gt; Language changes will not take place until application restart.</source>
-        <translation>&lt;b&gt;Note :&lt;/b&gt;Le changement de langue ne prendra effet qu&apos;après le redémarrage du programme.</translation>
+        <translation>&lt;b&gt;Remarque : &lt;/b&gt;Le changement de langue ne prendra effet qu&apos;après le redémarrage du programme.</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="175"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="175"/>
@@ -970,7 +970,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="250"/>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Cyan</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="251"/>
@@ -980,7 +980,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="252"/>
         <source>Purple</source>
-        <translation type="unfinished"></translation>
+        <translation>Violet</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="253"/>
@@ -1005,7 +1005,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="257"/>
         <source>Brown</source>
-        <translation type="unfinished"></translation>
+        <translation>Marron</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="412"/>
@@ -1144,7 +1144,8 @@
         <location filename="../../src/thegamesdbscrapper.cpp" line="294"/>
         <location filename="../../src/thegamesdbscrapper.cpp" line="296"/>
         <source>Network Error</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Erreur réseau</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
