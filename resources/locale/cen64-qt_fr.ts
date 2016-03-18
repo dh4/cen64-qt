@@ -550,8 +550,8 @@
         <location filename="../../src/settingsdialog.ui" line="50"/>
         <location filename="../../src/settingsdialog.ui" line="74"/>
         <location filename="../../src/settingsdialog.ui" line="84"/>
-        <location filename="../../src/settingsdialog.ui" line="114"/>
-        <location filename="../../src/settingsdialog.ui" line="128"/>
+        <location filename="../../src/settingsdialog.ui" line="107"/>
+        <location filename="../../src/settingsdialog.ui" line="121"/>
         <location filename="../../src/settingsdialog.ui" line="155"/>
         <location filename="../../src/settingsdialog.ui" line="165"/>
         <location filename="../../src/settingsdialog.ui" line="172"/>
@@ -588,17 +588,17 @@
         <translation>Dossier de sauvegarde :</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="101"/>
+        <location filename="../../src/settingsdialog.ui" line="135"/>
         <source>Specify individual files for saves</source>
         <translation>Attribuer un fichier spécifique pour les sauvegardes</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="121"/>
+        <location filename="../../src/settingsdialog.ui" line="114"/>
         <source>4 kbit EEPROM file:</source>
         <translation>Fichier EEPROM 4 kbit :</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="135"/>
+        <location filename="../../src/settingsdialog.ui" line="128"/>
         <source>SRAM file:</source>
         <translation>Fichier SRAM :</translation>
     </message>
@@ -620,7 +620,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="196"/>
         <source>CEN64 executable: </source>
-        <translation>Exécutable CEN 64 :</translation>
+        <translation>Exécutable CEN64 :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="216"/>
@@ -747,10 +747,10 @@
         <location filename="../../src/settingsdialog.ui" line="895"/>
         <location filename="../../src/settingsdialog.ui" line="937"/>
         <location filename="../../src/settingsdialog.ui" line="947"/>
-        <location filename="../../src/settingsdialog.ui" line="1310"/>
-        <location filename="../../src/settingsdialog.ui" line="1320"/>
-        <location filename="../../src/settingsdialog.ui" line="1356"/>
-        <location filename="../../src/settingsdialog.ui" line="1366"/>
+        <location filename="../../src/settingsdialog.ui" line="1303"/>
+        <location filename="../../src/settingsdialog.ui" line="1313"/>
+        <location filename="../../src/settingsdialog.ui" line="1349"/>
+        <location filename="../../src/settingsdialog.ui" line="1359"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -760,12 +760,12 @@
         <translation>Colonnes utilisées :</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="969"/>
+        <location filename="../../src/settingsdialog.ui" line="976"/>
         <source>Stretch First Column</source>
         <translation>Étendre la première colonne</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="976"/>
+        <location filename="../../src/settingsdialog.ui" line="969"/>
         <source>Available Columns:</source>
         <translation>Colonnes disponibles :</translation>
     </message>
@@ -807,13 +807,13 @@
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1110"/>
-        <location filename="../../src/settingsdialog.ui" line="1422"/>
+        <location filename="../../src/settingsdialog.ui" line="1405"/>
         <source>Sorting:</source>
         <translation>Classement :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1120"/>
-        <location filename="../../src/settingsdialog.ui" line="1415"/>
+        <location filename="../../src/settingsdialog.ui" line="1398"/>
         <source>Descending</source>
         <translation>Descendant</translation>
     </message>
@@ -839,7 +839,7 @@
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1196"/>
-        <location filename="../../src/settingsdialog.ui" line="1408"/>
+        <location filename="../../src/settingsdialog.ui" line="1391"/>
         <source>Image Size:</source>
         <translation>Taille des images :</translation>
     </message>
@@ -849,22 +849,22 @@
         <translation>Liste</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="1285"/>
+        <location filename="../../src/settingsdialog.ui" line="1422"/>
         <source>First Item as Header</source>
         <translation>Premier intitulé comme en-tête</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="1292"/>
+        <location filename="../../src/settingsdialog.ui" line="1285"/>
         <source>Current Items:</source>
         <translation>Intitulé actuel :</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="1391"/>
+        <location filename="../../src/settingsdialog.ui" line="1384"/>
         <source>Available Items:</source>
         <translation>Intitulés disponibles :</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.ui" line="1401"/>
+        <location filename="../../src/settingsdialog.ui" line="1429"/>
         <source>Display Cover Image</source>
         <translation>Afficher les vignettes</translation>
     </message>
