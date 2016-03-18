@@ -16,7 +16,7 @@
     <message>
         <location filename="../../src/aboutdialog.cpp" line="59"/>
         <source>A basic frontend for CEN64 using Qt.</source>
-        <translation>Une interface graphique simple pour CEN64.</translation>
+        <translation>Une interface graphique simple et élémentaire pour CEN64.</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="61"/>
@@ -77,7 +77,7 @@
         <location filename="../../src/emulatorhandler.cpp" line="276"/>
         <location filename="../../src/emulatorhandler.cpp" line="388"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Attention</translation>
     </message>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="58"/>
@@ -296,12 +296,12 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="786"/>
         <source>No Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de disque</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1012"/>
         <source>No Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de sortie</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="1013"/>
@@ -344,7 +344,8 @@
     <message>
         <location filename="../../src/common.cpp" line="277"/>
         <source>GoodName</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>me</translatorcomment>
+        <translation>GoodName</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="278"/>
@@ -354,7 +355,7 @@
     <message>
         <location filename="../../src/common.cpp" line="279"/>
         <source>Filename (extension)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du fichier (extension)</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="280"/>
@@ -394,12 +395,12 @@
     <message>
         <location filename="../../src/common.cpp" line="287"/>
         <source>Rumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Rumble</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="288"/>
         <source>Save Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de sauvegarde</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="289"/>
@@ -409,7 +410,7 @@
     <message>
         <location filename="../../src/common.cpp" line="290"/>
         <source>Release Date</source>
-        <translation>Date de publication</translation>
+        <translation>Date de sortie</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="291"/>
@@ -439,7 +440,7 @@
     <message>
         <location filename="../../src/common.cpp" line="296"/>
         <source>Rating</source>
-        <translation type="unfinished"></translation>
+        <translation>Certification</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="297"/>
@@ -449,12 +450,12 @@
     <message>
         <location filename="../../src/common.cpp" line="298"/>
         <source>Requires catalog file</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier catalogue demandé</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="299"/>
         <source>Not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Non trouvé</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="323"/>
@@ -490,12 +491,12 @@
         <location filename="../../src/romcollection.cpp" line="180"/>
         <location filename="../../src/romcollection.cpp" line="187"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Attention</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="180"/>
         <source>No ROMs found in </source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune ROM trouvée dans</translation>
     </message>
     <message>
         <location filename="../../src/romcollection.cpp" line="187"/>
@@ -649,7 +650,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="327"/>
         <source>Run multithreaded (quasi-accurate):</source>
-        <translation type="unfinished"></translation>
+        <translation>Multithread (précision quasi-parfaite) :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="341"/>
@@ -677,7 +678,7 @@
         <location filename="../../src/settingsdialog.ui" line="601"/>
         <location filename="../../src/settingsdialog.ui" line="700"/>
         <source>Transfer Pak ROM:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rom Transfer pak :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="429"/>
@@ -685,7 +686,7 @@
         <location filename="../../src/settingsdialog.ui" line="611"/>
         <location filename="../../src/settingsdialog.ui" line="710"/>
         <source>Transfer Pak Save:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="436"/>
@@ -693,7 +694,7 @@
         <location filename="../../src/settingsdialog.ui" line="618"/>
         <location filename="../../src/settingsdialog.ui" line="717"/>
         <source>Controller Pak File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier Controller pak :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="443"/>
@@ -756,7 +757,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="969"/>
         <source>Stretch First Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Étendre la première colonne</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="976"/>
@@ -771,22 +772,22 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="992"/>
         <source>ROM Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Intitulé de la ROM</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1003"/>
         <source>Show Label:</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer l&apos;intitulé :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1026"/>
         <source>Label Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte de l&apos;intitulé :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1040"/>
         <source>Label Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de l&apos;intitulé :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1088"/>
@@ -845,7 +846,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1285"/>
         <source>First Item as Header</source>
-        <translation type="unfinished"></translation>
+        <translation>Premier intitulé comme en-tête</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1292"/>
@@ -870,7 +871,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1505"/>
         <source>Requires catalog file</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier catalogue demandé</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1521"/>
@@ -880,7 +881,7 @@
     <message>
         <location filename="../../src/settingsdialog.ui" line="1528"/>
         <source>Output to Console:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie vers la console :</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.ui" line="1538"/>
@@ -905,17 +906,17 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="175"/>
         <source>Rumble Pak</source>
-        <translation type="unfinished"></translation>
+        <translation>Kit vibration</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="175"/>
         <source>Controller Pak</source>
-        <translation type="unfinished"></translation>
+        <translation>Controller pak</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="175"/>
         <source>Transfer Pak</source>
-        <translation type="unfinished"></translation>
+        <translation>Transfer pak</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="209"/>
@@ -1015,17 +1016,17 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="428"/>
         <source>64DD IPL ROM File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier ROM 64DD IPL</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="436"/>
         <source>Background Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="444"/>
         <source>Catalog File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier catalogue</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="452"/>
@@ -1050,7 +1051,7 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="484"/>
         <source>Controller Pak File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier Controller pak</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="492"/>
@@ -1070,12 +1071,12 @@
     <message>
         <location filename="../../src/settingsdialog.cpp" line="516"/>
         <source>Transfer Pak ROM File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier ROM Transfer pak</translation>
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="524"/>
         <source>Transfer Pak Save File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier de sauvegarde Transfer pak</translation>
     </message>
 </context>
 <context>
@@ -1098,17 +1099,17 @@
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="63"/>
         <source>and add the game so other users can benefit as well.</source>
-        <translation>et d’ajouter le jeu afin d’en faire profiter les autres utilisateurs.</translation>
+        <translation>et d’ajouter le jeu afin d’en faire profiter également les autres utilisateurs.</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="65"/>
         <source>This will cause CEN64-Qt to not update the information for this game until you </source>
-        <translation type="unfinished"></translation>
+        <translation>CEN64-QT ne mettra pas à jour les informations jusqu&apos;à ce que vous</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="66"/>
         <source>force it with &quot;Download/Update Info...&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>relanciez le téléchargement/la mise à jour des informations...</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="68"/>
@@ -1133,7 +1134,7 @@
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="283"/>
         <source>Request timed out. Check your network settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps dépassé. Vérifier vos paramètres de connexion.</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscrapper.cpp" line="291"/>
