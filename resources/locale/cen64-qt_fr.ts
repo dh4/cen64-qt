@@ -21,7 +21,7 @@
     <message>
         <location filename="../../src/aboutdialog.cpp" line="61"/>
         <source>CEN64 website</source>
-        <translation type="unfinished">Site web de CEN64</translation>
+        <translation>Site web de CEN64</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="62"/>
