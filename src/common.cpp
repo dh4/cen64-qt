@@ -294,6 +294,7 @@ QString getTranslation(QString text)
     else if (text == "Publisher")               return QObject::tr("Publisher");
     else if (text == "Developer")               return QObject::tr("Developer");
     else if (text == "Rating")                  return QObject::tr("Rating");
+    else if (text == "Game Cover")              return QObject::tr("Game Cover");
     else if (text == "Unknown ROM")             return QObject::tr("Unknown ROM");
     else if (text == "Requires catalog file")   return QObject::tr("Requires catalog file");
     else if (text == "Not found")               return QObject::tr("Not found");

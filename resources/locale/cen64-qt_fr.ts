@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.1" language="fr_FR">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -21,7 +21,7 @@
     <message>
         <location filename="../../src/aboutdialog.cpp" line="61"/>
         <source>CEN64 website</source>
-        <translation>Site web de CEN 64</translation>
+        <translation type="unfinished">Site web de CEN64</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="62"/>
@@ -444,16 +444,21 @@
     </message>
     <message>
         <location filename="../../src/common.cpp" line="297"/>
+        <source>Game Cover</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/common.cpp" line="298"/>
         <source>Unknown ROM</source>
         <translation>ROM inconnue</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="298"/>
+        <location filename="../../src/common.cpp" line="299"/>
         <source>Requires catalog file</source>
         <translation>Fichier catalogue demandé</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="299"/>
+        <location filename="../../src/common.cpp" line="300"/>
         <source>Not found</source>
         <translation>Non trouvé</translation>
     </message>
@@ -504,22 +509,22 @@
         <translation>Aucune ROM trouvée.</translation>
     </message>
     <message>
-        <location filename="../../src/romcollection.cpp" line="435"/>
+        <location filename="../../src/romcollection.cpp" line="451"/>
         <source>Database Not Loaded</source>
         <translation>Base de données non chargée</translation>
     </message>
     <message>
-        <location filename="../../src/romcollection.cpp" line="436"/>
+        <location filename="../../src/romcollection.cpp" line="452"/>
         <source>Could not connect to Sqlite database. Application may misbehave.</source>
         <translation>Impossible de se connecter à la base de données Sqlite. L&apos;application peut dysfonctionner.</translation>
     </message>
     <message>
-        <location filename="../../src/romcollection.cpp" line="465"/>
+        <location filename="../../src/romcollection.cpp" line="481"/>
         <source>Loading ROMs...</source>
         <translation>Chargement des ROMS...</translation>
     </message>
     <message>
-        <location filename="../../src/romcollection.cpp" line="465"/>
+        <location filename="../../src/romcollection.cpp" line="481"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>

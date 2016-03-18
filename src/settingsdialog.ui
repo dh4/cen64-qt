@@ -26,7 +26,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="pathsWidget">
       <attribute name="title">
@@ -95,13 +95,6 @@
             <item row="0" column="1">
              <widget class="QLineEdit" name="savesPath"/>
             </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="saveOption">
-              <property name="text">
-               <string>Specify individual files for saves</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="1">
              <widget class="QLineEdit" name="eeprom4kPath"/>
             </item>
@@ -133,6 +126,13 @@
              <widget class="QLabel" name="sramPathLabel">
               <property name="text">
                <string>SRAM file:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" colspan="2">
+             <widget class="QCheckBox" name="saveOption">
+              <property name="text">
+               <string>Specify individual files for saves</string>
               </property>
              </widget>
             </item>
@@ -1578,6 +1578,9 @@
         <widget class="QLabel" name="languageInfoLabel">
          <property name="text">
           <string>&lt;b&gt;Note:&lt;/b&gt; Language changes will not take place until application restart.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
          <property name="indent">
           <number>10</number>
