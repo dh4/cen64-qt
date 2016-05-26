@@ -49,7 +49,7 @@ class QTreeWidget;
 class QVBoxLayout;
 class EmulatorHandler;
 class RomCollection;
-class TheGamesDBScrapper;
+class TheGamesDBScraper;
 class TreeWidgetItem;
 struct Rom;
 
@@ -135,7 +135,7 @@ private:
 
     EmulatorHandler *emulation;
     RomCollection *romCollection;
-    TheGamesDBScrapper *scrapper;
+    TheGamesDBScraper *scraper;
     TreeWidgetItem *fileItem;
 
 private slots:

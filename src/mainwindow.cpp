@@ -40,7 +40,7 @@
 #include "romcollection.h"
 #include "settingsdialog.h"
 #include "v64converter.h"
-#include "thegamesdbscrapper.h"
+#include "thegamesdbscraper.h"
 #include "treewidgetitem.h"
 
 #include <QCloseEvent>
@@ -990,9 +990,9 @@ void MainWindow::openConverter()
 
 void MainWindow::openDeleteDialog()
 {
-    scrapper = new TheGamesDBScrapper(this);
-    scrapper->deleteGameInfo(getCurrentRomInfo(0), getCurrentRomInfo(2));
-    delete scrapper;
+    scraper = new TheGamesDBScraper(this);
+    scraper->deleteGameInfo(getCurrentRomInfo(0), getCurrentRomInfo(2));
+    delete scraper;
 
     romCollection->cachedRoms();
 }

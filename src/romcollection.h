@@ -38,7 +38,7 @@
 
 class QDir;
 class QProgressDialog;
-class TheGamesDBScrapper;
+class TheGamesDBScraper;
 struct Rom;
 
 
@@ -77,7 +77,7 @@ private:
     QProgressDialog *progress;
     QSqlDatabase database;
 
-    TheGamesDBScrapper *scrapper;
+    TheGamesDBScraper *scraper;
 };
 
 #endif // ROMCOLLECTION_H

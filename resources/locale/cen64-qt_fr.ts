@@ -166,175 +166,175 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="65"/>
+        <location filename="../../src/mainwindow.cpp" line="66"/>
         <source>CEN64-Qt</source>
         <translation>CEN64-Qt</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="215"/>
-        <location filename="../../src/mainwindow.cpp" line="326"/>
-        <location filename="../../src/mainwindow.cpp" line="772"/>
-        <location filename="../../src/mainwindow.cpp" line="775"/>
+        <location filename="../../src/mainwindow.cpp" line="216"/>
+        <location filename="../../src/mainwindow.cpp" line="327"/>
+        <location filename="../../src/mainwindow.cpp" line="773"/>
+        <location filename="../../src/mainwindow.cpp" line="776"/>
         <source>No Cart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="474"/>
+        <location filename="../../src/mainwindow.cpp" line="475"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="475"/>
+        <location filename="../../src/mainwindow.cpp" line="476"/>
         <source>&amp;Open ROM...</source>
         <translation>&amp;Ouvrir une ROM...</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="477"/>
+        <location filename="../../src/mainwindow.cpp" line="478"/>
         <source>&amp;Convert V64...</source>
         <translation>&amp;Convertir au format V64...</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="478"/>
+        <location filename="../../src/mainwindow.cpp" line="479"/>
         <source>&amp;Refresh List</source>
         <translation>&amp;Recharger la liste</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="479"/>
+        <location filename="../../src/mainwindow.cpp" line="480"/>
         <source>&amp;Download/Update Info...</source>
         <translation>&amp;Télécharger/Mettre à jour les infos...</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="480"/>
+        <location filename="../../src/mainwindow.cpp" line="481"/>
         <source>D&amp;elete Current Info...</source>
         <translation>&amp;Effacer les infos actuelles...</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="484"/>
+        <location filename="../../src/mainwindow.cpp" line="485"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="496"/>
+        <location filename="../../src/mainwindow.cpp" line="497"/>
         <source>&amp;Emulation</source>
         <translation>&amp;Émulation</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="497"/>
+        <location filename="../../src/mainwindow.cpp" line="498"/>
         <source>&amp;Start</source>
         <translation>&amp;Démarrer</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="498"/>
+        <location filename="../../src/mainwindow.cpp" line="499"/>
         <source>St&amp;op</source>
         <translation>&amp;Arrêter</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="500"/>
+        <location filename="../../src/mainwindow.cpp" line="501"/>
         <source>Enable 64DD</source>
         <translation>Activer 64DD</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="502"/>
+        <location filename="../../src/mainwindow.cpp" line="503"/>
         <source>View Log...</source>
         <translation>Consulter les journaux...</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="521"/>
+        <location filename="../../src/mainwindow.cpp" line="522"/>
         <source>&amp;Settings</source>
         <translation>&amp;Paramètres</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="522"/>
+        <location filename="../../src/mainwindow.cpp" line="523"/>
         <source>&amp;Configure...</source>
         <translation>&amp;Configurer...</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="528"/>
+        <location filename="../../src/mainwindow.cpp" line="529"/>
         <source>&amp;View</source>
         <translation>&amp;Affichage</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="529"/>
+        <location filename="../../src/mainwindow.cpp" line="530"/>
         <source>&amp;Layout</source>
         <translation>&amp;Disposition</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="533"/>
+        <location filename="../../src/mainwindow.cpp" line="534"/>
         <source>None</source>
         <translation>Aucune</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="534"/>
+        <location filename="../../src/mainwindow.cpp" line="535"/>
         <source>Table View</source>
         <translation>Vue en tableau</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="535"/>
+        <location filename="../../src/mainwindow.cpp" line="536"/>
         <source>Grid View</source>
         <translation>Vue en vignettes</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="536"/>
+        <location filename="../../src/mainwindow.cpp" line="537"/>
         <source>List View</source>
         <translation>Vue en liste</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="555"/>
+        <location filename="../../src/mainwindow.cpp" line="556"/>
         <source>&amp;Status Bar</source>
         <translation>&amp;Barre de statut</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="565"/>
+        <location filename="../../src/mainwindow.cpp" line="566"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="566"/>
+        <location filename="../../src/mainwindow.cpp" line="567"/>
         <source>&amp;About</source>
         <translation>À &amp;propos</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="786"/>
+        <location filename="../../src/mainwindow.cpp" line="787"/>
         <source>No Disk</source>
         <translation>Pas de disque</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1012"/>
+        <location filename="../../src/mainwindow.cpp" line="1013"/>
         <source>No Output</source>
         <translation>Pas de sortie</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1013"/>
+        <location filename="../../src/mainwindow.cpp" line="1014"/>
         <source>There is no log. Either CEN64 has not yet run or there was no output from the last run.</source>
         <translation>Il n&apos;y a pas de journaux. Soit CEN64 n’a pas encore été lancé, soit il n’y a pas de données concernant le dernier démarrage. </translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1071"/>
+        <location filename="../../src/mainwindow.cpp" line="1072"/>
         <source>All Files</source>
         <translation>Tous les fichiers</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1073"/>
+        <location filename="../../src/mainwindow.cpp" line="1082"/>
         <source>Open ROM File</source>
         <translation>Ouvrir un fichier ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1091"/>
+        <location filename="../../src/mainwindow.cpp" line="1100"/>
         <source>No ROMs</source>
         <translation>Aucune ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1091"/>
+        <location filename="../../src/mainwindow.cpp" line="1100"/>
         <source>No ROMs found in ZIP file.</source>
         <translation>Aucune ROM trouvée dans le fichier ZIP.</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1106"/>
+        <location filename="../../src/mainwindow.cpp" line="1115"/>
         <source>Select ROM</source>
         <translation>Choisir une ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="1123"/>
+        <location filename="../../src/mainwindow.cpp" line="1132"/>
         <source>Launch</source>
         <translation>Lancer</translation>
     </message>
@@ -467,24 +467,24 @@
         <translation>%1 - MB</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="166"/>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="203"/>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="248"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="169"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="206"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="251"/>
         <source>Game Information Download</source>
         <translation>Télécharger des informations sur le jeu</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="199"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="202"/>
         <source>No results found.</source>
         <translation>Aucun résultat.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="201"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="204"/>
         <source>No more results found.</source>
         <translation>Pas d&apos;autre résultat.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="249"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="252"/>
         <source>Download Complete!</source>
         <translation>Téléchargement terminé !</translation>
     </message>
@@ -1084,70 +1084,70 @@
     </message>
 </context>
 <context>
-    <name>TheGamesDBScrapper</name>
+    <name>TheGamesDBScraper</name>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="60"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="60"/>
         <source>&lt;b&gt;NOTE:&lt;/b&gt; If you are deleting this game&apos;s information because the game doesn&apos;t </source>
         <translation>&lt;b&gt;Remarque :&lt;/b&gt; Si vous effacez les informations de ce jeu parce que le jeu</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="61"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="61"/>
         <source>exist on TheGamesDB and CEN64-Qt pulled the information for different game, it&apos;s </source>
         <translation>n’est pas dans TheGamesDB et que CEN64Qt vous propose des informations pour un autre jeu,</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="62"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="62"/>
         <source>better to create an account on</source>
         <translation>il est préférable de créer un compte</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="63"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="63"/>
         <source>and add the game so other users can benefit as well.</source>
         <translation>et d’ajouter le jeu afin d’en faire profiter également les autres utilisateurs.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="65"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="65"/>
         <source>This will cause CEN64-Qt to not update the information for this game until you </source>
         <translation>CEN64-QT ne mettra pas à jour les informations jusqu&apos;à ce que vous</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="66"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="66"/>
         <source>force it with &quot;Download/Update Info...&quot;</source>
         <translation>relanciez le téléchargement/la mise à jour des informations...</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="68"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="68"/>
         <source>Delete the current information for</source>
         <translation>Effacer les informations actuelles pour</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="70"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="70"/>
         <source>Delete Game Information</source>
         <translation>Effacer les informations du jeu</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="163"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="166"/>
         <source>Released on: </source>
         <translation>Publié le :</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="164"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="167"/>
         <source>Does this look correct?</source>
         <translation>Ces informations vous semblent-elles correctes ?</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="283"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="286"/>
         <source>Request timed out. Check your network settings.</source>
         <translation>Temps dépassé. Vérifier vos paramètres de connexion.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="291"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="294"/>
         <source>Continue scraping information?</source>
         <translation>Continuer à récolter des informations ?</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="294"/>
-        <location filename="../../src/thegamesdbscrapper.cpp" line="296"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="297"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="299"/>
         <source>Network Error</source>
         <translatorcomment>Erreur réseau</translatorcomment>
         <translation></translation>
