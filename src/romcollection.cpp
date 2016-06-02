@@ -95,7 +95,7 @@ Rom RomCollection::addRom(QByteArray *romData, QString fileName, QString directo
 }
 
 
-void RomCollection::addRoms()
+int RomCollection::addRoms()
 {
     emit updateStarted();
 
@@ -114,12 +114,13 @@ void RomCollection::addRoms()
     QList<Rom> roms;
     QList<Rom> ddRoms;
 
+    database.open();
+    QSqlQuery query("DELETE FROM rom_collection", database);
+
     if (totalCount != 0) {
         int count = 0;
         setupProgressDialog(totalCount);
 
-        database.open();
-        QSqlQuery query("DELETE FROM rom_collection", database);
         query.prepare(QString("INSERT INTO rom_collection ")
                       + "(filename, directory, internal_name, md5, zip_file, size, dd_rom) "
                       + "VALUES (:filename, :directory, :internal_name, :md5, :zip_file, :size, :dd_rom)");
@@ -181,11 +182,12 @@ void RomCollection::addRoms()
         }
 
         delete scraper;
-        database.close();
         progress->close();
     } else if (romPaths.size() != 0) {
         QMessageBox::warning(parent, tr("Warning"), tr("No ROMs found."));
     }
+
+    database.close();
 
     //Emit signals for regular roms
     qSort(roms.begin(), roms.end(), romSorter);
@@ -200,10 +202,12 @@ void RomCollection::addRoms()
         emit ddRomAdded(&ddRoms[i]);
 
     emit updateEnded(roms.size());
+
+    return roms.size();
 }
 
 
-void RomCollection::cachedRoms(bool imageUpdated)
+int RomCollection::cachedRoms(bool imageUpdated)
 {
     emit updateStarted(imageUpdated);
 
@@ -215,10 +219,8 @@ void RomCollection::cachedRoms(bool imageUpdated)
     int romCount = query.at() + 1;
     query.seek(-1);
 
-    if (romCount == -1) { //Nothing cached so try adding ROMs instead
-        addRoms();
-        return;
-    }
+    if (romCount == -1) //Nothing cached so try adding ROMs instead
+        return addRoms();
 
     QList<Rom> roms;
     QList<Rom> ddRoms;
@@ -285,6 +287,8 @@ void RomCollection::cachedRoms(bool imageUpdated)
         emit ddRomAdded(&ddRoms[i]);
 
     emit updateEnded(roms.size(), true);
+
+    return roms.size();
 }
 
 

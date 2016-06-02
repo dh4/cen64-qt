@@ -686,6 +686,23 @@ void MainWindow::createRomView()
     currentListRom = 0;
 
 
+    //Create disabled view
+    disabledView = new QWidget(this);
+    disabledView->setHidden(true);
+    disabledView->setDisabled(true);
+
+    disabledLayout = new QVBoxLayout(disabledView);
+    disabledLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
+    disabledView->setLayout(disabledLayout);
+
+    QString disabledText = QString("Add a directory containing ROMs under ")
+                         + "Settings->Configure->Paths to use this view.";
+    disabledLabel = new QLabel(disabledText, disabledView);
+    disabledLabel->setWordWrap(true);
+    disabledLabel->setAlignment(Qt::AlignCenter);
+    disabledLayout->addWidget(disabledLabel);
+
+
     //Create 64DD view
     ddView = new QTreeWidget(this);
     ddView->setWordWrap(false);
@@ -706,6 +723,7 @@ void MainWindow::createRomView()
     viewSplitter->addWidget(tableView);
     viewSplitter->addWidget(gridView);
     viewSplitter->addWidget(listView);
+    viewSplitter->addWidget(disabledView);
     viewSplitter->addWidget(ddView);
 
     //Restore 64DD Panel size
@@ -726,7 +744,7 @@ void MainWindow::createRomView()
     }
 
     if (ddSize == 0) ddSize = 1;
-    sizeInts << mainSize << mainSize << mainSize << mainSize << ddSize;
+    sizeInts << mainSize << mainSize << mainSize << mainSize << mainSize << ddSize;
     viewSplitter->setSizes(sizeInts);
 
 
@@ -833,6 +851,21 @@ void MainWindow::enableViews(int romCount, bool cached)
         listView->setEnabled(true);
         ddView->setEnabled(true);
 
+        //Check if disabled view is showing. If it is, re-enabled the selected view
+        if (!disabledView->isHidden()) {
+            disabledView->setHidden(true);
+
+            QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
+            if (visibleLayout == "table")
+                tableView->setHidden(false);
+            else if (visibleLayout == "grid")
+                gridView->setHidden(false);
+            else if (visibleLayout == "list")
+                listView->setHidden(false);
+            else
+                emptyView->setHidden(false);
+        }
+
         if (cached) {
             QTimer *timer = new QTimer(this);
             timer->setSingleShot(true);
@@ -845,6 +878,13 @@ void MainWindow::enableViews(int romCount, bool cached)
                 connect(timer, SIGNAL(timeout()), this, SLOT(setGridPosition()));
             else if (SETTINGS.value("View/layout", "none") == "list")
                 connect(timer, SIGNAL(timeout()), this, SLOT(setListPosition()));
+        }
+    } else {
+        if (SETTINGS.value("View/layout", "none") != "none") {
+            tableView->setHidden(true);
+            gridView->setHidden(true);
+            listView->setHidden(true);
+            disabledView->setHidden(false);
         }
     }
 }
@@ -1360,20 +1400,23 @@ void MainWindow::updateLayoutSetting()
     tableView->setHidden(true);
     gridView->setHidden(true);
     listView->setHidden(true);
+    disabledView->setHidden(true);
     ddView->setHidden(true);
 
-    romCollection->cachedRoms();
+    int romCount = romCollection->cachedRoms();
 
-    if (visibleLayout == "table")
-        tableView->setHidden(false);
-    else if (visibleLayout == "grid")
-        gridView->setHidden(false);
-    else if (visibleLayout == "list")
-        listView->setHidden(false);
-    else
-        emptyView->setHidden(false);
+    if (romCount > 0 || visibleLayout == "none") {
+        if (visibleLayout == "table")
+            tableView->setHidden(false);
+        else if (visibleLayout == "grid")
+            gridView->setHidden(false);
+        else if (visibleLayout == "list")
+            listView->setHidden(false);
+        else
+            emptyView->setHidden(false);
+    }
 
-    //Don't snow 64DD panel for empty view
+    //Don't show 64DD panel for empty view
     QString ddipl = SETTINGS.value("Paths/ddiplrom", "").toString();
     QString ddEnabled = SETTINGS.value("Emulation/64dd", "").toString();
 
