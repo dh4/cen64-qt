@@ -419,6 +419,24 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
     emulatorProc->start(cen64Path, args);
 
+    //Add command to log
+    QString executable = cen64Path;
+    if (executable.contains(" "))
+        executable = '"' + executable + '"';
+
+    QString argString;
+
+    foreach(QString arg, args)
+    {
+        if (arg.contains(" "))
+            argString += " \"" + arg + "\"";
+        else
+            argString += " " + arg;
+    }
+
+    lastOutput.append(executable + argString + "\n\n");
+
+
     updateStatus(tr("Emulation started"), 3000);
     emit started();
 }
