@@ -29,7 +29,11 @@ SOURCES += src/main.cpp \
     src/logdialog.cpp \
     src/emulatorhandler.cpp \
     src/romcollection.cpp \
-    src/thegamesdbscraper.cpp
+    src/thegamesdbscraper.cpp \
+    src/gridview.cpp \
+    src/listview.cpp \
+    src/tableview.cpp \
+    src/ddview.cpp
 
 HEADERS += src/global.h \
     src/common.h \
@@ -43,7 +47,11 @@ HEADERS += src/global.h \
     src/logdialog.h \
     src/emulatorhandler.h \
     src/romcollection.h \
-    src/thegamesdbscraper.h
+    src/thegamesdbscraper.h \
+    src/gridview.h \
+    src/listview.h \
+    src/tableview.h \
+    src/ddview.h
 
 RESOURCES += resources/cen64qt.qrc
 

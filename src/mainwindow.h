@@ -47,8 +47,12 @@ class QSplitter;
 class QStatusBar;
 class QTreeWidget;
 class QVBoxLayout;
+class DDView;
 class EmulatorHandler;
+class GridView;
+class ListView;
 class RomCollection;
+class TableView;
 class TheGamesDBScraper;
 class TreeWidgetItem;
 struct Rom;
@@ -65,28 +69,14 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
-    void addToGridView(Rom *currentRom, int count);
-    void addToListView(Rom *currentRom, int count);
-    void addToTableView(Rom *currentRom);
     void createMenu();
     void createRomView();
     void launchRom(QDir romDir, QString romFileName, QString zipFileName);
     void openZipDialog(QStringList zippedFiles);
     void resetLayouts(bool imageUpdated = false);
-    void saveColumnWidths();
-    void setGridBackground();
-    void toggleMenus(bool active);
 
-    int currentGridRom;
-    int currentListRom;
-    int positionx;
-    int positiony;
-    bool gridCurrent;
-    bool listCurrent;
-
-    QString getCurrentRomInfo(int index);
+    QString getCurrentRomInfoFromView(QString infoName);
     QString openPath;
-    QStringList headerLabels;
 
     QAction *aboutAction;
     QAction *configureAction;
@@ -105,9 +95,7 @@ private:
     QDialog *zipDialog;
     QDialogButtonBox *zipButtonBox;
     QGridLayout *emptyLayout;
-    QGridLayout *gridLayout;
     QGridLayout *zipLayout;
-    QHeaderView *headerView;
     QHeaderView *ddHeaderView;
     QLabel *emptyIcon;
     QLabel *disabledLabel;
@@ -122,34 +110,28 @@ private:
     QMenu *viewMenu;
     QMenuBar *menuBar;
     QScrollArea *emptyView;
-    QScrollArea *listView;
-    QScrollArea *gridView;
     QSplitter *viewSplitter;
     QStatusBar *statusBar;
-    QTreeWidget *ddView;
-    QTreeWidget *tableView;
     QVBoxLayout *disabledLayout;
-    QVBoxLayout *listLayout;
     QVBoxLayout *mainLayout;
     QWidget *disabledView;
-    QWidget *gridWidget;
-    QWidget *listWidget;
     QWidget *mainWidget;
 
     EmulatorHandler *emulation;
+    DDView *ddView;
+    GridView *gridView;
+    ListView *listView;
     RomCollection *romCollection;
+    TableView *tableView;
     TheGamesDBScraper *scraper;
     TreeWidgetItem *fileItem;
 
 private slots:
-    void addTo64DDView(Rom *currentRom);
     void addToView(Rom *currentRom, int count);
     void disableButtons();
     void disableViews(bool imageUpdated);
     void enableButtons();
     void enableViews(int romCount, bool cached);
-    void highlightGridWidget(QWidget *current);
-    void highlightListWidget(QWidget *current);
     void launchRomFromMenu();
     void launchRomFromTable();
     void launchRomFromWidget(QWidget *current);
@@ -161,11 +143,8 @@ private slots:
     void openLog();
     void openSettings();
     void openRom();
-    void saveSortOrder(int column, Qt::SortOrder order);
-    void setGridPosition();
-    void setListPosition();
-    void setTablePosition();
     void stopEmulator();
+    void toggleMenus(bool active);
     void updateLayoutSetting();
     void update64DD();
     void updateStatusBar(QString message, int timeout);
