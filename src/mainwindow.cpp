@@ -56,8 +56,6 @@
 #include <QListWidget>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QScrollArea>
-#include <QScrollBar>
 #include <QSplitter>
 #include <QStatusBar>
 #include <QTimer>
@@ -296,6 +294,11 @@ void MainWindow::createMenu()
 
     //Create list of actions that are disabled when CEN64 is not running
     menuDisable << stopAction;
+
+    //Create list of actions that are only active when a ROM is selected
+    menuRomSelected << startAction
+                    << deleteAction
+                    << downloadAction;
 }
 
 
@@ -393,16 +396,7 @@ void MainWindow::createRomView()
     viewSplitter->setSizes(sizeInts);
 
 
-    QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
-
-    if (visibleLayout == "table")
-        tableView->setHidden(false);
-    else if (visibleLayout == "grid")
-        gridView->setHidden(false);
-    else if (visibleLayout == "list")
-        listView->setHidden(false);
-    else
-        emptyView->setHidden(false);
+    showActiveView();
 }
 
 
@@ -448,10 +442,9 @@ void MainWindow::disableViews(bool imageUpdated)
     gridView->setEnabled(false);
     listView->setEnabled(false);
     ddView->setEnabled(false);
-    downloadAction->setEnabled(false);
-    deleteAction->setEnabled(false);
-    startAction->setEnabled(false);
-    stopAction->setEnabled(false);
+
+    foreach (QAction *next, menuRomSelected)
+        next->setEnabled(false);
 
     //Save position in current layout
     if (visibleLayout == "table")
@@ -486,16 +479,7 @@ void MainWindow::enableViews(int romCount, bool cached)
         //Check if disabled view is showing. If it is, re-enabled the selected view
         if (!disabledView->isHidden()) {
             disabledView->setHidden(true);
-
-
-            if (visibleLayout == "table")
-                tableView->setHidden(false);
-            else if (visibleLayout == "grid")
-                gridView->setHidden(false);
-            else if (visibleLayout == "list")
-                listView->setHidden(false);
-            else
-                emptyView->setHidden(false);
+            showActiveView();
         }
 
         if (cached) {
@@ -776,6 +760,21 @@ void MainWindow::resetLayouts(bool imageUpdated)
 }
 
 
+void MainWindow::showActiveView()
+{
+    QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
+
+    if (visibleLayout == "table")
+        tableView->setHidden(false);
+    else if (visibleLayout == "grid")
+        gridView->setHidden(false);
+    else if (visibleLayout == "list")
+        listView->setHidden(false);
+    else
+        emptyView->setHidden(false);
+}
+
+
 void MainWindow::stopEmulator()
 {
     emulation->stopEmulator();
@@ -799,9 +798,8 @@ void MainWindow::toggleMenus(bool active)
         !listView->hasSelectedRom() &&
         !ddView->hasSelectedRom()
     ) {
-        downloadAction->setEnabled(false);
-        deleteAction->setEnabled(false);
-        startAction->setEnabled(false);
+        foreach (QAction *next, menuRomSelected)
+            next->setEnabled(false);
     }
 
     if (SETTINGS.value("Other/downloadinfo", "").toString() == "") {
@@ -828,16 +826,8 @@ void MainWindow::updateLayoutSetting()
 
     int romCount = romCollection->cachedRoms();
 
-    if (romCount > 0 || visibleLayout == "none") {
-        if (visibleLayout == "table")
-            tableView->setHidden(false);
-        else if (visibleLayout == "grid")
-            gridView->setHidden(false);
-        else if (visibleLayout == "list")
-            listView->setHidden(false);
-        else
-            emptyView->setHidden(false);
-    }
+    if (romCount > 0 || visibleLayout == "none")
+        showActiveView();
 
     //Don't show 64DD panel for empty view
     QString ddipl = SETTINGS.value("Paths/ddiplrom", "").toString();
@@ -846,9 +836,9 @@ void MainWindow::updateLayoutSetting()
     if (visibleLayout != "none" && ddipl != "" && ddEnabled == "true")
         ddView->setHidden(false);
 
-    startAction->setEnabled(false);
-    downloadAction->setEnabled(false);
-    deleteAction->setEnabled(false);
+    //View was updated so no ROM will be selected. Update menu items accordingly
+    foreach (QAction *next, menuRomSelected)
+        next->setEnabled(false);
 }
 
 

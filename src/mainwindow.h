@@ -74,6 +74,7 @@ private:
     void launchRom(QDir romDir, QString romFileName, QString zipFileName);
     void openZipDialog(QStringList zippedFiles);
     void resetLayouts(bool imageUpdated = false);
+    void showActiveView();
 
     QString getCurrentRomInfoFromView(QString infoName);
     QString openPath;
@@ -101,6 +102,7 @@ private:
     QLabel *disabledLabel;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
+    QList<QAction*> menuRomSelected;
     QListWidget *zipList;
     QMenu *emulationMenu;
     QMenu *fileMenu;
