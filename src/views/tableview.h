@@ -44,6 +44,7 @@ class TableView : public QTreeWidget
 
 public:
     explicit TableView(QWidget *parent = 0);
+    void addNoCartRow();
     void addToTableView(Rom *currentRom);
     QString getCurrentRomInfo(QString infoName);
     bool hasSelectedRom();

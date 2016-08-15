@@ -30,9 +30,9 @@
  ***/
 
 #include "tableview.h"
-#include "common.h"
-#include "global.h"
 #include "treewidgetitem.h"
+#include "../common.h"
+#include "../global.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -58,6 +58,23 @@ TableView::TableView(QWidget *parent) : QTreeWidget(parent)
 
     connect(headerView, SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),
             this, SLOT(saveSortOrder(int,Qt::SortOrder)));
+}
+
+
+void TableView::addNoCartRow()
+{
+    QStringList visible = SETTINGS.value("Table/columns", "Filename|Size").toString().split("|");
+
+    fileItem = new TreeWidgetItem(this);
+
+    if (visible.at(0) == "Game Cover") {
+        fileItem->setText(6, " " + tr("No Cart"));
+        fileItem->setForeground(6, QBrush(Qt::gray));
+    } else {
+        fileItem->setText(5, " " + tr("No Cart"));
+        fileItem->setForeground(5, QBrush(Qt::gray));
+    }
+    addTopLevelItem(fileItem);
 }
 
 

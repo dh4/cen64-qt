@@ -31,8 +31,8 @@
 
 #include "gridview.h"
 #include "clickablewidget.h"
-#include "common.h"
-#include "global.h"
+#include "../common.h"
+#include "../global.h"
 
 #include <QFile>
 #include <QFileInfo>

@@ -31,21 +31,19 @@
 
 #include "mainwindow.h"
 #include "aboutdialog.h"
-#include "clickablewidget.h"
 #include "common.h"
-#include "ddview.h"
 #include "downloaddialog.h"
 #include "emulatorhandler.h"
 #include "global.h"
-#include "gridview.h"
-#include "listview.h"
 #include "logdialog.h"
 #include "romcollection.h"
 #include "settingsdialog.h"
 #include "v64converter.h"
-#include "tableview.h"
 #include "thegamesdbscraper.h"
-#include "treewidgetitem.h"
+#include "views/gridview.h"
+#include "views/listview.h"
+#include "views/tableview.h"
+#include "views/ddview.h"
 
 #include <QCloseEvent>
 #include <QDesktopServices>
@@ -409,33 +407,18 @@ void MainWindow::disableButtons()
 void MainWindow::disableViews(bool imageUpdated)
 {
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
-    QStringList tableVisible = SETTINGS.value("Table/columns", "Filename|Size").toString().split("|");
 
     resetLayouts(imageUpdated);
     tableView->clear();
     ddView->clear();
 
     if (ddAction->isChecked()) { //64DD enabled so show "No Cart" options
-        fileItem = new TreeWidgetItem(tableView);
-
-        if (tableVisible.at(0) == "Game Cover") {
-            fileItem->setText(6, " " + tr("No Cart"));
-            fileItem->setForeground(6, QBrush(Qt::gray));
-        } else {
-            fileItem->setText(5, " " + tr("No Cart"));
-            fileItem->setForeground(5, QBrush(Qt::gray));
-        }
-        tableView->addTopLevelItem(fileItem);
-
         Rom dummyRom;
         dummyRom.imageExists = false;
+        tableView->addNoCartRow();
         gridView->addToGridView(&dummyRom, -1, ddAction->isChecked());
         listView->addToListView(&dummyRom, -1, ddAction->isChecked());
-
-        fileItem = new TreeWidgetItem(ddView);
-        fileItem->setText(5, tr("No Disk"));
-        fileItem->setForeground(5, QBrush(Qt::gray));
-        ddView->addTopLevelItem(fileItem);
+        ddView->addNoDiskRow();
     }
 
     tableView->setEnabled(false);

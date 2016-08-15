@@ -44,6 +44,7 @@ class DDView : public QTreeWidget
 
 public:
     explicit DDView(QWidget *parent = 0);
+    void addNoDiskRow();
     QString getCurrentRomInfo(QString infoName);
     bool hasSelectedRom();
 

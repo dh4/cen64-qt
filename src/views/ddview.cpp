@@ -30,9 +30,9 @@
  ***/
 
 #include "ddview.h"
-#include "common.h"
-#include "global.h"
 #include "treewidgetitem.h"
+#include "../common.h"
+#include "../global.h"
 
 #include <QFileInfo>
 #include <QHeaderView>
@@ -54,6 +54,15 @@ DDView::DDView(QWidget *parent) : QTreeWidget(parent)
     setColumnHidden(3, true); //Hidden md5 for cache info
     setColumnHidden(4, true); //Hidden column for zip file
     setHidden(true);
+}
+
+
+void DDView::addNoDiskRow()
+{
+    fileItem = new TreeWidgetItem(this);
+    fileItem->setText(5, tr("No Disk"));
+    fileItem->setForeground(5, QBrush(Qt::gray));
+    addTopLevelItem(fileItem);
 }
 
 
