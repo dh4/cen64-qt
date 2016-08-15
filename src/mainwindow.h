@@ -145,6 +145,7 @@ private slots:
     void openLog();
     void openSettings();
     void openRom();
+    void showRomMenu(const QPoint &);
     void stopEmulator();
     void toggleMenus(bool active);
     void updateLayoutSetting();

@@ -758,6 +758,39 @@ void MainWindow::showActiveView()
 }
 
 
+void MainWindow::showRomMenu(const QPoint &pos)
+{
+    QMenu *contextMenu = new QMenu(this);
+
+    QAction *contextStartAction = contextMenu->addAction(tr("&Start"));
+    contextStartAction->setIcon(QIcon::fromTheme("media-playback-start"));
+
+    connect(contextStartAction, SIGNAL(triggered()), this, SLOT(launchRomFromMenu()));
+
+    if (SETTINGS.value("Other/downloadinfo", "").toString() == "true") {
+        contextMenu->addSeparator();
+        QAction *contextDownloadAction = contextMenu->addAction(tr("&Download/Update Info..."));
+        QAction *contextDeleteAction = contextMenu->addAction(tr("D&elete Current Info..."));
+
+        connect(contextDownloadAction, SIGNAL(triggered()), this, SLOT(openDownloader()));
+        connect(contextDeleteAction, SIGNAL(triggered()), this, SLOT(openDeleteDialog()));
+    }
+
+
+    QWidget *activeWidget;
+    QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
+
+    if (visibleLayout == "table")
+        activeWidget = tableView->viewport();
+    else if (visibleLayout == "grid")
+        activeWidget = gridView->getCurrentRomWidget();
+    else if (visibleLayout == "list")
+        activeWidget = listView->getCurrentRomWidget();
+
+    contextMenu->exec(activeWidget->mapToGlobal(pos));
+}
+
+
 void MainWindow::stopEmulator()
 {
     emulation->stopEmulator();
