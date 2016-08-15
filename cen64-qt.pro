@@ -22,28 +22,36 @@ SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/aboutdialog.cpp \
     src/settingsdialog.cpp \
-    src/treewidgetitem.cpp \
-    src/clickablewidget.cpp \
     src/v64converter.cpp \
     src/downloaddialog.cpp \
     src/logdialog.cpp \
     src/emulatorhandler.cpp \
     src/romcollection.cpp \
-    src/thegamesdbscraper.cpp
+    src/thegamesdbscraper.cpp \
+    src/views/clickablewidget.cpp \
+    src/views/gridview.cpp \
+    src/views/listview.cpp \
+    src/views/tableview.cpp \
+    src/views/ddview.cpp \
+    src/views/treewidgetitem.cpp
 
 HEADERS += src/global.h \
     src/common.h \
     src/mainwindow.h \
     src/aboutdialog.h \
     src/settingsdialog.h \
-    src/treewidgetitem.h \
-    src/clickablewidget.h \
     src/v64converter.h \
     src/downloaddialog.h \
     src/logdialog.h \
     src/emulatorhandler.h \
     src/romcollection.h \
-    src/thegamesdbscraper.h
+    src/thegamesdbscraper.h \
+    src/views/clickablewidget.h \
+    src/views/gridview.h \
+    src/views/listview.h \
+    src/views/tableview.h \
+    src/views/ddview.h \
+    src/views/treewidgetitem.h
 
 RESOURCES += resources/cen64qt.qrc
 

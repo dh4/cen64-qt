@@ -29,66 +29,32 @@
  *
  ***/
 
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef DDVIEW_H
+#define DDVIEW_H
 
-#include <QGraphicsDropShadowEffect>
-#include <QString>
-#include <QPixmap>
+#include <QTreeWidget>
 
-class QColor;
-class QSize;
+class TreeWidgetItem;
+struct Rom;
 
 
-struct Rom {
-    QString fileName;
-    QString directory;
-    QString romMD5;
-    QString internalName;
-    QString zipFile;
+class DDView : public QTreeWidget
+{
+    Q_OBJECT
 
-    QString baseName;
-    QString size;
-    int sortSize;
+public:
+    explicit DDView(QWidget *parent = 0);
+    void addNoDiskRow();
+    QString getCurrentRomInfo(QString infoName);
+    bool hasSelectedRom();
 
-    QString goodName;
-    QString CRC1;
-    QString CRC2;
-    QString players;
-    QString saveType;
-    QString rumble;
+private:
+    QWidget *parent;
+    TreeWidgetItem *fileItem;
 
-    QString gameTitle;
-    QString releaseDate;
-    QString sortDate;
-    QString overview;
-    QString esrb;
-    QString genre;
-    QString publisher;
-    QString developer;
-    QString rating;
+private slots:
+    void addTo64DDView(Rom *currentRom);
 
-    QPixmap image;
-
-    int count;
-    bool imageExists;
 };
 
-bool romSorter(const Rom &firstRom, const Rom &lastRom);
-int getDefaultWidth(QString id, int imageWidth);
-int getGridSize(QString which);
-int getTableDataIndexFromName(QString infoName);
-
-QByteArray byteswap(QByteArray romData);
-QStringList getZippedFiles(QString completeFileName);
-QByteArray *getZippedRom(QString romFileName, QString zipFile);
-QColor getColor(QString color, int transparency = 255);
-QString getDefaultLanguage();
-QString getTranslation(QString text);
-QGraphicsDropShadowEffect *getShadow(bool active);
-QSize getImageSize(QString view);
-QString getDataLocation();
-QString getRomInfo(QString identifier, const Rom *rom, bool removeWarn = false, bool sort = false);
-QString getVersion();
-
-#endif // COMMON_H
+#endif // DDVIEW_H
