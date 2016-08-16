@@ -327,6 +327,8 @@ void MainWindow::createRomView()
     tableView = new TableView(this);
     connect(tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons()));
     connect(tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchRomFromTable()));
+    connect(tableView, SIGNAL(downPressed()), this, SLOT(enableButtons()));
+    connect(tableView, SIGNAL(enterPressed()), this, SLOT(launchRomFromTable()));
 
     //Create grid view
     gridView = new GridView(this);
@@ -458,6 +460,13 @@ void MainWindow::enableViews(int romCount, bool cached)
         gridView->setEnabled(true);
         listView->setEnabled(true);
         ddView->setEnabled(true);
+
+        if (visibleLayout == "table")
+            tableView->setFocus();
+        else if (visibleLayout == "grid")
+            gridView->setFocus();
+        else if (visibleLayout == "list")
+            listView->setFocus();
 
         //Check if disabled view is showing. If it is, re-enabled the selected view
         if (!disabledView->isHidden()) {
