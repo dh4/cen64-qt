@@ -20,42 +20,42 @@ win32:RC_FILE = dist/windows/icon.rc
 SOURCES += src/main.cpp \
     src/common.cpp \
     src/mainwindow.cpp \
-    src/aboutdialog.cpp \
-    src/settingsdialog.cpp \
-    src/v64converter.cpp \
-    src/downloaddialog.cpp \
-    src/logdialog.cpp \
-    src/emulatorhandler.cpp \
-    src/romcollection.cpp \
-    src/thegamesdbscraper.cpp \
-    src/views/clickablewidget.cpp \
+    src/dialogs/aboutdialog.cpp \
+    src/dialogs/downloaddialog.cpp \
+    src/dialogs/logdialog.cpp \
+    src/dialogs/settingsdialog.cpp \
+    src/dialogs/v64converter.cpp \
+    src/emulation/emulatorhandler.cpp \
+    src/roms/romcollection.cpp \
+    src/roms/thegamesdbscraper.cpp \
     src/views/gridview.cpp \
     src/views/listview.cpp \
     src/views/tableview.cpp \
     src/views/ddview.cpp \
-    src/views/treewidgetitem.cpp
+    src/views/subclasses/clickablewidget.cpp \
+    src/views/subclasses/treewidgetitem.cpp
 
 HEADERS += src/global.h \
     src/common.h \
     src/mainwindow.h \
-    src/aboutdialog.h \
-    src/settingsdialog.h \
-    src/v64converter.h \
-    src/downloaddialog.h \
-    src/logdialog.h \
-    src/emulatorhandler.h \
-    src/romcollection.h \
-    src/thegamesdbscraper.h \
-    src/views/clickablewidget.h \
+    src/dialogs/aboutdialog.h \
+    src/dialogs/downloaddialog.h \
+    src/dialogs/logdialog.h \
+    src/dialogs/settingsdialog.h \
+    src/dialogs/v64converter.h \
+    src/emulation/emulatorhandler.h \
+    src/roms/romcollection.h \
+    src/roms/thegamesdbscraper.h \
     src/views/gridview.h \
     src/views/listview.h \
     src/views/tableview.h \
     src/views/ddview.h \
-    src/views/treewidgetitem.h
+    src/views/widgets/clickablewidget.h \
+    src/views/widgets/treewidgetitem.h
 
 RESOURCES += resources/cen64qt.qrc
 
-FORMS += src/settingsdialog.ui
+FORMS += src/dialogs/settingsdialog.ui
 
 TRANSLATIONS += resources/locale/cen64-qt_fr.ts
 

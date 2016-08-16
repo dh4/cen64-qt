@@ -30,7 +30,8 @@
  ***/
 
 #include "v64converter.h"
-#include "global.h"
+
+#include "../global.h"
 
 #include <QFileDialog>
 #include <QMessageBox>

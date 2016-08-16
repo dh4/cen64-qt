@@ -30,16 +30,21 @@
  ***/
 
 #include "mainwindow.h"
-#include "aboutdialog.h"
-#include "common.h"
-#include "downloaddialog.h"
-#include "emulatorhandler.h"
+
 #include "global.h"
-#include "logdialog.h"
-#include "romcollection.h"
-#include "settingsdialog.h"
-#include "v64converter.h"
-#include "thegamesdbscraper.h"
+#include "common.h"
+
+#include "dialogs/aboutdialog.h"
+#include "dialogs/downloaddialog.h"
+#include "dialogs/logdialog.h"
+#include "dialogs/settingsdialog.h"
+#include "dialogs/v64converter.h"
+
+#include "emulation/emulatorhandler.h"
+
+#include "roms/romcollection.h"
+#include "roms/thegamesdbscraper.h"
+
 #include "views/gridview.h"
 #include "views/listview.h"
 #include "views/tableview.h"

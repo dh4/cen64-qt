@@ -30,9 +30,11 @@
  ***/
 
 #include "ddview.h"
-#include "treewidgetitem.h"
+
 #include "../common.h"
 #include "../global.h"
+
+#include "widgets/treewidgetitem.h"
 
 #include <QFileInfo>
 #include <QHeaderView>
