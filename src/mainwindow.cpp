@@ -408,6 +408,14 @@ void MainWindow::disableViews(bool imageUpdated)
 {
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
 
+    //Save position in current layout
+    if (visibleLayout == "table")
+        tableView->saveTablePosition();
+    else if (visibleLayout == "grid")
+        gridView->saveGridPosition();
+    else if (visibleLayout == "list")
+        listView->saveListPosition();
+
     resetLayouts(imageUpdated);
     tableView->clear();
     ddView->clear();
@@ -428,14 +436,6 @@ void MainWindow::disableViews(bool imageUpdated)
 
     foreach (QAction *next, menuRomSelected)
         next->setEnabled(false);
-
-    //Save position in current layout
-    if (visibleLayout == "table")
-        tableView->saveTablePosition();
-    else if (visibleLayout == "grid")
-        gridView->saveGridPosition();
-    else if (visibleLayout == "list")
-        listView->saveListPosition();
 }
 
 
@@ -777,7 +777,7 @@ void MainWindow::showRomMenu(const QPoint &pos)
     }
 
 
-    QWidget *activeWidget;
+    QWidget *activeWidget = new QWidget(this);
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
 
     if (visibleLayout == "table")
