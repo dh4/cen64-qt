@@ -32,8 +32,8 @@ SOURCES += src/main.cpp \
     src/views/listview.cpp \
     src/views/tableview.cpp \
     src/views/ddview.cpp \
-    src/views/subclasses/clickablewidget.cpp \
-    src/views/subclasses/treewidgetitem.cpp
+    src/views/widgets/clickablewidget.cpp \
+    src/views/widgets/treewidgetitem.cpp
 
 HEADERS += src/global.h \
     src/common.h \
