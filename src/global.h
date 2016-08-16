@@ -32,13 +32,28 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include <QObject>
 #include <QSettings>
 
 
+const QString AppName           = "CEN64-Qt";
+const QString AppNameLower      = "cen64-qt";
+const QString ParentName        = "CEN64";
+const QString ParentNameLower   = "cen64";
+
+const QString Description = QObject::tr("A basic frontend for <ParentName> using Qt.").replace("<ParentName>",ParentName);
+const QString Copyright = "CEN64 Copyright (c) 2013, Tyler J. Stachecki";
+const QString Website = "<a href=\"http://www.cen64.com/\">"
+        + QObject::tr("<ParentName> website").replace("<ParentName>",ParentName)
+        + "</a>";
+const QString GitHub = "<a href=\"https://github.com/dh4/cen64-qt\">"
+        + QObject::tr("GitHub repository")
+        + "</a>";
+
 #ifdef Q_OS_WIN
-    #define SETTINGS QSettings("cen64-qt.ini", QSettings::IniFormat)
+    #define SETTINGS    QSettings(AppNameLower+".ini", QSettings::IniFormat)
 #else
-    #define SETTINGS QSettings("cen64", "cen64-qt")
+    #define SETTINGS    QSettings(ParentNameLower, AppNameLower)
 #endif
 
 #endif // GLOBAL_H

@@ -76,10 +76,10 @@ QString getDataLocation()
 
 #if QT_VERSION >= 0x050000
     dataDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation)
-                    .replace("CEN64/CEN64-Qt","cen64-qt");
+                    .replace(ParentName+"/"+AppName,AppNameLower);
 #else
     dataDir = QDesktopServices::storageLocation(QDesktopServices::DataLocation)
-                    .remove("data/").replace("CEN64/CEN64-Qt","cen64-qt");
+                    .remove("data/").replace(ParentName+"/"+AppName,AppNameLower);
 #endif
 
 #endif

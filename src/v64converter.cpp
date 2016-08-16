@@ -30,6 +30,7 @@
  ***/
 
 #include "v64converter.h"
+#include "global.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -68,7 +69,7 @@ void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *pare
         else
             message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("is not a valid .v64 file!");
 
-        QMessageBox::warning(parent, tr("CEN64-Qt Converter"), message);
+        QMessageBox::warning(parent, tr("<AppName> Converter").replace("<AppName>",AppName), message);
     } else {
         v64.seek(0);
 
@@ -99,7 +100,8 @@ void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *pare
         }
 
         z64.close();
-        QMessageBox::information(parent, tr("CEN64-Qt Converter"), tr("Conversion complete!"));
+        QMessageBox::information(parent, tr("<AppName> Converter").replace("<AppName>",AppName),
+                                 tr("Conversion complete!"));
     }
 
     v64.close();

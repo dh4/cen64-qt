@@ -5,28 +5,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="44"/>
-        <source>About CEN64-Qt</source>
-        <translation>À propos de CEN64-Qt</translation>
+        <source>About &lt;AppName&gt;</source>
+        <translation>À propos de &lt;AppName&gt;</translation>
     </message>
     <message>
         <location filename="../../src/aboutdialog.cpp" line="58"/>
         <source>Version</source>
         <translation>Version</translation>
-    </message>
-    <message>
-        <location filename="../../src/aboutdialog.cpp" line="59"/>
-        <source>A basic frontend for CEN64 using Qt.</source>
-        <translation>Une interface graphique simple et élémentaire pour CEN64.</translation>
-    </message>
-    <message>
-        <location filename="../../src/aboutdialog.cpp" line="61"/>
-        <source>CEN64 website</source>
-        <translation>Site web de CEN64</translation>
-    </message>
-    <message>
-        <location filename="../../src/aboutdialog.cpp" line="62"/>
-        <source>GitHub repository</source>
-        <translation>Dépôt GitHub</translation>
     </message>
 </context>
 <context>
@@ -74,86 +59,86 @@
     <name>EmulatorHandler</name>
     <message>
         <location filename="../../src/emulatorhandler.cpp" line="57"/>
-        <location filename="../../src/emulatorhandler.cpp" line="210"/>
-        <location filename="../../src/emulatorhandler.cpp" line="216"/>
-        <location filename="../../src/emulatorhandler.cpp" line="222"/>
-        <location filename="../../src/emulatorhandler.cpp" line="228"/>
-        <location filename="../../src/emulatorhandler.cpp" line="235"/>
-        <location filename="../../src/emulatorhandler.cpp" line="241"/>
-        <location filename="../../src/emulatorhandler.cpp" line="258"/>
-        <location filename="../../src/emulatorhandler.cpp" line="263"/>
-        <location filename="../../src/emulatorhandler.cpp" line="276"/>
-        <location filename="../../src/emulatorhandler.cpp" line="388"/>
+        <location filename="../../src/emulatorhandler.cpp" line="211"/>
+        <location filename="../../src/emulatorhandler.cpp" line="218"/>
+        <location filename="../../src/emulatorhandler.cpp" line="224"/>
+        <location filename="../../src/emulatorhandler.cpp" line="230"/>
+        <location filename="../../src/emulatorhandler.cpp" line="237"/>
+        <location filename="../../src/emulatorhandler.cpp" line="243"/>
+        <location filename="../../src/emulatorhandler.cpp" line="260"/>
+        <location filename="../../src/emulatorhandler.cpp" line="265"/>
+        <location filename="../../src/emulatorhandler.cpp" line="278"/>
+        <location filename="../../src/emulatorhandler.cpp" line="390"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="58"/>
-        <source>CEN64 quit unexpectedly. Check the log for more information.</source>
-        <translation>CEN64 a quitté de manière inattendue. Consultez les journaux pour plus d&apos;informations.</translation>
-    </message>
-    <message>
-        <location filename="../../src/emulatorhandler.cpp" line="61"/>
+        <location filename="../../src/emulatorhandler.cpp" line="62"/>
         <source>View Log...</source>
         <translation>Consulter les journaux...</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="67"/>
+        <location filename="../../src/emulatorhandler.cpp" line="68"/>
         <source>Emulation stopped</source>
         <translation>Émulation arrêtée</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="210"/>
-        <source>CEN64 executable not found.</source>
-        <translation>Executable CEN64 non trouvé.</translation>
+        <location filename="../../src/emulatorhandler.cpp" line="58"/>
+        <source>&lt;ParentName&gt; quit unexpectedly. Check the log for more information.</source>
+        <translation>&lt;ParentName&gt; a quitté de manière inattendue. Consultez les journaux pour plus d&apos;informations.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="216"/>
+        <location filename="../../src/emulatorhandler.cpp" line="212"/>
+        <source>&lt;ParentName&gt; executable not found.</source>
+        <translation>Executable &lt;ParentName&gt; non trouvé.</translation>
+    </message>
+    <message>
+        <location filename="../../src/emulatorhandler.cpp" line="218"/>
         <source>PIF IPL file not found.</source>
         <translation>Fichier PIF IPL non trouvé.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="222"/>
+        <location filename="../../src/emulatorhandler.cpp" line="224"/>
         <source>64DD IPL file not found.</source>
         <translation>Fichier 64DD IPL manquant.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="228"/>
+        <location filename="../../src/emulatorhandler.cpp" line="230"/>
         <source>ROM file not found.</source>
         <translation>Fichier ROM manquant.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="235"/>
+        <location filename="../../src/emulatorhandler.cpp" line="237"/>
         <source>64DD ROM file not found.</source>
         <translation>ROM 64DD introuvable.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="241"/>
+        <location filename="../../src/emulatorhandler.cpp" line="243"/>
         <source>No ROM selected.</source>
         <translation>Aucune ROM sélectionnée.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="258"/>
+        <location filename="../../src/emulatorhandler.cpp" line="260"/>
         <source>64DD not enabled.</source>
         <translation>64DD non activé.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="263"/>
+        <location filename="../../src/emulatorhandler.cpp" line="265"/>
         <source>Not a valid Z64 File.</source>
         <translation>N&apos;est pas un fichier Z64 valide.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="276"/>
+        <location filename="../../src/emulatorhandler.cpp" line="278"/>
         <source>Not a valid 64DD File.</source>
         <translation>N&apos;est pas un fichier 64DD valide.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="388"/>
+        <location filename="../../src/emulatorhandler.cpp" line="390"/>
         <source>No ROM selected or 64DD not enabled.</source>
         <translation>Aucune ROM sélectionnée ou 64 DD non activé.</translation>
     </message>
     <message>
-        <location filename="../../src/emulatorhandler.cpp" line="440"/>
+        <location filename="../../src/emulatorhandler.cpp" line="442"/>
         <source>Emulation started</source>
         <translation>Émulation démarrée</translation>
     </message>
@@ -161,7 +146,7 @@
 <context>
     <name>GridView</name>
     <message>
-        <location filename="../../src/views/gridview.cpp" line="144"/>
+        <location filename="../../src/views/gridview.cpp" line="145"/>
         <source>No Cart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -169,7 +154,7 @@
 <context>
     <name>ListView</name>
     <message>
-        <location filename="../../src/views/listview.cpp" line="151"/>
+        <location filename="../../src/views/listview.cpp" line="152"/>
         <source>No Cart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -178,8 +163,8 @@
     <name>LogDialog</name>
     <message>
         <location filename="../../src/logdialog.cpp" line="46"/>
-        <source>CEN64 Log</source>
-        <translation>Journaux CEN64</translation>
+        <source>&lt;ParentName&gt; Log</source>
+        <translation>Journaux &lt;ParentName&gt;</translation>
     </message>
     <message>
         <location filename="../../src/logdialog.cpp" line="66"/>
@@ -189,11 +174,6 @@
 </context>
 <context>
     <name>MainWindow</name>
-    <message>
-        <location filename="../../src/mainwindow.cpp" line="65"/>
-        <source>CEN64-Qt</source>
-        <translation>CEN64-Qt</translation>
-    </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="161"/>
         <source>&amp;File</source>
@@ -216,13 +196,13 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="166"/>
-        <location filename="../../src/mainwindow.cpp" line="772"/>
+        <location filename="../../src/mainwindow.cpp" line="782"/>
         <source>&amp;Download/Update Info...</source>
         <translation>&amp;Télécharger/Mettre à jour les infos...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="167"/>
-        <location filename="../../src/mainwindow.cpp" line="773"/>
+        <location filename="../../src/mainwindow.cpp" line="783"/>
         <source>D&amp;elete Current Info...</source>
         <translation>&amp;Effacer les infos actuelles...</translation>
     </message>
@@ -238,7 +218,7 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="192"/>
-        <location filename="../../src/mainwindow.cpp" line="765"/>
+        <location filename="../../src/mainwindow.cpp" line="775"/>
         <source>&amp;Start</source>
         <translation>&amp;Démarrer</translation>
     </message>
@@ -313,46 +293,42 @@
         <translation>À &amp;propos</translation>
     </message>
     <message>
-        <source>No Disk</source>
-        <translation type="vanished">Pas de disque</translation>
+        <location filename="../../src/mainwindow.cpp" line="613"/>
+        <source>There is no log. Either &lt;ParentName&gt; has not yet run or there was no output from the last run.</source>
+        <translation>Il n&apos;y a pas de journaux. Soit &lt;ParentName&gt; n’a pas encore été lancé, soit il n’y a pas de données concernant le dernier démarrage. </translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="603"/>
+        <location filename="../../src/mainwindow.cpp" line="612"/>
         <source>No Output</source>
         <translation>Pas de sortie</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="604"/>
-        <source>There is no log. Either CEN64 has not yet run or there was no output from the last run.</source>
-        <translation>Il n&apos;y a pas de journaux. Soit CEN64 n’a pas encore été lancé, soit il n’y a pas de données concernant le dernier démarrage. </translation>
-    </message>
-    <message>
-        <location filename="../../src/mainwindow.cpp" line="662"/>
+        <location filename="../../src/mainwindow.cpp" line="672"/>
         <source>All Files</source>
         <translation>Tous les fichiers</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="672"/>
+        <location filename="../../src/mainwindow.cpp" line="682"/>
         <source>Open ROM File</source>
         <translation>Ouvrir un fichier ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="690"/>
+        <location filename="../../src/mainwindow.cpp" line="700"/>
         <source>No ROMs</source>
         <translation>Aucune ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="690"/>
+        <location filename="../../src/mainwindow.cpp" line="700"/>
         <source>No ROMs found in ZIP file.</source>
         <translation>Aucune ROM trouvée dans le fichier ZIP.</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="705"/>
+        <location filename="../../src/mainwindow.cpp" line="715"/>
         <source>Select ROM</source>
         <translation>Choisir une ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="722"/>
+        <location filename="../../src/mainwindow.cpp" line="732"/>
         <source>Launch</source>
         <translation>Lancer</translation>
     </message>
@@ -462,7 +438,7 @@
     <message>
         <location filename="../../src/common.cpp" line="327"/>
         <source>Game Cover</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="328"/>
@@ -485,26 +461,41 @@
         <translation>%1 - MB</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="169"/>
-        <location filename="../../src/thegamesdbscraper.cpp" line="206"/>
-        <location filename="../../src/thegamesdbscraper.cpp" line="251"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="170"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="207"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="252"/>
         <source>Game Information Download</source>
         <translation>Télécharger des informations sur le jeu</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="202"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="203"/>
         <source>No results found.</source>
         <translation>Aucun résultat.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="204"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="205"/>
         <source>No more results found.</source>
         <translation>Pas d&apos;autre résultat.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="252"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="253"/>
         <source>Download Complete!</source>
         <translation>Téléchargement terminé !</translation>
+    </message>
+    <message>
+        <location filename="../../src/global.h" line="44"/>
+        <source>A basic frontend for &lt;ParentName&gt; using Qt.</source>
+        <translation>Une interface graphique simple et élémentaire pour &lt;ParentName&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../../src/global.h" line="47"/>
+        <source>&lt;ParentName&gt; website</source>
+        <translation>Site web de &lt;ParentName&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/global.h" line="50"/>
+        <source>GitHub repository</source>
+        <translation>Dépôt GitHub</translation>
     </message>
 </context>
 <context>
@@ -1052,51 +1043,51 @@
     </message>
     <message>
         <location filename="../../src/settingsdialog.cpp" line="452"/>
-        <source>CEN64 Executable</source>
-        <translation>Fichier exécutable CEN64</translation>
+        <source>&lt;ParentName&gt; Executable</source>
+        <translation>Fichier exécutable &lt;ParentName&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="460"/>
+        <location filename="../../src/settingsdialog.cpp" line="461"/>
         <source>4kbit EEPROM File</source>
         <translation>Fichier EEPROM 4 kbit</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="468"/>
+        <location filename="../../src/settingsdialog.cpp" line="469"/>
         <source>16kbit EEPROM File</source>
         <translation>Fichier EEPROM 16 kbit</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="476"/>
+        <location filename="../../src/settingsdialog.cpp" line="477"/>
         <source>FlashRAM File</source>
         <translation>Fichier FlashRAM</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="484"/>
+        <location filename="../../src/settingsdialog.cpp" line="485"/>
         <source>Controller Pak File</source>
         <translation>Fichier Controller pak</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="492"/>
+        <location filename="../../src/settingsdialog.cpp" line="493"/>
         <source>PIF IPL ROM File</source>
         <translation>Fichier ROM PIF IPL</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="500"/>
+        <location filename="../../src/settingsdialog.cpp" line="501"/>
         <source>Save Directory</source>
         <translation>Dossier de sauvegarde</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="508"/>
+        <location filename="../../src/settingsdialog.cpp" line="509"/>
         <source>SRAM File</source>
         <translation>Fichier SRAM</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="516"/>
+        <location filename="../../src/settingsdialog.cpp" line="517"/>
         <source>Transfer Pak ROM File</source>
         <translation>Fichier ROM Transfer pak</translation>
     </message>
     <message>
-        <location filename="../../src/settingsdialog.cpp" line="524"/>
+        <location filename="../../src/settingsdialog.cpp" line="525"/>
         <source>Transfer Pak Save File</source>
         <translation>Fichier de sauvegarde Transfer pak</translation>
     </message>
@@ -1104,8 +1095,8 @@
 <context>
     <name>TableView</name>
     <message>
-        <location filename="../../src/views/tableview.cpp" line="73"/>
-        <location filename="../../src/views/tableview.cpp" line="76"/>
+        <location filename="../../src/views/tableview.cpp" line="74"/>
+        <location filename="../../src/views/tableview.cpp" line="77"/>
         <source>No Cart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1118,11 +1109,6 @@
         <translation>&lt;b&gt;Remarque :&lt;/b&gt; Si vous effacez les informations de ce jeu parce que le jeu</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="61"/>
-        <source>exist on TheGamesDB and CEN64-Qt pulled the information for different game, it&apos;s </source>
-        <translation>n’est pas dans TheGamesDB et que CEN64Qt vous propose des informations pour un autre jeu,</translation>
-    </message>
-    <message>
         <location filename="../../src/thegamesdbscraper.cpp" line="62"/>
         <source>better to create an account on</source>
         <translation>il est préférable de créer un compte</translation>
@@ -1133,14 +1119,19 @@
         <translation>et d’ajouter le jeu afin d’en faire profiter également les autres utilisateurs.</translation>
     </message>
     <message>
+        <location filename="../../src/thegamesdbscraper.cpp" line="61"/>
+        <source>exist on TheGamesDB and &lt;AppName&gt; pulled the information for different game, it&apos;s </source>
+        <translation>n’est pas dans TheGamesDB et que &lt;AppName&gt; vous propose des informations pour un autre jeu, </translation>
+    </message>
+    <message>
         <location filename="../../src/thegamesdbscraper.cpp" line="65"/>
-        <source>This will cause CEN64-Qt to not update the information for this game until you </source>
-        <translation>CEN64-QT ne mettra pas à jour les informations jusqu&apos;à ce que vous</translation>
+        <source>This will cause &lt;AppName&gt; to not update the information for this game until you </source>
+        <translation>&lt;AppName&gt; ne mettra pas à jour les informations jusqu&apos;à ce que vous </translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscraper.cpp" line="66"/>
         <source>force it with &quot;Download/Update Info...&quot;</source>
-        <translation>relanciez le téléchargement/la mise à jour des informations...</translation>
+        <translation>relanciez le &quot;Télécharger/Mettre à jour les infos...&quot;</translation>
     </message>
     <message>
         <location filename="../../src/thegamesdbscraper.cpp" line="68"/>
@@ -1148,33 +1139,33 @@
         <translation>Effacer les informations actuelles pour</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="70"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="71"/>
         <source>Delete Game Information</source>
         <translation>Effacer les informations du jeu</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="166"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="167"/>
         <source>Released on: </source>
         <translation>Publié le :</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="167"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="168"/>
         <source>Does this look correct?</source>
         <translation>Ces informations vous semblent-elles correctes ?</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="286"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="287"/>
         <source>Request timed out. Check your network settings.</source>
         <translation>Temps dépassé. Vérifier vos paramètres de connexion.</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="294"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="295"/>
         <source>Continue scraping information?</source>
         <translation>Continuer à récolter des informations ?</translation>
     </message>
     <message>
-        <location filename="../../src/thegamesdbscraper.cpp" line="297"/>
-        <location filename="../../src/thegamesdbscraper.cpp" line="299"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="298"/>
+        <location filename="../../src/thegamesdbscraper.cpp" line="300"/>
         <source>Network Error</source>
         <translatorcomment>Erreur réseau</translatorcomment>
         <translation></translation>
@@ -1183,49 +1174,49 @@
 <context>
     <name>V64Converter</name>
     <message>
-        <location filename="../../src/v64converter.cpp" line="42"/>
+        <location filename="../../src/v64converter.cpp" line="43"/>
         <source>Open v64 File</source>
         <translation>Ouvrir un fichier v64</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="43"/>
+        <location filename="../../src/v64converter.cpp" line="44"/>
         <source>V64 ROMs</source>
         <translation>ROMS V64</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="44"/>
-        <location filename="../../src/v64converter.cpp" line="51"/>
+        <location filename="../../src/v64converter.cpp" line="45"/>
+        <location filename="../../src/v64converter.cpp" line="52"/>
         <source>All Files</source>
         <translation>Tous les fichiers</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="49"/>
+        <location filename="../../src/v64converter.cpp" line="50"/>
         <source>Save z64 File</source>
         <translation>Sauvegarder le fichier z64</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="50"/>
+        <location filename="../../src/v64converter.cpp" line="51"/>
         <source>Z64 ROMs</source>
         <translation>ROMS Z64</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="67"/>
+        <location filename="../../src/v64converter.cpp" line="68"/>
         <source>already in z64 format!</source>
         <translation>Déjà au format z64 !</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="69"/>
+        <location filename="../../src/v64converter.cpp" line="70"/>
         <source>is not a valid .v64 file!</source>
         <translation>n’est pas un fichier v64 valide !</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="71"/>
-        <location filename="../../src/v64converter.cpp" line="102"/>
-        <source>CEN64-Qt Converter</source>
-        <translation>Convertisseur CEN64-Qt</translation>
+        <location filename="../../src/v64converter.cpp" line="72"/>
+        <location filename="../../src/v64converter.cpp" line="103"/>
+        <source>&lt;AppName&gt; Converter</source>
+        <translation>Convertisseur &lt;AppName&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/v64converter.cpp" line="102"/>
+        <location filename="../../src/v64converter.cpp" line="104"/>
         <source>Conversion complete!</source>
         <translation>Conversion terminée !</translation>
     </message>

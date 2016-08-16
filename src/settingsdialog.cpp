@@ -46,7 +46,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
 
     //Populate Paths tab
-    ui->cen64Path->setText(SETTINGS.value("Paths/cen64", "").toString());
+    ui->emulatorPath->setText(SETTINGS.value("Paths/cen64", "").toString());
     ui->pifPath->setText(SETTINGS.value("Paths/pifrom", "").toString());
     ui->ddPath->setText(SETTINGS.value("Paths/ddiplrom", "").toString());
     ui->catalogPath->setText(SETTINGS.value("Paths/catalog", "").toString());
@@ -87,7 +87,7 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     } else
         toggleSaves(false);
 
-    connect(ui->cen64Button, SIGNAL(clicked()), this, SLOT(browseCen64()));
+    connect(ui->emulatorButton, SIGNAL(clicked()), this, SLOT(browseEmulator()));
     connect(ui->pifButton, SIGNAL(clicked()), this, SLOT(browsePIF()));
     connect(ui->ddButton, SIGNAL(clicked()), this, SLOT(browse64DD()));
     connect(ui->catalogButton, SIGNAL(clicked()), this, SLOT(browseCatalog()));
@@ -447,11 +447,12 @@ void SettingsDialog::browseCatalog()
 }
 
 
-void SettingsDialog::browseCen64()
+void SettingsDialog::browseEmulator()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("CEN64 Executable"));
+    QString path = QFileDialog::getOpenFileName(this, tr("<ParentName> Executable")
+                                                .replace("<ParentName>",ParentName));
     if (path != "")
-        ui->cen64Path->setText(path);
+        ui->emulatorPath->setText(path);
 }
 
 
@@ -540,7 +541,7 @@ void SettingsDialog::editSettings()
 
 
     //Paths tab
-    SETTINGS.setValue("Paths/cen64", ui->cen64Path->text());
+    SETTINGS.setValue("Paths/cen64", ui->emulatorPath->text());
     SETTINGS.setValue("Paths/pifrom", ui->pifPath->text());
     SETTINGS.setValue("Paths/ddiplrom", ui->ddPath->text());
     SETTINGS.setValue("Paths/catalog", ui->catalogPath->text());
@@ -1053,7 +1054,7 @@ void SettingsDialog::updateLanguageInfo()
 
     QTranslator translator;
     QString language = ui->languageBox->itemData(ui->languageBox->currentIndex()).toString().toLower();
-    QString resource = ":/locale/cen64-qt_"+language+".qm";
+    QString resource = ":/locale/"+AppNameLower+"_"+language+".qm";
     if (QFileInfo(resource).exists()) {
         translator.load(resource);
         ui->languageInfoLabel->setText(translator.translate("SettingsDialog", sourceText));

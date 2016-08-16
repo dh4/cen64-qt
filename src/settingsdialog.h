@@ -85,7 +85,7 @@ private slots:
     void browse64DD();
     void browseBackground();
     void browseCatalog();
-    void browseCen64();
+    void browseEmulator();
     void browseEEPROM4k();
     void browseEEPROM16k();
     void browseFlashRAM();

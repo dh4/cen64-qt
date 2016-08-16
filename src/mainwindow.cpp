@@ -62,8 +62,8 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    setWindowTitle(tr("CEN64-Qt"));
-    setWindowIcon(QIcon(":/images/cen64.png"));
+    setWindowTitle(AppName);
+    setWindowIcon(QIcon(":/images/"+ParentNameLower+".png"));
 
     emulation = new EmulatorHandler(this);
     romCollection = new RomCollection(QStringList() << "*.z64" << "*.n64" << "*.zip" << "*.ndd",
@@ -248,7 +248,7 @@ void MainWindow::createMenu()
         layoutItem->setCheckable(true);
         layoutGroup->addAction(layoutItem);
 
-        //Only enable layout changes when CEN64 is not running
+        //Only enable layout changes when emulator is not running
         menuEnable << layoutItem;
 
         if(layoutValue == layoutName.at(1))
@@ -278,7 +278,7 @@ void MainWindow::createMenu()
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(openAbout()));
 
 
-    //Create list of actions that are enabled only when CEN64 is not running
+    //Create list of actions that are enabled only when emulator is not running
     menuEnable << startAction
                << ddAction
                << logAction
@@ -290,7 +290,7 @@ void MainWindow::createMenu()
                << configureAction
                << quitAction;
 
-    //Create list of actions that are disabled when CEN64 is not running
+    //Create list of actions that are disabled when emulator is not running
     menuDisable << stopAction;
 
     //Create list of actions that are only active when a ROM is selected
@@ -312,7 +312,7 @@ void MainWindow::createRomView()
     emptyLayout = new QGridLayout(emptyView);
 
     emptyIcon = new QLabel(emptyView);
-    emptyIcon->setPixmap(QPixmap(":/images/cen64.png"));
+    emptyIcon->setPixmap(QPixmap(":/images/"+ParentNameLower+".png"));
 
     emptyLayout->addWidget(emptyIcon, 1, 1);
     emptyLayout->setColumnStretch(0, 1);
@@ -610,7 +610,8 @@ void MainWindow::openLog()
 {
     if (emulation->lastOutput == "") {
         QMessageBox::information(this, tr("No Output"),
-            tr("There is no log. Either CEN64 has not yet run or there was no output from the last run."));
+            tr("There is no log. Either <ParentName> has not yet run or there was no output from the last run.")
+            .replace("<ParentName>",ParentName));
     } else {
         LogDialog logDialog(emulation->lastOutput, this);
         logDialog.exec();

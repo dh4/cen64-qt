@@ -41,7 +41,6 @@ class QLineEdit;
 class TheGamesDBScraper;
 
 
-
 class DownloadDialog : public QDialog
 {
     Q_OBJECT

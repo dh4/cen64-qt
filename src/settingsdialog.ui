@@ -26,7 +26,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="pathsWidget">
       <attribute name="title">
@@ -150,7 +150,7 @@
           <item row="0" column="0">
            <layout class="QGridLayout" name="pathsLayout">
             <item row="0" column="2">
-             <widget class="QPushButton" name="cen64Button">
+             <widget class="QPushButton" name="emulatorButton">
               <property name="text">
                <string>Browse...</string>
               </property>
@@ -191,14 +191,14 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLabel" name="cen64PathLabel">
+             <widget class="QLabel" name="emulatorPathLabel">
               <property name="text">
                <string>CEN64 executable: </string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="cen64Path"/>
+             <widget class="QLineEdit" name="emulatorPath"/>
             </item>
             <item row="2" column="2">
              <widget class="QPushButton" name="ddButton">
@@ -1605,11 +1605,11 @@
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>cen64Path</tabstop>
+  <tabstop>emulatorPath</tabstop>
   <tabstop>pifPath</tabstop>
   <tabstop>ddPath</tabstop>
   <tabstop>catalogPath</tabstop>
-  <tabstop>cen64Button</tabstop>
+  <tabstop>emulatorButton</tabstop>
   <tabstop>pifButton</tabstop>
   <tabstop>ddButton</tabstop>
   <tabstop>catalogButton</tabstop>

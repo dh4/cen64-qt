@@ -55,7 +55,8 @@ void EmulatorHandler::checkStatus(int status)
     if (status > 0) {
         QMessageBox exitDialog(parent);
         exitDialog.setWindowTitle(tr("Warning"));
-        exitDialog.setText(tr("CEN64 quit unexpectedly. Check the log for more information."));
+        exitDialog.setText(tr("<ParentName> quit unexpectedly. Check the log for more information.")
+                           .replace("<ParentName>",ParentName));
         exitDialog.setIcon(QMessageBox::Warning);
         exitDialog.addButton(QMessageBox::Ok);
         exitDialog.addButton(tr("View Log..."), QMessageBox::HelpRole);
@@ -70,8 +71,8 @@ void EmulatorHandler::checkStatus(int status)
 
 void EmulatorHandler::cleanTemp()
 {
-    QFile::remove(QDir::tempPath() + "/cen64-qt/temp.bin");
-    QFile::remove(QDir::tempPath() + "/cen64-qt/64dd-temp.bin");
+    QFile::remove(QDir::tempPath() + "/"+AppNameLower+"/temp.bin");
+    QFile::remove(QDir::tempPath() + "/"+AppNameLower+"/64dd-temp.bin");
 }
 
 
@@ -164,7 +165,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
             QByteArray *romData = getZippedRom(fileInZip, zipFile);
 
-            QString tempDir = QDir::tempPath() + "/cen64-qt";
+            QString tempDir = QDir::tempPath() + "/" + AppNameLower;
             QDir().mkdir(tempDir);
 
             romPath = tempDir + tempName;
@@ -190,7 +191,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
     if (ddZipName == "" && ddFileName != "")
         complete64DDPath = ddDir.absoluteFilePath(ddFileName);
 
-    QString cen64Path = SETTINGS.value("Paths/cen64", "").toString();
+    QString emulatorPath = SETTINGS.value("Paths/cen64", "").toString();
     QString pifPath = SETTINGS.value("Paths/pifrom", "").toString();
     QString ddIPLPath = SETTINGS.value("Paths/ddiplrom", "").toString();
 
@@ -198,7 +199,7 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
     if (SETTINGS.value("Emulation/64dd", "").toString() == "true")
         ddMode = true;
 
-    QFile cen64File(cen64Path);
+    QFile emulatorFile(emulatorPath);
     QFile pifFile(pifPath);
     QFile ddIPL(ddIPLPath);
     QFile romFile(completeRomPath);
@@ -206,8 +207,9 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
 
     //Sanity checks
-    if (!cen64File.exists() || QFileInfo(cen64File).isDir() || !QFileInfo(cen64File).isExecutable()) {
-        QMessageBox::warning(parent, tr("Warning"), tr("CEN64 executable not found."));
+    if (!emulatorFile.exists() || QFileInfo(emulatorFile).isDir() || !QFileInfo(emulatorFile).isExecutable()) {
+        QMessageBox::warning(parent, tr("Warning"),
+                             tr("<ParentName> executable not found.").replace("<ParentName>",ParentName));
         if (zip || ddZip) cleanTemp();
         return;
     }
@@ -417,10 +419,10 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
     //clear log
     lastOutput = "";
 
-    emulatorProc->start(cen64Path, args);
+    emulatorProc->start(emulatorPath, args);
 
     //Add command to log
-    QString executable = cen64Path;
+    QString executable = emulatorPath;
     if (executable.contains(" "))
         executable = '"' + executable + '"';
 
