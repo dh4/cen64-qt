@@ -148,6 +148,9 @@ int RomCollection::addRoms()
                         //check for ROM files
                         QByteArray *romData = getZippedRom(zippedFile, completeFileName);
 
+                        if (fileTypes.contains("*.v64"))
+                            *romData = byteswap(*romData);
+
                         if (romData->left(4).toHex() == "80371240") { //Z64 ROM
                             roms.append(addRom(romData, zippedFile, romPath, fileName, query));
                             romCount++;
@@ -162,6 +165,9 @@ int RomCollection::addRoms()
                     file.open(QIODevice::ReadOnly);
                     QByteArray *romData = new QByteArray(file.readAll());
                     file.close();
+
+                    if (fileTypes.contains("*.v64"))
+                        *romData = byteswap(*romData);
 
                     if (romData->left(4).toHex() == "80371240") { //Z64 ROM
                         roms.append(addRom(romData, fileName, romPath, "", query));
@@ -308,7 +314,15 @@ QStringList RomCollection::getFileTypes(bool archives)
 void RomCollection::initializeRom(Rom *currentRom, bool cached)
 {
     QSettings *romCatalog = new QSettings(parent);
+
     QString catalogFile = SETTINGS.value("Paths/catalog", "").toString();
+    if (catalogFile == "") {
+        QString dataPath = SETTINGS.value("Paths/data", "").toString();
+        QDir dataDir(dataPath);
+
+        if (QFileInfo(dataDir.absoluteFilePath("mupen64plus.ini")).exists())
+            catalogFile = dataDir.absoluteFilePath("mupen64plus.ini");
+    }
 
     QDir romDir(currentRom->directory);
 
@@ -448,7 +462,7 @@ void RomCollection::setupDatabase()
 {
     // Bump this when updating rom_collection structure
     // Will cause clients to delete and recreate the table
-    int dbVersion = 1;
+    int dbVersion = 2;
 
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(getDataLocation() + "/"+AppNameLower+".sqlite");
