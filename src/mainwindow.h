@@ -74,6 +74,7 @@ private:
     void launchRom(QDir romDir, QString romFileName, QString zipFileName);
     void openZipDialog(QStringList zippedFiles);
     void resetLayouts(bool imageUpdated = false);
+    void restoreSplitterSize();
     void showActiveView();
 
     QString getCurrentRomInfoFromView(QString infoName);
@@ -100,6 +101,7 @@ private:
     QHeaderView *ddHeaderView;
     QLabel *emptyIcon;
     QLabel *disabledLabel;
+    QList<int> sizeInts;
     QList<QAction*> menuEnable;
     QList<QAction*> menuDisable;
     QList<QAction*> menuRomSelected;

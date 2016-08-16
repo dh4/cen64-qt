@@ -381,24 +381,10 @@ void MainWindow::createRomView()
 
     //Restore 64DD panel size
     QStringList sizes = SETTINGS.value("View/64ddsize", "").toString().split("|");
-    QList<int> sizeInts;
-
-    int mainSize = 1, ddSize = 1;
-
-    if (!sizes.isEmpty())
-        ddSize = sizes.last().toInt();
-
     foreach (QString size, sizes)
-    {
-        if (size.toInt() != 0) {
-            mainSize = size.toInt(); //Set all views to same height in case user switches view
-            break;
-        }
-    }
+        sizeInts << size.toInt();
 
-    if (ddSize == 0) ddSize = 1;
-    sizeInts << mainSize << mainSize << mainSize << mainSize << mainSize << ddSize;
-    viewSplitter->setSizes(sizeInts);
+    restoreSplitterSize();
 
 
     showActiveView();
@@ -758,6 +744,30 @@ void MainWindow::resetLayouts(bool imageUpdated)
 }
 
 
+void MainWindow::restoreSplitterSize()
+{
+    int mainSize = 1, ddSize = 1;
+
+    if (!sizeInts.isEmpty()) {
+        ddSize = sizeInts.last();
+        sizeInts.removeLast();
+    }
+
+    foreach (int size, sizeInts)
+    {
+        if (size != 0) {
+            mainSize = size; //Set all views to same height in case user switches view
+            break;
+        }
+    }
+
+    if (ddSize == 0) ddSize = 1;
+    sizeInts.clear();
+    sizeInts << mainSize << mainSize << mainSize << mainSize << mainSize << ddSize;
+    viewSplitter->setSizes(sizeInts);
+}
+
+
 void MainWindow::showActiveView()
 {
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
@@ -848,6 +858,10 @@ void MainWindow::updateLayoutSetting()
     QString visibleLayout = layoutGroup->checkedAction()->data().toString();
     SETTINGS.setValue("View/layout", visibleLayout);
 
+    sizeInts.clear();
+    foreach(int size, viewSplitter->sizes())
+        sizeInts << size;
+
     emptyView->setHidden(true);
     tableView->setHidden(true);
     gridView->setHidden(true);
@@ -864,8 +878,10 @@ void MainWindow::updateLayoutSetting()
     QString ddipl = SETTINGS.value("Paths/ddiplrom", "").toString();
     QString ddEnabled = SETTINGS.value("Emulation/64dd", "").toString();
 
-    if (visibleLayout != "none" && ddipl != "" && ddEnabled == "true")
+    if (visibleLayout != "none" && ddipl != "" && ddEnabled == "true") {
         ddView->setHidden(false);
+        restoreSplitterSize();
+    }
 
     //View was updated so no ROM will be selected. Update menu items accordingly
     foreach (QAction *next, menuRomSelected)
@@ -883,7 +899,7 @@ void MainWindow::update64DD()
         if (SETTINGS.value("View/layout", "none").toString() != "none")
             ddView->setHidden(false);
 
-        viewSplitter->setSizes(QList<int>() << 500 << 500 << 500 << 500 << 100);
+        viewSplitter->setSizes(QList<int>() << 500 << 500 << 500 << 500 << 500 << 100);
     } else {
         SETTINGS.setValue("Emulation/64dd", "");
         ddView->setHidden(true);
