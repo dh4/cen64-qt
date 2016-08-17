@@ -1392,21 +1392,21 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="3">
+         <item row="6" column="3">
           <widget class="QCheckBox" name="listDescendingOption">
            <property name="text">
             <string>Descending</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="6" column="0">
           <widget class="QLabel" name="listSortLabel">
            <property name="text">
             <string>Sorting:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1" colspan="2">
+         <item row="6" column="1" colspan="2">
           <widget class="QComboBox" name="listSortBox">
            <property name="maximumSize">
             <size>
@@ -1415,6 +1415,9 @@
             </size>
            </property>
           </widget>
+         </item>
+         <item row="3" column="1" colspan="2">
+          <widget class="QComboBox" name="listSizeBox"/>
          </item>
          <item row="2" column="3" colspan="2">
           <widget class="QCheckBox" name="listHeaderOption">
@@ -1430,8 +1433,25 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1" colspan="2">
-          <widget class="QComboBox" name="listSizeBox"/>
+         <item row="4" column="0">
+          <widget class="QLabel" name="listTextLabel">
+           <property name="text">
+            <string>Text Size:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="listThemeLabel">
+           <property name="text">
+            <string>Theme:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1" colspan="2">
+          <widget class="QComboBox" name="listTextBox"/>
+         </item>
+         <item row="5" column="1" colspan="2">
+          <widget class="QComboBox" name="listThemeBox"/>
          </item>
         </layout>
        </item>
@@ -1679,11 +1699,14 @@
   <tabstop>listCoverOption</tabstop>
   <tabstop>listHeaderOption</tabstop>
   <tabstop>listSizeBox</tabstop>
+  <tabstop>listTextBox</tabstop>
+  <tabstop>listThemeBox</tabstop>
   <tabstop>listSortBox</tabstop>
   <tabstop>listDescendingOption</tabstop>
   <tabstop>downloadOption</tabstop>
   <tabstop>outputOption</tabstop>
   <tabstop>parametersLine</tabstop>
+  <tabstop>languageBox</tabstop>
  </tabstops>
  <resources/>
  <connections/>
