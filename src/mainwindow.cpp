@@ -69,6 +69,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowTitle(AppName);
     setWindowIcon(QIcon(":/images/"+ParentNameLower+".png"));
+    installEventFilter(this);
 
     emulation = new EmulatorHandler(this);
     romCollection = new RomCollection(QStringList() << "*.z64" << "*.n64" << "*.zip" << "*.ndd",
@@ -496,6 +497,29 @@ void MainWindow::enableViews(int romCount, bool cached)
 }
 
 
+bool MainWindow::eventFilter(QObject*, QEvent *event)
+{
+    //Show menu bar if mouse is at top of screen in full-screen mode
+    if (event->type() == QEvent::HoverMove && isFullScreen()) {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        if (mouseEvent->pos().y() < 5)
+            showMenuBar(true);
+        if (mouseEvent->pos().y() > 30)
+            showMenuBar(false);
+    }
+
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+
+        //Exit fullscreen mode if Esc key is pressed
+        if (keyEvent->key() == Qt::Key_Escape && isFullScreen())
+            updateFullScreenMode();
+    }
+
+    return false;
+}
+
+
 QString MainWindow::getCurrentRomInfoFromView(QString infoName)
 {
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
@@ -793,8 +817,6 @@ void MainWindow::showActiveView()
 void MainWindow::showMenuBar(bool mouseAtTop)
 {
     menuBar->setHidden(!mouseAtTop);
-    if (statusBarAction->isChecked())
-        statusBar->setHidden(!mouseAtTop);
 }
 
 
@@ -871,37 +893,23 @@ void MainWindow::toggleMenus(bool active)
 void MainWindow::updateFullScreenMode()
 {
     if (isFullScreen()) {
+        fullScreenAction->setChecked(false);
         SETTINGS.setValue("View/fullscreen", "");
 
         menuBar->setHidden(false);
-        updateStatusBarView();
-        tableView->setMouseTracking(false);
-        gridView->setMouseTracking(false);
-        listView->setMouseTracking(false);
         tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         gridView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         listView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         showNormal();
-
-        disconnect(tableView, SIGNAL(mouseAtTop(bool)));
-        disconnect(gridView, SIGNAL(mouseAtTop(bool)));
-        disconnect(listView, SIGNAL(mouseAtTop(bool)));
     } else {
+        fullScreenAction->setChecked(true);
         SETTINGS.setValue("View/fullscreen", true);
 
         menuBar->setHidden(true);
-        statusBar->setHidden(true);
-        tableView->setMouseTracking(true);
-        gridView->setMouseTracking(true);
-        listView->setMouseTracking(true);
         tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         gridView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         listView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         showFullScreen();
-
-        connect(tableView, SIGNAL(mouseAtTop(bool)), this, SLOT(showMenuBar(bool)));
-        connect(gridView, SIGNAL(mouseAtTop(bool)), this, SLOT(showMenuBar(bool)));
-        connect(listView, SIGNAL(mouseAtTop(bool)), this, SLOT(showMenuBar(bool)));
     }
 }
 
