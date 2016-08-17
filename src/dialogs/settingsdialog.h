@@ -96,6 +96,7 @@ private slots:
     void browseTPakROM();
     void browseTPakSave();
     void editSettings();
+    void hideBGTheme(QString imagePath);
     void listAddColumn();
     void listRemoveColumn();
     void listSortDown();
