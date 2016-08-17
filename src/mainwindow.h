@@ -85,6 +85,7 @@ private:
     QAction *convertAction;
     QAction *deleteAction;
     QAction *downloadAction;
+    QAction *fullScreenAction;
     QAction *logAction;
     QAction *ddAction;
     QAction *openAction;
@@ -147,11 +148,13 @@ private slots:
     void openLog();
     void openSettings();
     void openRom();
+    void showMenuBar(bool mouseAtTop);
     void showRomMenu(const QPoint &);
     void stopEmulator();
     void toggleMenus(bool active);
-    void updateLayoutSetting();
     void update64DD();
+    void updateFullScreenMode();
+    void updateLayoutSetting();
     void updateStatusBar(QString message, int timeout);
     void updateStatusBarView();
 
