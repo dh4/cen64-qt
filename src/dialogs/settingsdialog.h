@@ -113,6 +113,7 @@ private slots:
     void toggleAccessory(int index, int i = -1);
     void toggleController(bool active, int i = -1);
     void toggleDownload(bool active);
+    void toggleGridColumn(bool active);
     void toggleLabel(bool active);
     void toggleListCover(bool active);
     void toggleSaves(bool active);
