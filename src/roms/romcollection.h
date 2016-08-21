@@ -32,21 +32,29 @@
 #ifndef ROMCOLLECTION_H
 #define ROMCOLLECTION_H
 
-#include <QObject>
+#include "../common.h"
+
+#include <QAbstractItemModel>
 #include <QStringList>
 #include <QtSql/QSqlDatabase>
 
 class QDir;
 class QProgressDialog;
 class TheGamesDBScraper;
-struct Rom;
 
 
-class RomCollection : public QObject
+class RomCollection : public QAbstractItemModel
 {
     Q_OBJECT
 public:
     explicit RomCollection(QStringList fileTypes, QStringList romPaths, QWidget *parent = 0);
+    int columnCount(const QModelIndex& = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column, const QModelIndex& = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex &) const;
+    int rowCount(const QModelIndex& = QModelIndex()) const;
+
     int cachedRoms(bool imageUpdated = false);
     void updatePaths(QStringList romPaths);
 
@@ -70,10 +78,12 @@ private:
     Rom addRom(QByteArray *romData, QString fileName, QString directory, QString zipFile, QSqlQuery query,
                bool ddRom = false);
 
+    QList<Rom> ddRoms;
+    QList<Rom> roms;
     QStringList fileTypes;
     QStringList scanDirectory(QDir romDir);
 
-    QWidget *parent;
+    QWidget *mainWindow;
     QProgressDialog *progress;
     QSqlDatabase database;
 

@@ -32,7 +32,6 @@
 #include "romcollection.h"
 
 #include "../global.h"
-#include "../common.h"
 
 #include "thegamesdbscraper.h"
 
@@ -47,12 +46,12 @@
 #include <QtXml/QDomDocument>
 
 
-RomCollection::RomCollection(QStringList fileTypes, QStringList romPaths, QWidget *parent) : QObject(parent)
+RomCollection::RomCollection(QStringList fileTypes, QStringList romPaths, QWidget *parent) : QAbstractItemModel(parent)
 {
     this->fileTypes = fileTypes;
     this->romPaths = romPaths;
     this->romPaths.removeAll("");
-    this->parent = parent;
+    this->mainWindow = parent;
 
     setupDatabase();
 }
@@ -113,8 +112,8 @@ int RomCollection::addRoms()
         }
     }
 
-    QList<Rom> roms;
-    QList<Rom> ddRoms;
+    roms.clear();
+    ddRoms.clear();
 
     database.open();
     QSqlQuery query("DELETE FROM rom_collection", database);
@@ -127,7 +126,7 @@ int RomCollection::addRoms()
                       + "(filename, directory, internal_name, md5, zip_file, size, dd_rom) "
                       + "VALUES (:filename, :directory, :internal_name, :md5, :zip_file, :size, :dd_rom)");
 
-        scraper = new TheGamesDBScraper(parent);
+        scraper = new TheGamesDBScraper(mainWindow);
 
         foreach (QString romPath, romPaths)
         {
@@ -186,16 +185,18 @@ int RomCollection::addRoms()
             }
 
             if (romCount == 0)
-                QMessageBox::warning(parent, tr("Warning"), tr("No ROMs found in ") + romPath + ".");
+                QMessageBox::warning(mainWindow, tr("Warning"), tr("No ROMs found in ") + romPath + ".");
         }
 
         delete scraper;
         progress->close();
     } else if (romPaths.size() != 0) {
-        QMessageBox::warning(parent, tr("Warning"), tr("No ROMs found."));
+        QMessageBox::warning(mainWindow, tr("Warning"), tr("No ROMs found."));
     }
 
     database.close();
+
+    beginInsertRows(QModelIndex(),0,roms.size());
 
     //Emit signals for regular roms
     qSort(roms.begin(), roms.end(), romSorter);
@@ -210,6 +211,9 @@ int RomCollection::addRoms()
         emit ddRomAdded(&ddRoms[i]);
 
     emit updateEnded(roms.size());
+
+    emit dataChanged(createIndex(0,0),createIndex(roms.count(),columnCount()));
+    endInsertRows();
 
     return roms.size();
 }
@@ -230,8 +234,8 @@ int RomCollection::cachedRoms(bool imageUpdated)
     if (romCount == -1) //Nothing cached so try adding ROMs instead
         return addRoms();
 
-    QList<Rom> roms;
-    QList<Rom> ddRoms;
+    roms.clear();
+    ddRoms.clear();
 
     int count = 0;
     bool showProgress = false;
@@ -282,6 +286,8 @@ int RomCollection::cachedRoms(bool imageUpdated)
     if (showProgress)
         progress->close();
 
+    beginInsertRows(QModelIndex(),0,roms.size());
+
     //Emit signals for regular roms
     qSort(roms.begin(), roms.end(), romSorter);
 
@@ -296,7 +302,105 @@ int RomCollection::cachedRoms(bool imageUpdated)
 
     emit updateEnded(roms.size(), true);
 
+    emit dataChanged(createIndex(0,0),createIndex(roms.count(),columnCount()));
+    endInsertRows();
+
     return roms.size();
+}
+
+
+int RomCollection::columnCount(const QModelIndex &) const
+{
+    return 25;
+}
+
+
+QVariant RomCollection::data(const QModelIndex &index, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        switch (index.column()) {
+            case 0:
+                return roms[index.row()].fileName;
+                break;
+            case 1:
+                return roms[index.row()].directory;
+                break;
+            case 2:
+                return roms[index.row()].goodName;
+                break;
+            case 3:
+                return roms[index.row()].romMD5;
+                break;
+            case 4:
+                return roms[index.row()].zipFile;
+                break;
+            case 5:
+                return roms[index.row()].goodName;
+                break;
+            case 6:
+                return roms[index.row()].baseName;
+                break;
+            case 7:
+                return roms[index.row()].fileName;
+                break;
+            case 8:
+                return roms[index.row()].zipFile;
+                break;
+            case 9:
+                return roms[index.row()].internalName;
+                break;
+            case 10:
+                return roms[index.row()].size;
+                break;
+            case 11:
+                return roms[index.row()].romMD5;
+                break;
+            case 12:
+                return roms[index.row()].CRC1;
+                break;
+            case 13:
+                return roms[index.row()].CRC2;
+                break;
+            case 14:
+                return roms[index.row()].players;
+                break;
+            case 15:
+                return roms[index.row()].rumble;
+                break;
+            case 16:
+                return roms[index.row()].saveType;
+                break;
+            case 17:
+                return roms[index.row()].gameTitle;
+                break;
+            case 18:
+                return roms[index.row()].releaseDate;
+                break;
+            case 19:
+                return roms[index.row()].overview;
+                break;
+            case 20:
+                return roms[index.row()].esrb;
+                break;
+            case 21:
+                return roms[index.row()].genre;
+                break;
+            case 22:
+                return roms[index.row()].publisher;
+                break;
+            case 23:
+                return roms[index.row()].developer;
+                break;
+            case 24:
+                return roms[index.row()].rating;
+                break;
+            case 25:
+                return roms[index.row()].image;
+                break;
+        }
+    }
+
+    return QVariant();
 }
 
 
@@ -311,9 +415,107 @@ QStringList RomCollection::getFileTypes(bool archives)
 }
 
 
+QVariant RomCollection::headerData(int section, Qt::Orientation, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        switch (section) {
+            case 0:
+                return "";
+                break;
+            case 1:
+                return "";
+                break;
+            case 2:
+                return "";
+                break;
+            case 3:
+                return "";
+                break;
+            case 4:
+                return "";
+                break;
+            case 5:
+                return getTranslation("GoodName");
+                break;
+            case 6:
+                return getTranslation("Filename");
+                break;
+            case 7:
+                return getTranslation("Filename (extension)");
+                break;
+            case 8:
+                return getTranslation("Zip File");
+                break;
+            case 9:
+                return getTranslation("Internal Name");
+                break;
+            case 10:
+                return getTranslation("Size");
+                break;
+            case 11:
+                return getTranslation("MD5");
+                break;
+            case 12:
+                return getTranslation("CRC1");
+                break;
+            case 13:
+                return getTranslation("CRC2");
+                break;
+            case 14:
+                return getTranslation("Players");
+                break;
+            case 15:
+                return getTranslation("Rumble");
+                break;
+            case 16:
+                return getTranslation("Save Type");
+                break;
+            case 17:
+                return getTranslation("Game Title");
+                break;
+            case 18:
+                return getTranslation("Release Date");
+                break;
+            case 19:
+                return getTranslation("Overview");
+                break;
+            case 20:
+                return getTranslation("ESRB");
+                break;
+            case 21:
+                return getTranslation("Genre");
+                break;
+            case 22:
+                return getTranslation("Publisher");
+                break;
+            case 23:
+                return getTranslation("Developer");
+                break;
+            case 24:
+                return getTranslation("Rating");
+                break;
+            case 25:
+                return "";
+                break;
+        }
+    }
+
+    return QVariant();
+}
+
+
+QModelIndex RomCollection::index(int row, int column, const QModelIndex &) const
+{
+    if (row > 0 && row < roms.count())
+        return createIndex(row, column);
+    else
+        return QModelIndex();
+}
+
+
 void RomCollection::initializeRom(Rom *currentRom, bool cached)
 {
-    QSettings *romCatalog = new QSettings(parent);
+    QSettings *romCatalog = new QSettings(mainWindow);
 
     QString catalogFile = SETTINGS.value("Paths/catalog", "").toString();
     if (catalogFile == "") {
@@ -332,7 +534,7 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
 
     bool getGoodName = false;
     if (QFileInfo(catalogFile).exists()) {
-        romCatalog = new QSettings(catalogFile, QSettings::IniFormat, parent);
+        romCatalog = new QSettings(catalogFile, QSettings::IniFormat, mainWindow);
         getGoodName = true;
     }
 
@@ -442,6 +644,18 @@ void RomCollection::initializeRom(Rom *currentRom, bool cached)
 }
 
 
+QModelIndex RomCollection::parent(const QModelIndex &) const
+{
+    return QModelIndex();
+}
+
+
+int RomCollection::rowCount(const QModelIndex &) const
+{
+    return roms.count();
+}
+
+
 QStringList RomCollection::scanDirectory(QDir romDir)
 {
     QStringList files = romDir.entryList(fileTypes, QDir::Files | QDir::NoSymLinks);
@@ -468,7 +682,7 @@ void RomCollection::setupDatabase()
     database.setDatabaseName(getDataLocation() + "/"+AppNameLower+".sqlite");
 
     if (!database.open())
-        QMessageBox::warning(parent, tr("Database Not Loaded"),
+        QMessageBox::warning(mainWindow, tr("Database Not Loaded"),
                              tr("Could not connect to Sqlite database. Application may misbehave."));
 
     QSqlQuery version = database.exec("PRAGMA user_version");
@@ -498,7 +712,7 @@ void RomCollection::setupDatabase()
 
 void RomCollection::setupProgressDialog(int size)
 {
-    progress = new QProgressDialog(tr("Loading ROMs..."), tr("Cancel"), 0, size, parent);
+    progress = new QProgressDialog(tr("Loading ROMs..."), tr("Cancel"), 0, size, mainWindow);
 #if QT_VERSION >= 0x050000
     progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowCloseButtonHint);
     progress->setWindowFlags(progress->windowFlags() & ~Qt::WindowMinimizeButtonHint);
