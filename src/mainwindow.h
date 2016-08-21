@@ -52,7 +52,7 @@ class EmulatorHandler;
 class GridView;
 class ListView;
 class RomCollection;
-class TableView;
+class QTreeView;
 class TheGamesDBScraper;
 class TreeWidgetItem;
 struct Rom;
@@ -128,7 +128,7 @@ private:
     GridView *gridView;
     ListView *listView;
     RomCollection *romCollection;
-    TableView *tableView;
+    QTreeView *tableView;
     TheGamesDBScraper *scraper;
     TreeWidgetItem *fileItem;
 

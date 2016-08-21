@@ -64,6 +64,8 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#include <QHeaderView>
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -130,7 +132,7 @@ void MainWindow::addToView(Rom *currentRom, int count)
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
 
     if (visibleLayout == "table")
-        tableView->addToTableView(currentRom);
+        ;//tableView->addToTableView(currentRom);
     else if (visibleLayout == "grid")
         gridView->addToGridView(currentRom, count, ddAction->isChecked());
     else if (visibleLayout == "list")
@@ -149,7 +151,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     else
         SETTINGS.setValue("Geometry/maximized", "");
 
-    tableView->saveColumnWidths();
+    //tableView->saveColumnWidths();
 
     QStringList sizes;
     foreach(int size, viewSplitter->sizes())
@@ -346,11 +348,30 @@ void MainWindow::createRomView()
 
 
     //Create table view
-    tableView = new TableView(this);
+    tableView = new QTreeView(this);
+    tableView->setModel(romCollection);
+    tableView->setWordWrap(false);
+    tableView->setAllColumnsShowFocus(true);
+    tableView->setRootIsDecorated(false);
+    tableView->setStyleSheet("QTreeView { border: none; } QTreeView::item { height: 25px; }");
+
+    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableView->setExpandsOnDoubleClick(false);
+
+    for (int i = 0; i < romCollection->columnCount(); i++)
+        if (i != 6 && i != 10)
+            tableView->hideColumn(i);
+
+#if QT_VERSION >= 0x050000
+                tableView->header()->setSectionResizeMode(6, QHeaderView::Stretch);
+#else
+                tableView->header()->setResizeMode(6, QHeaderView::Stretch);
+#endif
+
     connect(tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons()));
     connect(tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchRomFromTable()));
-    connect(tableView, SIGNAL(tableActive()), this, SLOT(enableButtons()));
-    connect(tableView, SIGNAL(enterPressed()), this, SLOT(launchRomFromTable()));
+//    connect(tableView, SIGNAL(tableActive()), this, SLOT(enableButtons()));
+//    connect(tableView, SIGNAL(enterPressed()), this, SLOT(launchRomFromTable()));
 
     //Create grid view
     gridView = new GridView(this);
@@ -420,20 +441,20 @@ void MainWindow::disableViews(bool imageUpdated)
 
     //Save position in current layout
     if (visibleLayout == "table")
-        tableView->saveTablePosition();
+        ;//tableView->saveTablePosition();
     else if (visibleLayout == "grid")
         gridView->saveGridPosition();
     else if (visibleLayout == "list")
         listView->saveListPosition();
 
     resetLayouts(imageUpdated);
-    tableView->clear();
+    //tableView->clear();
     ddView->clear();
 
     if (ddAction->isChecked()) { //64DD enabled so show "No Cart" options
         Rom dummyRom;
         dummyRom.imageExists = false;
-        tableView->addNoCartRow();
+        //tableView->addNoCartRow();
         gridView->addToGridView(&dummyRom, -1, ddAction->isChecked());
         listView->addToListView(&dummyRom, -1, ddAction->isChecked());
         ddView->addNoDiskRow();
@@ -489,7 +510,7 @@ void MainWindow::enableViews(int romCount, bool cached)
             timer->start();
 
             if (visibleLayout == "table")
-                connect(timer, SIGNAL(timeout()), tableView, SLOT(setTablePosition()));
+                ;//connect(timer, SIGNAL(timeout()), tableView, SLOT(setTablePosition()));
             else if (visibleLayout == "grid")
                 connect(timer, SIGNAL(timeout()), gridView, SLOT(setGridPosition()));
             else if (visibleLayout == "list")
@@ -555,7 +576,7 @@ QString MainWindow::getCurrentRomInfoFromView(QString infoName)
     QString visibleLayout = SETTINGS.value("View/layout", "none").toString();
 
     if (visibleLayout == "table")
-        return tableView->getCurrentRomInfo(infoName);
+        ;//return tableView->getCurrentRomInfo(infoName);
     else if (visibleLayout == "grid" && gridView->hasSelectedRom())
         return gridView->getCurrentRomInfo(infoName);
     else if (visibleLayout == "list" && listView->hasSelectedRom())
@@ -593,15 +614,15 @@ void MainWindow::launchRomFromMenu()
 
 void MainWindow::launchRomFromTable()
 {
-    if (tableView->hasSelectedRom()) {
-        QString romFileName = tableView->getCurrentRomInfo("fileName");
-        QString romDirName = tableView->getCurrentRomInfo("dirName");
-        QString zipFileName = tableView->getCurrentRomInfo("zipFile");
+//    if (tableView->hasSelectedRom()) {
+//        QString romFileName = tableView->getCurrentRomInfo("fileName");
+//        QString romDirName = tableView->getCurrentRomInfo("dirName");
+//        QString zipFileName = tableView->getCurrentRomInfo("zipFile");
 
-        launchRom(QDir(romDirName), romFileName, zipFileName);
-    } else {
+//        launchRom(QDir(romDirName), romFileName, zipFileName);
+//    } else {
         launchRom(QDir(), "", "");
-    }
+//    }
 }
 
 
@@ -687,8 +708,8 @@ void MainWindow::openSettings()
     //Reset columns widths if user has selected different columns to display
     if (columnsBefore != columnsAfter) {
         SETTINGS.setValue("Table/width", "");
-        tableView->setColumnCount(3);
-        tableView->setHeaderLabels(QStringList(""));
+        //tableView->setColumnCount(3);
+        //tableView->setHeaderLabels(QStringList(""));
     }
 
     QStringList romSave = SETTINGS.value("Paths/roms","").toString().split("|");
@@ -800,7 +821,7 @@ void MainWindow::openZipDialog(QStringList zippedFiles)
 
 void MainWindow::resetLayouts(bool imageUpdated)
 {
-    tableView->resetView(imageUpdated);
+    //tableView->resetView(imageUpdated);
     gridView->resetView();
     listView->resetView();
 }
@@ -902,7 +923,7 @@ void MainWindow::toggleMenus(bool active)
     gridView->setEnabled(active);
     listView->setEnabled(active);
 
-    if (!tableView->hasSelectedRom() &&
+    if (//!tableView->hasSelectedRom() &&
         !gridView->hasSelectedRom() &&
         !listView->hasSelectedRom() &&
         !ddView->hasSelectedRom()
