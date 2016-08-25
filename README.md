@@ -16,9 +16,9 @@ Note these are currently only alpha releases versioned with the date. I don't pl
 ### Development Builds
 
 Automatic builds of the latest git commit can be downloaded here:  
-Linux: [cen64-qt_linux_git-latest.tar.gz](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_linux_git-latest.tar.gz)  
-Windows: [cen64-qt_win_git-latest.zip](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_win_git-latest.zip)  
-OSX: [cen64-qt_osx_git-latest.dmg](https://s3.amazonaws.com/dh4/cen64-qt/latest/cen64-qt_osx_git-latest.dmg)
+Linux: [cen64-qt_linux_git-latest.tar.gz](https://s3.amazonaws.com/dh4/cen64-qt/master/cen64-qt_linux_git-latest.tar.gz)  
+Windows: [cen64-qt_win_git-latest.zip](https://s3.amazonaws.com/dh4/cen64-qt/master/cen64-qt_win_git-latest.zip)  
+OSX: [cen64-qt_osx_git-latest.dmg](https://s3.amazonaws.com/dh4/cen64-qt/master/cen64-qt_osx_git-latest.dmg)
 
 Be aware that these may contain bugs not present in the release builds.
 

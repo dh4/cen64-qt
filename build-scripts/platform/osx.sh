@@ -38,7 +38,7 @@ case "$1" in
     ;;
 
     'package')
-        mkdir build
+        mkdir build/$TRAVIS_BRANCH
 
         hdiutil create -megabytes 20 -fs HFS+ -volname CEN64-Qt cen64-qt_osx_$VERSION
         hdiutil attach cen64-qt_osx_$VERSION.dmg
@@ -50,7 +50,7 @@ case "$1" in
         hdiutil convert -format UDZO -o cen64-qt_osx_$VERSION.dmg \
                         -ov cen64-qt_osx_$VERSION.dmg
 
-        mv cen64-qt_osx_$VERSION.dmg build/
+        mv cen64-qt_osx_$VERSION.dmg build/$TRAVIS_BRANCH/
     ;;
 
 esac

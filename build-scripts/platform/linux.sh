@@ -24,10 +24,10 @@ case "$1" in
     ;;
 
     'package')
-        mkdir build
+        mkdir -p build/$TRAVIS_BRANCH
 
         mv resources/README.txt .
-        tar -cvzpf build/cen64-qt_linux_$VERSION.tar.gz cen64-qt README.txt
+        tar -cvzpf build/$TRAVIS_BRANCH/cen64-qt_linux_$VERSION.tar.gz cen64-qt README.txt
     ;;
 
 esac

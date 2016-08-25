@@ -27,14 +27,14 @@ deploy:
   bucket: dh4
   skip_cleanup: true
   local_dir: build
-  upload-dir: cen64-qt/latest
+  upload-dir: cen64-qt
   on:
-    branch: master
+    condition: $TRAVIS_PULL_REQUEST = false
 - provider: releases
   api_key:
     secure: QuZh8ZFU3Zxa2EIVujUsPAT0USGQDElDZdsf7DpKF16POJcnL5UwUZnlc4BtiU15yb8AUUsrsIMn14lUYLI9EzYxoUamrNczEnp6k+4IGfsXV9XtKu084MS5rVS6L8hTpizf7qeEy+9qjDw6Du05PM6Olcxq5Us8Ozbecd8ga1PgU3LUgToGT3E/3Sj9TapFg0VrlyxSkrN4eSBbhoU8MQpJ8SjSZtEgQYYwX+c4VX9BqMcSzFO6qHinyq3cME6Z/HIj4m8jsX/tq3NdXhy+QQRg3+O8vMRaL+mbAEPrGUQw79gCv1ZUIRcShKvWPbwZH16wlc21+YCBbsuYJC6Htv2/MQaiN+Dfhx33/AjsRdZ63IKgvDHPMy737U2pdi5i98qPr1npXPo50eWIF5kYB8TgW8w/LHu8dH4fnTBXAO/t4b9vqt/AicmWhcoS0r3K1SoAX75ULHCv0Ruz1ftTuudxtSHHsXkBEyqxHM5up/0Od5r9STW36GeDSTpVyi+3gj6rMbOXIfEHxp5wDZ/L7P6F+es03UpCsg/thTzdNz4UA9WKa9mZt1Ul/WvizSH7fPMN1dNhuUbkcggZb0P96l/Dr8n9yzJ4tIDWsSSc4d+7KscVL/XXORLFiKD1QOirgyBWRd9efeChRDeEgb0Gf8DlbeLZ8wg3BYtUvPLy1Hc=
   skip_cleanup: true
   file_glob: true
-  file: build/cen64-qt_*
+  file: build/master/cen64-qt_*
   on:
     tags: true
