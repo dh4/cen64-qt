@@ -29,6 +29,7 @@ deploy:
   local_dir: build
   upload-dir: cen64-qt
   on:
+    all_branches: true
     condition: $TRAVIS_PULL_REQUEST = false
 - provider: releases
   api_key:
