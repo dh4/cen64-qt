@@ -38,7 +38,7 @@ case "$1" in
     ;;
 
     'package')
-        mkdir build/$TRAVIS_BRANCH
+        mkdir -p build/$TRAVIS_BRANCH
 
         hdiutil create -megabytes 20 -fs HFS+ -volname CEN64-Qt cen64-qt_osx_$VERSION
         hdiutil attach cen64-qt_osx_$VERSION.dmg

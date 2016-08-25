@@ -45,7 +45,7 @@ case "$1" in
     ;;
 
     'package')
-        mkdir build/$TRAVIS_BRANCH
+        mkdir -p build/$TRAVIS_BRANCH
 
         mv release/cen64-qt.exe resources/README.txt .
         zip build/$TRAVIS_BRANCH/cen64-qt_win_$VERSION.zip cen64-qt.exe README.txt
