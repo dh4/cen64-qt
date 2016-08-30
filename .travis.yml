@@ -30,7 +30,6 @@ deploy:
   upload-dir: cen64-qt
   on:
     all_branches: true
-    tags: false
     condition: $TRAVIS_PULL_REQUEST = false
 - provider: releases
   api_key:
