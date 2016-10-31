@@ -72,8 +72,8 @@ void EmulatorHandler::checkStatus(int status)
 
 void EmulatorHandler::cleanTemp()
 {
-    QFile::remove(QDir::tempPath() + "/"+AppNameLower+"/temp.bin");
-    QFile::remove(QDir::tempPath() + "/"+AppNameLower+"/64dd-temp.bin");
+    QFile::remove(QDir::tempPath() + "/" + AppNameLower + "/" + qgetenv("USER") + "/temp.bin");
+    QFile::remove(QDir::tempPath() + "/" + AppNameLower + "/" + qgetenv("USER") + "/64dd-temp.bin");
 }
 
 
@@ -166,8 +166,8 @@ void EmulatorHandler::startEmulator(QDir romDir, QString romFileName, QString zi
 
             QByteArray *romData = getZippedRom(fileInZip, zipFile);
 
-            QString tempDir = QDir::tempPath() + "/" + AppNameLower;
-            QDir().mkdir(tempDir);
+            QString tempDir = QDir::tempPath() + "/" + AppNameLower + "/" + qgetenv("USER");
+            QDir().mkpath(tempDir);
 
             romPath = tempDir + tempName;
             QFile tempRom(romPath);

@@ -146,7 +146,7 @@
 <context>
     <name>GridView</name>
     <message>
-        <location filename="../../src/views/gridview.cpp" line="147"/>
+        <location filename="../../src/views/gridview.cpp" line="144"/>
         <source>No Cart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -154,7 +154,7 @@
 <context>
     <name>ListView</name>
     <message>
-        <location filename="../../src/views/listview.cpp" line="156"/>
+        <location filename="../../src/views/listview.cpp" line="158"/>
         <source>No Cart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -196,13 +196,13 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="174"/>
-        <location filename="../../src/mainwindow.cpp" line="835"/>
+        <location filename="../../src/mainwindow.cpp" line="873"/>
         <source>&amp;Download/Update Info...</source>
         <translation>&amp;Télécharger/Mettre à jour les infos...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="175"/>
-        <location filename="../../src/mainwindow.cpp" line="836"/>
+        <location filename="../../src/mainwindow.cpp" line="874"/>
         <source>D&amp;elete Current Info...</source>
         <translation>&amp;Effacer les infos actuelles...</translation>
     </message>
@@ -218,7 +218,7 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="200"/>
-        <location filename="../../src/mainwindow.cpp" line="828"/>
+        <location filename="../../src/mainwindow.cpp" line="866"/>
         <source>&amp;Start</source>
         <translation>&amp;Démarrer</translation>
     </message>
@@ -278,62 +278,63 @@
         <translation>Vue en liste</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="267"/>
+        <location filename="../../src/mainwindow.cpp" line="271"/>
+        <location filename="../../src/mainwindow.cpp" line="276"/>
         <source>&amp;Full-screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="268"/>
+        <location filename="../../src/mainwindow.cpp" line="274"/>
         <source>&amp;Status Bar</source>
         <translation>&amp;Barre de statut</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="286"/>
+        <location filename="../../src/mainwindow.cpp" line="295"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="287"/>
+        <location filename="../../src/mainwindow.cpp" line="296"/>
         <source>&amp;About</source>
         <translation>À &amp;propos</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="635"/>
+        <location filename="../../src/mainwindow.cpp" line="673"/>
         <source>There is no log. Either &lt;ParentName&gt; has not yet run or there was no output from the last run.</source>
         <translation>Il n&apos;y a pas de journaux. Soit &lt;ParentName&gt; n’a pas encore été lancé, soit il n’y a pas de données concernant le dernier démarrage. </translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="634"/>
+        <location filename="../../src/mainwindow.cpp" line="672"/>
         <source>No Output</source>
         <translation>Pas de sortie</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="695"/>
+        <location filename="../../src/mainwindow.cpp" line="733"/>
         <source>All Files</source>
         <translation>Tous les fichiers</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="705"/>
+        <location filename="../../src/mainwindow.cpp" line="743"/>
         <source>Open ROM File</source>
         <translation>Ouvrir un fichier ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="723"/>
+        <location filename="../../src/mainwindow.cpp" line="761"/>
         <source>No ROMs</source>
         <translation>Aucune ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="723"/>
+        <location filename="../../src/mainwindow.cpp" line="761"/>
         <source>No ROMs found in ZIP file.</source>
         <translation>Aucune ROM trouvée dans le fichier ZIP.</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="738"/>
+        <location filename="../../src/mainwindow.cpp" line="776"/>
         <source>Select ROM</source>
         <translation>Choisir une ROM</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="755"/>
+        <location filename="../../src/mainwindow.cpp" line="793"/>
         <source>Launch</source>
         <translation>Lancer</translation>
     </message>
@@ -760,10 +761,10 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="895"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="937"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="947"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1313"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1323"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1359"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1369"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1320"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1330"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1366"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1376"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -809,7 +810,7 @@
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1088"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1498"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1505"/>
         <source>Other</source>
         <translation>Autre</translation>
     </message>
@@ -820,13 +821,13 @@
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1110"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1415"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1422"/>
         <source>Sorting:</source>
         <translation>Classement :</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1120"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1408"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1415"/>
         <source>Descending</source>
         <translation>Descendant</translation>
     </message>
@@ -857,77 +858,82 @@
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1206"/>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1401"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1408"/>
         <source>Image Size:</source>
         <translation>Taille des images :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1268"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1262"/>
+        <source>Adjust Automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1275"/>
         <source>List</source>
         <translation>Liste</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1435"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1442"/>
         <source>First Item as Header</source>
         <translation>Premier intitulé comme en-tête</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1295"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1302"/>
         <source>Current Items:</source>
         <translation>Intitulé actuel :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1394"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1401"/>
         <source>Available Items:</source>
         <translation>Intitulés disponibles :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1442"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1449"/>
         <source>Display Cover Image</source>
         <translation>Afficher les vignettes</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1449"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1456"/>
         <source>Text Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1456"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1463"/>
         <source>Theme:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1518"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1525"/>
         <source>Additional Parameters:</source>
         <translation>Paramètres supplémentaires : </translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1535"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1542"/>
         <source>Requires catalog file</source>
         <translation>Fichier catalogue demandé</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1551"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1558"/>
         <source>Download Game Information (thegamesdb.net):</source>
         <translation>Télécharger les informations sur les jeux (thegamesdb.net) :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1558"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1565"/>
         <source>Output to Console:</source>
         <translation>Sortie vers la console :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1568"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1575"/>
         <source>Use to pass additional parameters to CEN64</source>
         <translation>Ajouter des paramètres supplémentaires à CEN64</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1575"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1582"/>
         <source>Language:</source>
         <translation>Langue :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.ui" line="1610"/>
+        <location filename="../../src/dialogs/settingsdialog.ui" line="1617"/>
         <source>&lt;b&gt;Note:&lt;/b&gt; Language changes will not take place until application restart.</source>
         <translation>&lt;b&gt;Remarque : &lt;/b&gt;Le changement de langue ne prendra effet qu&apos;après le redémarrage du programme.</translation>
     </message>
@@ -1043,7 +1049,7 @@
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="262"/>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="334"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="341"/>
         <source>Light</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1054,77 +1060,77 @@
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="264"/>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="335"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="342"/>
         <source>Dark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="448"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="455"/>
         <source>ROM Directory</source>
         <translation>Dossiers des ROMS</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="464"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="471"/>
         <source>64DD IPL ROM File</source>
         <translation>Fichier ROM 64DD IPL</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="472"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="479"/>
         <source>Background Image</source>
         <translation>Image d&apos;arrière-plan</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="480"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="487"/>
         <source>Catalog File</source>
         <translation>Fichier catalogue</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="488"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="495"/>
         <source>&lt;ParentName&gt; Executable</source>
         <translation>Fichier exécutable &lt;ParentName&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="497"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="504"/>
         <source>4kbit EEPROM File</source>
         <translation>Fichier EEPROM 4 kbit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="505"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="512"/>
         <source>16kbit EEPROM File</source>
         <translation>Fichier EEPROM 16 kbit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="513"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="520"/>
         <source>FlashRAM File</source>
         <translation>Fichier FlashRAM</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="521"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="528"/>
         <source>Controller Pak File</source>
         <translation>Fichier Controller pak</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="529"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="536"/>
         <source>PIF IPL ROM File</source>
         <translation>Fichier ROM PIF IPL</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="537"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="544"/>
         <source>Save Directory</source>
         <translation>Dossier de sauvegarde</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="545"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="552"/>
         <source>SRAM File</source>
         <translation>Fichier SRAM</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="553"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="560"/>
         <source>Transfer Pak ROM File</source>
         <translation>Fichier ROM Transfer pak</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/settingsdialog.cpp" line="561"/>
+        <location filename="../../src/dialogs/settingsdialog.cpp" line="568"/>
         <source>Transfer Pak Save File</source>
         <translation>Fichier de sauvegarde Transfer pak</translation>
     </message>
