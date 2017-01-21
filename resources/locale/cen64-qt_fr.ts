@@ -148,7 +148,7 @@
     <message>
         <location filename="../../src/views/gridview.cpp" line="144"/>
         <source>No Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de cartouche</translation>
     </message>
 </context>
 <context>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../../src/views/listview.cpp" line="158"/>
         <source>No Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de cartouche</translation>
     </message>
 </context>
 <context>
@@ -281,7 +281,7 @@
         <location filename="../../src/mainwindow.cpp" line="271"/>
         <location filename="../../src/mainwindow.cpp" line="276"/>
         <source>&amp;Full-screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Pl&amp;ein-Écran</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="274"/>
@@ -834,7 +834,7 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1137"/>
         <source>Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrière-plan:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1152"/>
@@ -865,7 +865,7 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1262"/>
         <source>Adjust Automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustage automatique</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1275"/>
@@ -895,12 +895,12 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1456"/>
         <source>Text Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille du texte:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1463"/>
         <source>Theme:</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1525"/>
@@ -1051,18 +1051,18 @@
         <location filename="../../src/dialogs/settingsdialog.cpp" line="262"/>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="341"/>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Lumière</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="263"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="264"/>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="342"/>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Sombre</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="455"/>
@@ -1141,7 +1141,7 @@
         <location filename="../../src/views/tableview.cpp" line="76"/>
         <location filename="../../src/views/tableview.cpp" line="79"/>
         <source>No Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de cartouche</translation>
     </message>
 </context>
 <context>
