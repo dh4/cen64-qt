@@ -2,7 +2,7 @@
 
 A basic cross-platform frontend for [CEN64](http://cen64.com/).
 
-![CEN64-Qt Grid View](https://dl.dropboxusercontent.com/u/232085155/cen64-qt/github.jpg)
+![CEN64-Qt Grid View](https://raw.githubusercontent.com/dh4/cen64-qt/master/resources/demos/main.jpg)
 
 
 ## Getting CEN64-Qt
