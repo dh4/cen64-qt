@@ -41,8 +41,8 @@ V64Converter::V64Converter(QString romPath, QWidget *parent) : QObject(parent)
 {
     QDir romDir(romPath);
 
-    QString v64File = QFileDialog::getOpenFileName(parent, tr("Open v64 File"), romPath,
-                                                   tr("V64 ROMs") + " (*.v64 *.n64);;" +
+    QString v64File = QFileDialog::getOpenFileName(parent, tr("Open v64/n64 File"), romPath,
+                                                   tr("V64/n64 ROMs") + " (*.v64 *.n64);;" +
                                                    tr("All Files") + " (*)");
 
     if (v64File != "") {
@@ -64,14 +64,10 @@ void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *pare
     v64.open(QIODevice::ReadOnly);
 
     QString v64Check(v64.read(4).toHex()), message;
-    if (v64Check != "37804012") {
-        if (v64Check == "80371240")
-            message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("already in z64 format!");
-        else
-            message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("is not a valid .v64 file!");
-
+    if (v64Check == "80371240") {
+        message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("already in z64 format!");
         QMessageBox::warning(parent, tr("<AppName> Converter").replace("<AppName>",AppName), message);
-    } else {
+    } else if (v64Check == "37804012" || v64Check == "40123780") {
         v64.seek(0);
 
         QFile z64(saveFile);
@@ -84,14 +80,28 @@ void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *pare
         {
             data = v64.read(1024);
 
-            for (int i = 0; i < data.size(); i+=2)
-            {
-                //Check to see if only one byte remaining (though byte count should always be even)
-                if (i + 1 == data.size())
-                    flipped.append(data[i]);
-                else {
-                    flipped.append(data[i + 1]);
-                    flipped.append(data[i]);
+            if (v64Check == "37804012") { // byte-swapped
+                for (int i = 0; i < data.size(); i+=2)
+                {
+                    //Check to see if only one byte remaining (though byte count should always be even)
+                    if (i + 1 == data.size())
+                        flipped.append(data[i]);
+                    else {
+                        flipped.append(data[i + 1]);
+                        flipped.append(data[i]);
+                    }
+                }
+            } else { // little-endian
+                for (int i = 0; i < data.size(); i+=4)
+                {
+                    //Check to see if less than 4 bytes remaining (though byte count should always be even)
+                    if (i + 3 > data.size()) {
+                        for (int n = data.size(); n >= i; n--)
+                            flipped.append(data[n]);
+                    } else {
+                        for (int n = i + 3; n >= i; n--)
+                            flipped.append(data[n]);
+                    }
                 }
             }
 
@@ -103,6 +113,9 @@ void V64Converter::runConverter(QString v64File, QString saveFile, QWidget *pare
         z64.close();
         QMessageBox::information(parent, tr("<AppName> Converter").replace("<AppName>",AppName),
                                  tr("Conversion complete!"));
+    } else {
+        message = "\"" + QFileInfo(v64).fileName() + "\" " + tr("is not a valid .v64 or .n64 file!");
+        QMessageBox::warning(parent, tr("<AppName> Converter").replace("<AppName>",AppName), message);
     }
 
     v64.close();

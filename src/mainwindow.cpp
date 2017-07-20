@@ -169,7 +169,7 @@ void MainWindow::createMenu()
     fileMenu = new QMenu(tr("&File"), this);
     openAction = fileMenu->addAction(tr("&Open ROM..."));
     fileMenu->addSeparator();
-    convertAction = fileMenu->addAction(tr("&Convert V64..."));
+    convertAction = fileMenu->addAction(tr("&Convert V64/n64..."));
     refreshAction = fileMenu->addAction(tr("&Refresh List"));
     downloadAction = fileMenu->addAction(tr("&Download/Update Info..."));
     deleteAction = fileMenu->addAction(tr("D&elete Current Info..."));
