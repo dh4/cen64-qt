@@ -62,6 +62,7 @@ TRANSLATIONS += resources/locale/cen64-qt_fr.ts
 win32|macx|linux_quazip_static {
     CONFIG += staticlib
     DEFINES += QUAZIP_STATIC
+    LIBS += -lz
 
     #Download quazip source and copy the quazip directory to project
     SOURCES += quazip/*.cpp
