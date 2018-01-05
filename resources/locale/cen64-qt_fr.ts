@@ -344,7 +344,7 @@
     <message>
         <location filename="../../src/common.cpp" line="321"/>
         <source>GoodName</source>
-        <translation>GoodName</translation>
+        <translation>Nom Good</translation>
     </message>
     <message>
         <location filename="../../src/common.cpp" line="322"/>
