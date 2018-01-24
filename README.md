@@ -58,7 +58,7 @@ $ make
 
 #### Compiling QuaZIP statically
 
-You also have the option to compile QuaZIP statically. Download the QuaZIP sources from Sourceforge. Place the contents of `quazip-<version>/quazip/` in `quazip/` within the project directory. Then run:
+You also have the option to compile QuaZIP statically. Download the QuaZIP sources from Sourceforge. Place the contents of `quazip-<version>/quazip/` in `quazip5/` within the project directory. Then run:
 
 ```
 $ qmake CONFIG+=linux_quazip_static
