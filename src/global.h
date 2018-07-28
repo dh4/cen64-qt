@@ -50,6 +50,8 @@ const QString GitHub = "<a href=\"https://github.com/dh4/cen64-qt\">"
         + QObject::tr("GitHub repository")
         + "</a>";
 
+const QString TheGamesDBAPIKey = "750dbe45c2f1c63dd3a730b0ef0923ec448b543a908fbe3e2bccada4341df2f5";
+
 #ifdef Q_OS_WIN
     #define SETTINGS    QSettings(AppNameLower+".ini", QSettings::IniFormat)
 #else

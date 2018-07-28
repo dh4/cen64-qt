@@ -88,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(romCollection, SIGNAL(ddRomAdded(Rom*)), ddView, SLOT(addTo64DDView(Rom*)));
     connect(romCollection, SIGNAL(updateEnded(int, bool)), this, SLOT(enableViews(int, bool)));
 
-    romCollection->cachedRoms();
+    romCollection->cachedRoms(false, true);
 
 
     mainWidget = new QWidget(this);
