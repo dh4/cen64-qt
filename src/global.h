@@ -41,7 +41,7 @@ const QString AppNameLower      = "cen64-qt";
 const QString ParentName        = "CEN64";
 const QString ParentNameLower   = "cen64";
 
-const QString Description = QObject::tr("A basic frontend for <ParentName> using Qt.").replace("<ParentName>",ParentName);
+const QString Description = QObject::tr("A customizable frontend for <ParentName> using Qt.").replace("<ParentName>",ParentName);
 const QString Copyright = "CEN64 Copyright (c) 2013, Tyler J. Stachecki";
 const QString Website = "<a href=\"http://www.cen64.com/\">"
         + QObject::tr("<ParentName> website").replace("<ParentName>",ParentName)

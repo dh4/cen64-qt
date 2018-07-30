@@ -1,6 +1,6 @@
 # CEN64-Qt [![Build Status](https://travis-ci.org/dh4/cen64-qt.svg?branch=master)](https://travis-ci.org/dh4/cen64-qt)
 
-A basic cross-platform frontend for [CEN64](http://cen64.com/).
+A customizable cross-platform frontend for [CEN64](http://cen64.com/).
 
 ![CEN64-Qt Grid View](https://raw.githubusercontent.com/dh4/cen64-qt/master/resources/demos/main.jpg)
 
