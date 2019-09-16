@@ -365,14 +365,13 @@ void MainWindow::createRomView()
     //Create disabled view
     disabledView = new QWidget(this);
     disabledView->setHidden(true);
-    disabledView->setDisabled(true);
 
     disabledLayout = new QVBoxLayout(disabledView);
     disabledLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
     disabledView->setLayout(disabledLayout);
 
-    QString disabledText = QString("Add a directory containing ROMs under ")
-                         + "Settings->Configure->Paths to use this view.";
+    QString disabledText = QString(tr("Add a directory containing ROMs under "))
+                         + tr("Settings->Configure->Paths to use this view.");
     disabledLabel = new QLabel(disabledText, disabledView);
     disabledLabel->setWordWrap(true);
     disabledLabel->setAlignment(Qt::AlignCenter);
@@ -791,7 +790,7 @@ void MainWindow::openZipDialog(QStringList zippedFiles)
 
     zipButtonBox = new QDialogButtonBox(Qt::Horizontal, zipDialog);
     zipButtonBox->addButton(tr("Launch"), QDialogButtonBox::AcceptRole);
-    zipButtonBox->addButton(QDialogButtonBox::Cancel);
+    zipButtonBox->addButton(tr("Cancel"), QDialogButtonBox::RejectRole);
 
     zipLayout->addWidget(zipList, 0, 0);
     zipLayout->addWidget(zipButtonBox, 1, 0);

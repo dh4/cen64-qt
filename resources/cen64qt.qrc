@@ -6,5 +6,6 @@
         <file>images/no-cart.png</file>
         <file>other/VERSION</file>
         <file>locale/cen64-qt_fr.qm</file>
+        <file>locale/cen64-qt_ru.qm</file>
     </qresource>
 </RCC>

@@ -391,7 +391,8 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
 
     QList<QStringList> languages;
     languages << (QStringList() << QString::fromUtf8("English")  << "EN")
-              << (QStringList() << QString::fromUtf8("Français") << "FR");
+              << (QStringList() << QString::fromUtf8("Français") << "FR")
+              << (QStringList() << QString::fromUtf8("Русский") << "RU");
 
     downloadEnable << ui->tableSizeLabel
                    << ui->tableSizeBox
@@ -429,6 +430,9 @@ SettingsDialog::SettingsDialog(QWidget *parent, int activeTab) : QDialog(parent)
     connect(ui->downloadOption, SIGNAL(toggled(bool)), this, SLOT(populateTableAndListTab(bool)));
     connect(ui->languageBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateLanguageInfo()));
 
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("OK"));
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
 
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(editSettings()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
