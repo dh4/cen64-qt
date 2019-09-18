@@ -754,7 +754,7 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="601"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="700"/>
         <source>Transfer Pak ROM:</source>
-        <translation >Файл ROM Transfer Pak:</translation>
+        <translation>Файл ROM Transfer Pak:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="429"/>
