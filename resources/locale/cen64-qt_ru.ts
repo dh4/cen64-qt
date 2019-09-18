@@ -19,7 +19,7 @@
     <message>
         <location filename="../../src/views/ddview.cpp" line="65"/>
         <source>No Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет диска</translation>
     </message>
 </context>
 <context>
@@ -90,7 +90,7 @@
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="73"/>
         <source>Emulation stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>Эмуляция остановлена</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="217"/>
@@ -100,27 +100,27 @@
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="223"/>
         <source>PIF IPL file not found.</source>
-        <translation type="unfinished">Файл PIF IPL не найден.</translation>
+        <translation>Файл PIF IPL не найден.</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="229"/>
         <source>64DD IPL file not found.</source>
-        <translation type="unfinished">Файл 64DD IPL не найден.</translation>
+        <translation>Файл 64DD IPL не найден.</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="242"/>
         <source>64DD ROM file not found.</source>
-        <translation type="unfinished">Файл 64DD ROM не найден.</translation>
+        <translation>Файл 64DD ROM не найден.</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="248"/>
         <source>No ROM selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл ROM не выбран.</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="265"/>
         <source>64DD not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>64DD не включено.</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="270"/>
@@ -135,12 +135,12 @@
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="395"/>
         <source>No ROM selected or 64DD not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл ROM не выбран или 64DD не включено.</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="447"/>
         <source>Emulation started</source>
-        <translation type="unfinished"></translation>
+        <translation>Эмуляция запущена</translation>
     </message>
     <message>
         <location filename="../../src/emulation/emulatorhandler.cpp" line="235"/>
@@ -192,7 +192,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="172"/>
         <source>&amp;Convert V64/n64...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Конвертировать V64/n64...</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="173"/>
@@ -235,7 +235,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="203"/>
         <source>Enable 64DD</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить 64DD</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="205"/>
@@ -296,7 +296,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="274"/>
         <source>&amp;Status Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Строка состояния</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="295"/>
@@ -511,7 +511,7 @@
     <message>
         <location filename="../../src/global.h" line="44"/>
         <source>A customizable frontend for &lt;ParentName&gt; using Qt.</source>
-        <translation type="unfinished">Настраиваемый интерфейс для &lt;ParentName&gt;, написанный на Qt.</translation>
+        <translation>Настраиваемый интерфейс для &lt;ParentName&gt;, написанный на Qt.</translation>
     </message>
     <message>
         <location filename="../../src/global.h" line="47"/>
@@ -661,37 +661,37 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="42"/>
         <source>Save Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить файлы</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="60"/>
         <source>16 kbit EEPROM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл EEPROM 16 кбит:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="67"/>
         <source>FlashRAM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл FlashRAM:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="91"/>
         <source>Save directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог сохранений:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="114"/>
         <source>4 kbit EEPROM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл EEPROM 4 кбит</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="128"/>
         <source>SRAM file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл SRAM:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="135"/>
         <source>Specify individual files for saves</source>
-        <translation type="unfinished"></translation>
+        <translation>Указать индивидуальные файлы для сохранений:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="147"/>
@@ -701,22 +701,22 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="182"/>
         <source>PIF IPL file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл PIF IPL:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="189"/>
         <source>ROM catalog:</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог файлов ROM:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="196"/>
         <source>CEN64 executable: </source>
-        <translation>Исполняемый файл CEN64 :</translation>
+        <translation>Исполняемый файл CEN64:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="216"/>
         <source>64DD IPL file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл 64DD IPL:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="261"/>
@@ -726,27 +726,27 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="327"/>
         <source>Run multithreaded (quasi-accurate):</source>
-        <translation type="unfinished"></translation>
+        <translation>Многопоточный запуск (сниженная точность):</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="341"/>
         <source>No audio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить звук:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="355"/>
         <source>No video:</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить видео:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="385"/>
         <source>Controllers</source>
-        <translation type="unfinished"></translation>
+        <translation>Контроллеры</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="395"/>
         <source>Controller #1</source>
-        <translation type="unfinished"></translation>
+        <translation>Контроллер #1</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="419"/>
@@ -754,7 +754,7 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="601"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="700"/>
         <source>Transfer Pak ROM:</source>
-        <translation type="unfinished"></translation>
+        <translation >Файл ROM Transfer Pak:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="429"/>
@@ -762,7 +762,7 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="611"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="710"/>
         <source>Transfer Pak Save:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл сохранения Transfer Pak:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="436"/>
@@ -770,7 +770,7 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="618"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="717"/>
         <source>Controller Pak File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл Controller Pak:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="443"/>
@@ -778,7 +778,7 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="625"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="724"/>
         <source>Accessory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Аксессуар:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="463"/>
@@ -786,22 +786,22 @@
         <location filename="../../src/dialogs/settingsdialog.ui" line="648"/>
         <location filename="../../src/dialogs/settingsdialog.ui" line="747"/>
         <source>Enabled:</source>
-        <translation type="unfinished"></translation>
+        <translation>Включено:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="494"/>
         <source>Controller #2</source>
-        <translation type="unfinished"></translation>
+        <translation>Контроллер #2</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="593"/>
         <source>Controller #3</source>
-        <translation type="unfinished"></translation>
+        <translation>Контроллер #3</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="692"/>
         <source>Controller #4</source>
-        <translation type="unfinished"></translation>
+        <translation>Контроллер #4</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="986"/>
@@ -940,12 +940,12 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1565"/>
         <source>Output to Console:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод в консоль:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1575"/>
         <source>Use to pass additional parameters to CEN64</source>
-        <translation type="unfinished"></translation>
+        <translation>Используйте для передачи дополнительных параметров в CEN64</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.ui" line="1582"/>
@@ -960,22 +960,22 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="176"/>
         <source>None</source>
-        <translation type="unfinished">Нет</translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="176"/>
         <source>Rumble Pak</source>
-        <translation type="unfinished"></translation>
+        <translation>Rumble Pak</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="176"/>
         <source>Controller Pak</source>
-        <translation type="unfinished"></translation>
+        <translation>Controller Pak</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="176"/>
         <source>Transfer Pak</source>
-        <translation type="unfinished"></translation>
+        <translation>Transfer Pak</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="210"/>
@@ -1107,12 +1107,12 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="476"/>
         <source>64DD IPL ROM File</source>
-        <translation type="unfinished">Файл 64DD IPL ROM</translation>
+        <translation>Файл 64DD IPL ROM</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="492"/>
         <source>Catalog File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл каталога</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="500"/>
@@ -1122,47 +1122,47 @@
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="509"/>
         <source>4kbit EEPROM File</source>
-        <translation type="unfinished">Файл 4kbit EEPROM</translation>
+        <translation>Файл 4kbit EEPROM</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="517"/>
         <source>16kbit EEPROM File</source>
-        <translation type="unfinished">Файл 16kbit EEPROM</translation>
+        <translation>Файл 16kbit EEPROM</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="525"/>
         <source>FlashRAM File</source>
-        <translation type="unfinished">Файл FlashRAM</translation>
+        <translation>Файл FlashRAM</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="533"/>
         <source>Controller Pak File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл Controller Pak</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="541"/>
         <source>PIF IPL ROM File</source>
-        <translation type="unfinished">Файл PIF IPL ROM</translation>
+        <translation>Файл PIF IPL ROM</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="549"/>
         <source>Save Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог сохранений</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="557"/>
         <source>SRAM File</source>
-        <translation type="unfinished">Файл SRAM</translation>
+        <translation>Файл SRAM</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="565"/>
         <source>Transfer Pak ROM File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл ROM Transfer Pak</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="573"/>
         <source>Transfer Pak Save File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл сохранения Transfer Pak</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/settingsdialog.cpp" line="484"/>
@@ -1258,12 +1258,12 @@
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="44"/>
         <source>Open v64/n64 File</source>
-        <translation type="unfinished">Открыть файл v64/n64</translation>
+        <translation>Открыть файл v64/n64</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="45"/>
         <source>V64/n64 ROMs</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ROM V64/n64</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="46"/>
@@ -1274,34 +1274,34 @@
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="51"/>
         <source>Save z64 File</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить файл Z64</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="52"/>
         <source>Z64 ROMs</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ROM Z64</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="68"/>
         <source>already in z64 format!</source>
-        <translation type="unfinished"></translation>
+        <translation>уже в формате Z64!</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="69"/>
         <location filename="../../src/dialogs/v64converter.cpp" line="114"/>
         <location filename="../../src/dialogs/v64converter.cpp" line="118"/>
         <source>&lt;AppName&gt; Converter</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертер &lt;AppName&gt;</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="115"/>
         <source>Conversion complete!</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертирование завершено!</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/v64converter.cpp" line="117"/>
         <source>is not a valid .v64 or .n64 file!</source>
-        <translation type="unfinished"></translation>
+        <translation>не является корректным файлом V64 или N64!</translation>
     </message>
 </context>
 </TS>
