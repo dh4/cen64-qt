@@ -93,5 +93,5 @@ QString DDView::getCurrentRomInfo(QString infoName)
 
 bool DDView::hasSelectedRom()
 {
-    return currentItem() != NULL;
+    return currentItem() != nullptr;
 }

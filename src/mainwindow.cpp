@@ -59,6 +59,7 @@
 #include <QListWidget>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QOperatingSystemVersion>
 #include <QSplitter>
 #include <QStatusBar>
 #include <QTimer>
@@ -265,16 +266,13 @@ void MainWindow::createMenu()
 
     viewMenu->addSeparator();
 
-#if QT_VERSION >= 0x050000
     //OSX El Capitan adds it's own full-screen option
-    if (QSysInfo::macVersion() < QSysInfo::MV_ELCAPITAN || QSysInfo::macVersion() == QSysInfo::MV_None)
+    if (!(QOperatingSystemVersion::current() >= QOperatingSystemVersion::OSXElCapitan &&
+            QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS))
         fullScreenAction = viewMenu->addAction(tr("&Full-screen"));
     else
         fullScreenAction = new QAction(this);
     statusBarAction = viewMenu->addAction(tr("&Status Bar"));
-#else
-    fullScreenAction = viewMenu->addAction(tr("&Full-screen"));
-#endif
 
     fullScreenAction->setCheckable(true);
     statusBarAction->setCheckable(true);
@@ -511,12 +509,7 @@ bool MainWindow::eventFilter(QObject*, QEvent *event)
     if (event->type() == QEvent::HoverMove && isFullScreen()) {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
 
-        //x and y axis are reversed in Qt4
-#if QT_VERSION >= 0x050000
         int mousePos = mouseEvent->pos().y();
-#else
-        int mousePos = mouseEvent->pos().x();
-#endif
 
         if (mousePos < 5)
             showMenuBar(true);
@@ -532,9 +525,9 @@ bool MainWindow::eventFilter(QObject*, QEvent *event)
             updateFullScreenMode();
     }
 
-#if QT_VERSION >= 0x050000
     //OSX El Capitan adds it's own full-screen option, so handle the event change here
-    if (QSysInfo::macVersion() >= QSysInfo::MV_ELCAPITAN && QSysInfo::macVersion() != QSysInfo::MV_None) {
+    if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::OSXElCapitan &&
+            QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS) {
         if (event->type() == QEvent::WindowStateChange) {
             QWindowStateChangeEvent *windowEvent = static_cast<QWindowStateChangeEvent*>(event);
 
@@ -551,7 +544,6 @@ bool MainWindow::eventFilter(QObject*, QEvent *event)
             }
         }
     }
-#endif
 
     return false;
 }
@@ -731,11 +723,7 @@ void MainWindow::openRom()
     foreach (QString type, romCollection->getFileTypes(true)) filter += type + " ";
     filter += ");;" + tr("All Files") + " (*)";
 
-#if QT_VERSION >= 0x050000
     QString searchPath = QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first();
-#else
-    QString searchPath = QDesktopServices::storageLocation(QDesktopServices::HomeLocation);
-#endif
     if (romCollection->romPaths.count() > 0)
         searchPath = romCollection->romPaths.at(0);
 
