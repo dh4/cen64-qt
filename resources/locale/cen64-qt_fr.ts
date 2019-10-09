@@ -376,122 +376,122 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/common.cpp" line="326"/>
+        <location filename="../../src/common.cpp" line="328"/>
         <source>GoodName</source>
         <translation>Nom Good</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="327"/>
+        <location filename="../../src/common.cpp" line="329"/>
         <source>Filename</source>
         <translation>Nom du fichier</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="328"/>
+        <location filename="../../src/common.cpp" line="330"/>
         <source>Filename (extension)</source>
         <translation>Nom du fichier (extension)</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="329"/>
+        <location filename="../../src/common.cpp" line="331"/>
         <source>Zip File</source>
         <translation>Fichier Zip</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="330"/>
+        <location filename="../../src/common.cpp" line="332"/>
         <source>Internal Name</source>
         <translation>Nom interne</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="331"/>
+        <location filename="../../src/common.cpp" line="333"/>
         <source>Size</source>
         <translation>Taille</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="332"/>
+        <location filename="../../src/common.cpp" line="334"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="333"/>
+        <location filename="../../src/common.cpp" line="335"/>
         <source>CRC1</source>
         <translation>CRC1</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="334"/>
+        <location filename="../../src/common.cpp" line="336"/>
         <source>CRC2</source>
         <translation>CRC2</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="335"/>
+        <location filename="../../src/common.cpp" line="337"/>
         <source>Players</source>
         <translation>Joueurs</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="336"/>
+        <location filename="../../src/common.cpp" line="338"/>
         <source>Rumble</source>
         <translation>Rumble</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="337"/>
+        <location filename="../../src/common.cpp" line="339"/>
         <source>Save Type</source>
         <translation>Type de sauvegarde</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="338"/>
+        <location filename="../../src/common.cpp" line="340"/>
         <source>Game Title</source>
         <translation>Titre du jeu</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="339"/>
+        <location filename="../../src/common.cpp" line="341"/>
         <source>Release Date</source>
         <translation>Date de sortie</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="340"/>
+        <location filename="../../src/common.cpp" line="342"/>
         <source>Overview</source>
         <translation>Aperçu</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="341"/>
+        <location filename="../../src/common.cpp" line="343"/>
         <source>ESRB</source>
         <translation>ESRB</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="342"/>
+        <location filename="../../src/common.cpp" line="344"/>
         <source>Genre</source>
         <translation>Genre</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="343"/>
+        <location filename="../../src/common.cpp" line="345"/>
         <source>Publisher</source>
         <translation>Éditeur</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="344"/>
+        <location filename="../../src/common.cpp" line="346"/>
         <source>Developer</source>
         <translation>Développeur</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="345"/>
+        <location filename="../../src/common.cpp" line="347"/>
         <source>Rating</source>
         <translation>Certification</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="346"/>
+        <location filename="../../src/common.cpp" line="348"/>
         <source>Game Cover</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="347"/>
+        <location filename="../../src/common.cpp" line="349"/>
         <source>Unknown ROM</source>
         <translation>ROM inconnue</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="348"/>
+        <location filename="../../src/common.cpp" line="350"/>
         <source>Requires catalog file</source>
         <translation>Fichier catalogue demandé</translation>
     </message>
     <message>
-        <location filename="../../src/common.cpp" line="349"/>
+        <location filename="../../src/common.cpp" line="351"/>
         <source>Not found</source>
         <translation>Non trouvé</translation>
     </message>
