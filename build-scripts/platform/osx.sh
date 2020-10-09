@@ -3,6 +3,9 @@
 [[ -z $WORKING_DIR ]] && WORKING_DIR=$(pwd)
 [[ -z $VERSION ]] && VERSION=$(git log --oneline -n 1 | awk '{print $1}')
 
+[[ -z $ARCH ]] && ARCH=".$(uname -m)"
+[[ $ARCH == ".x86_64" ]] && ARCH=""
+
 
 case "$1" in
 
@@ -41,17 +44,17 @@ case "$1" in
     'package')
         mkdir -p "build/$TRAVIS_BRANCH"
 
-        hdiutil create -megabytes 20 -fs HFS+ -volname CEN64-Qt "cen64-qt_osx_$VERSION"
-        hdiutil attach "cen64-qt_osx_$VERSION.dmg"
+        hdiutil create -megabytes 20 -fs HFS+ -volname CEN64-Qt "cen64-qt_osx_$VERSION$ARCH"
+        hdiutil attach "cen64-qt_osx_$VERSION$ARCH.dmg"
 
         cp -r CEN64-Qt.app /Volumes/CEN64-Qt/CEN64-Qt.app
         cp resources/README.txt /Volumes/CEN64-Qt/README.txt
 
         hdiutil detach /Volumes/CEN64-Qt
-        hdiutil convert -format UDZO -o "cen64-qt_osx_$VERSION.dmg" \
-                        -ov "cen64-qt_osx_$VERSION.dmg"
+        hdiutil convert -format UDZO -o "cen64-qt_osx_$VERSION$ARCH.dmg" \
+                        -ov "cen64-qt_osx_$VERSION$ARCH.dmg"
 
-        mv "cen64-qt_osx_$VERSION.dmg" "build/$TRAVIS_BRANCH/"
+        mv "cen64-qt_osx_$VERSION$ARCH.dmg" "build/$TRAVIS_BRANCH/"
     ;;
 
 esac
