@@ -601,8 +601,8 @@ void SettingsDialog::editSettings()
     SETTINGS.setValue("Saves/flash", ui->flashPath->text());
 
     QStringList romDirectories;
-    foreach (QListWidgetItem *item, ui->romList->findItems("*", Qt::MatchWildcard))
-        romDirectories << item->text();
+    for (int i = 0; i < ui->romList->count(); i++)
+        romDirectories << ui->romList->item(i)->text();
 
     SETTINGS.setValue("Paths/roms", romDirectories.join("|"));
 
