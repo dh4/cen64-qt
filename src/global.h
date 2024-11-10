@@ -42,7 +42,7 @@ const QString ParentName        = "CEN64";
 const QString ParentNameLower   = "cen64";
 
 const QString Copyright = "CEN64 Copyright (c) 2013, Tyler J. Stachecki";
-const QString Website = "http://www.cen64.com/";
+const QString Website = "https://github.com/n64dev/cen64";
 const QString GitHub = "https://github.com/dh4/cen64-qt";
 
 const QString TheGamesDBAPIKey = "750dbe45c2f1c63dd3a730b0ef0923ec448b543a908fbe3e2bccada4341df2f5";
