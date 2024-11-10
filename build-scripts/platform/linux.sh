@@ -29,7 +29,7 @@ case "$1" in
         mkdir -p "build/"
 
         mv resources/README.txt .
-        tar -cvzpf "build/cen64-qt_linux_$VERSION.tar.gz" cen64-qt README.txt
+        tar -cvf "build/cen64-qt_linux_$VERSION.tar.gz" --owner=0 --group=0 cen64-qt README.txt
     ;;
 
 esac
