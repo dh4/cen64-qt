@@ -50,6 +50,7 @@
 #include "views/tableview.h"
 #include "views/ddview.h"
 
+#include <QActionGroup>
 #include <QCloseEvent>
 #include <QDesktopServices>
 #include <QDialogButtonBox>
@@ -61,6 +62,7 @@
 #include <QMessageBox>
 #include <QOperatingSystemVersion>
 #include <QSplitter>
+#include <QStandardPaths>
 #include <QStatusBar>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -119,7 +121,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     mainLayout->addWidget(viewSplitter);
 
     mainLayout->addWidget(statusBar);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     mainWidget->setLayout(mainLayout);
     mainWidget->setMinimumSize(300, 200);

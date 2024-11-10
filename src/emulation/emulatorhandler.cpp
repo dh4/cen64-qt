@@ -34,13 +34,14 @@
 #include "../global.h"
 #include "../common.h"
 
+#include <QCryptographicHash>
 #include <QFile>
 #include <QMessageBox>
 #include <QProcess>
-#include <QCryptographicHash>
+#include <QRegularExpression>
 
-#include <quazip5/quazip.h>
-#include <quazip5/quazipfile.h>
+#include <quazip/quazip.h>
+#include <quazip/quazipfile.h>
 
 
 EmulatorHandler::EmulatorHandler(QWidget *parent) : QObject(parent)
@@ -126,7 +127,7 @@ void EmulatorHandler::readOutput()
     QString output = emulatorProc->readAllStandardOutput();
     QStringList outputList = output.split("\n");
 
-    int lastIndex = outputList.lastIndexOf(QRegExp("^.*VI/s.*MHz$"));
+    int lastIndex = outputList.lastIndexOf(QRegularExpression("^.*VI/s.*MHz$"));
 
     if (lastIndex >= 0)
         updateStatus(outputList[lastIndex]);

@@ -34,7 +34,7 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QGuiApplication>
 #include <QFileInfo>
 #include <QScreen>
 #include <QTranslator>
@@ -49,10 +49,8 @@ int main(int argc, char *argv[])
 
     if (language != "EN") {
         QString resource = ":/locale/"+AppNameLower+"_"+language.toLower()+".qm";
-        if (QFileInfo(resource).exists()) {
-            translator.load(resource);
+        if (QFileInfo(resource).exists() && translator.load(resource))
             application.installTranslator(&translator);
-        }
     }
 
     QCoreApplication::setOrganizationName(ParentName);
