@@ -86,6 +86,8 @@ private:
     QAction *convertAction;
     QAction *deleteAction;
     QAction *downloadAction;
+    QAction *emptyViewAction;
+    QAction *gridAction;
     QAction *fullScreenAction;
     QAction *logAction;
     QAction *ddAction;
