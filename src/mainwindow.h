@@ -97,6 +97,7 @@ private:
     QAction *startAction;
     QAction *statusBarAction;
     QAction *stopAction;
+    QAction *tableAction;
     QActionGroup *layoutGroup;
     QDialog *zipDialog;
     QDialogButtonBox *zipButtonBox;

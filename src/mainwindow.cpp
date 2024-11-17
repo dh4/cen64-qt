@@ -262,6 +262,8 @@ void MainWindow::createMenu()
         // Assign these so we can reference them to change the view when a user updates their ROM folders
         if (layoutName.at(1) == "none")
             emptyViewAction = layoutItem;
+        else if (layoutName.at(1) == "table")
+            tableAction = layoutItem;
         else if (layoutName.at(1) == "grid")
             gridAction = layoutItem;
 
@@ -711,10 +713,13 @@ void MainWindow::openSettings()
         romCollection->updatePaths(romSave);
         romCollection->addRoms();
 
-        // If the view is set to the empty view and a ROM directory has been added, show the user the grid view
+        // If the view is set to the empty view and a ROM directory has been added, show the user the table or grid view
         // If they added a ROM directory, they probably don't want the empty view
         if (layoutGroup->checkedAction()->data() == "none" && romSave.first() != "") {
-            gridAction->setChecked(true);
+            if (downloadAfter == "true")
+                gridAction->setChecked(true);
+            else
+                tableAction->setChecked(true);
             updateLayoutSetting();
             // Conversely, set the view to the empty view if the user has removed all ROM directories
         } else if (layoutGroup->checkedAction()->data() != "none" && romSave.first() == "") {
